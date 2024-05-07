@@ -1,0 +1,33 @@
+project:
+  type: book
+  output-dir: docs
+
+book:
+  title: "R training: Liverpool City Region"
+  author: "Francisco Rowe, Patrick Ballantyne"
+  date: today
+  chapters:
+    - index.qmd
+    - 00_overview.qmd
+    - 01_data-description.qmd
+    - 02_fundamentals.qmd
+    - 03_data-visualisation.qmd
+    - 04_dashboards-api.qmd
+    - 05_data-modeling.qmd
+    - references.qmd
+
+  search: true
+  site-url: https://fcorowe.github.io/lcr-training/
+  repo-url: https://github.com/fcorowe/lcr-training
+
+bibliography: references.bib
+margin-header: |
+  ![](/cover.png)
+
+format:
+  html:
+    theme: ember.scss
+    css: styles.css
+
+editor: visual
+

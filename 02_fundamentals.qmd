@@ -1,0 +1,130 @@
+# R Fundamentals
+
+This session will introduce the fundamental concepts, principles and tools that we will use during the course. Understanding these components provides the foundation for the rest of the course.
+
+## Plan for the day
+
+| Time          | Content                                 |
+|---------------|-----------------------------------------|
+| 9.00 - 9.15   | Introduction                            |
+| 9.15 - 9.45   | Setting up & interacting with materials |
+| 9.45 - 10.30  | R Basics                                |
+| 10.30 - 10.50 | Break                                   |
+| 10.50 - 11.50 | Data types                              |
+| 11.50 - 12.30 | Non-geographic data frames              |
+| 12.30 - 13.30 | Lunch              |
+| 12.30 - 13.30 |              |
+
+## Dependencies
+
+```{r}
+# data manipulation
+library(tidyverse)
+# spatial data manipulation
+library(sf)
+```
+
+## Introducing R
+
+R is a freely available language and environment for statistical computing and graphics which provides a wide variety of statistical and graphical techniques. It has gained widespread use in academia and industry. R offers a wider array of functionality than a traditional statistics package, is composed of core (base) functionality, and is expandable through libraries hosted on (The Comprehensive R Archive Network (CRAN))\[\]. CRAN is a network of ftp and web servers around the world that store identical, up-to-date, versions of code and documentation for R.
+
+Commands are sent to R using either the terminal / command line or the R Console which is installed with R on either Windows or OS X. On Linux, there is no equivalent of the console, however, third party solutions exist. On your own machine, R can be installed from here.
+
+Normally RStudio is used to implement R coding. RStudio is an integrated development environment (IDE) for R and provides a more user-friendly front-end to R than the front-end provided with R.
+
+To run R or RStudio, just double click on the R or RStudio icon. Throughout this course, we will be using RStudio:
+
+![](./figs/01/rstudio-shot.png)
+
+::: column-margin
+::: callout-note
+If you would like to know more about the various features of RStudio, watch this video.
+:::
+:::
+
+## Working directory
+
+Before we start any analysis, ensure to set the path to the directory where we are working. We have two options to do this.
+
+**Option 1**
+
+Once you have opened R, you can use the command `setwd( )` to set the working directory. For example, replace in the following line the path to the folder where you have placed this file and where the data folder lives.
+
+```{r}
+#| eval: false
+setwd("")
+```
+
+You can check your current working directory by typing:
+
+```{r}
+#| eval: false
+getwd()
+```
+
+**Option 2**
+
+Before opening any files in the folder, open the file with the extension `*.Rproj`. This is a R project and automatically indexes all the files in the folder and subfolders so there is no need to explicitly set the working directory. You can call any files in the R project folder by replacing the working directory with `.`. For instance, let us open a dataset from our subfolder data:
+
+```{r}
+#| eval: false
+read_csv("./data")
+```
+
+## R scripts and Quarto documents
+
+### R script
+
+An *R script* is a series of commands that you can execute at one time and help you save time. R scripts are useful to ensure reproducibility; that is if you want to repeat the same series of steps with the same or different datasets. An R script is a plain text file with R commands.
+
+::: column-margin
+::: callout-note
+To get familiar with good practices in writing your code in R, we recommend the Chapter Workflow: basics and Workflow: scripts and projects from the R in Data Science book by [Wickham, Çetinkaya-Rundel, and Grolemund (2023)](https://r4ds.hadley.nz/workflow-basics.html)
+:::
+:::
+
+To create an R script in RStudio, you need to: \* Open a new script file: File \> New File \> R Script \* Write some code on your new script window by typing eg. mtcars \* Run the script. Click anywhere on the line of code, then hit Ctrl + Enter (Windows) or Cmd + Enter (Mac) to run the command or select the code chunk and click run on the right-top corner of your script window. If do that, you should get:
+
+```{r}
+mtcars
+```
+
+### Quarto Document
+
+A *Quarto Document* is based on Markdown technology. It allows to integrate descriptive text and code chunks. Code chunks can be executed independently and interactively, with output visible immediately beneath a code chunk - see Xie, Allaire, and Grolemund (2019). A Quarto Document is an improved version of the original R Notebook. Quarto Document requires a package called Quarto. Quarto does not have a dependency or requirement for R. Quarto is multilingual, beginning with R, Python, Javascript, and Julia. The concept is that Quarto will work even for languages that do not yet exist.
+
+To create a Quarto Document, you need to:
+
+-   Open a new script file: File > New File > Quarto Document.
+
+-   Quarto Documents work in the same way as R Notebooks with small variations. You can find a comprehensive guide on how to use Quarto Documents on the Quarto website.
+
+### Using quarto documents
+
+Quarto documents are very flexible. They can be rendered into different formats, including pdf, html and doc files. They can be used to product reports, articles, briefs, websites, books and more. We can explore how this can be done using some of the templates we have produced and are hosted on our personal [Github](https://github.com/fcorowe/document-template) repository.
+
+## Help
+
+## R data types
+
+### Factors
+
+## Data frames
+
+### Non-geographic data frames
+
+**Reading data frames**
+
+**Creating data frames**
+
+**Referencing data frames**
+
+**Manipulating data frames**
+
+`tidyverse`
+
+### Geographic data frames
+
+**Reading geographic data frames**
+
+**Manipulating geographic data frames**
