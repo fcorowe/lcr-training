@@ -4,10 +4,10 @@
 
 By the end of today's session you should be able to:
 
-1. Produce static visualisations and maps using ggplot
-2. Produce more advanced static visualisations and maps, using advanced data wrangling techniques
-3. Produce interactive visualisations
-4. Explore reporting strategies for visualisation outputs
+1.  Produce static visualisations and maps using ggplot
+2.  Produce more advanced static visualisations and maps, using advanced data wrangling techniques
+3.  Produce interactive visualisations
+4.  Explore reporting strategies for visualisation outputs
 
 ```{r include=FALSE}
 ## Today's packages
@@ -22,7 +22,7 @@ library(htmlwidgets)
 
 For today's practical, we will be using a couple of different datasets.
 
-Firstly, we will be using data from the latest UK census - available from [NOMIS](https://www.nomisweb.co.uk/sources/census_2021_bulk). In particular, we will be looking at one specific census table; ['Method of Travel to Work'](https://www.ons.gov.uk/employmentandlabourmarket/peopleinwork/employmentandemployeetypes/bulletins/traveltoworkenglandandwales/census2021), which describes the main method of transport people use to travel to work - e.g. by car, by bus, on foot etc. 
+Firstly, we will be using data from the latest UK census - available from [NOMIS](https://www.nomisweb.co.uk/sources/census_2021_bulk). In particular, we will be looking at one specific census table; ['Method of Travel to Work'](https://www.ons.gov.uk/employmentandlabourmarket/peopleinwork/employmentandemployeetypes/bulletins/traveltoworkenglandandwales/census2021), which describes the main method of transport people use to travel to work - e.g. by car, by bus, on foot etc.
 
 For today's, we will be using the table of data that is available for [Lower Super Output Areas (LSOAs)](https://www.data.gov.uk/dataset/c481f2d3-91fc-4767-ae10-2efdf6d58996/lower-layer-super-output-areas-lsoas). Let's go ahead and read the table of data in:
 
@@ -37,9 +37,10 @@ Let's have a look at some of the attributes in the data:
 ## Examine attributes
 head(ts061)
 ```
+
 Before we start working with this data, we are going to tidy it up slightly. As you can probably see, the column names are long and messy, and the values in each column are raw counts, instead of percentages.
 
-My preferred approach to tidying up data or 'data wrangling' is to use the ['tidyverse' suite of packages](https://www.tidyverse.org/). One of the real benefits of tidyverse are tools called ['pipes' (%>%)](https://style.tidyverse.org/pipes.html), which are used to emphasise a sequence of actions, linking a series of different data cleaning steps into one nice block of code.
+My preferred approach to tidying up data or 'data wrangling' is to use the ['tidyverse' suite of packages](https://www.tidyverse.org/). One of the real benefits of tidyverse are tools called ['pipes' (%\>%)](https://style.tidyverse.org/pipes.html), which are used to emphasise a sequence of actions, linking a series of different data cleaning steps into one nice block of code.
 
 In the example below I show how you can use pipes to select some desired columns (by name), rename them, and then convert one a percentage.
 
@@ -79,7 +80,7 @@ head(ts061_clean)
          
 ```
 
-So now we have a nice tidy table, where each variable is now a percentage. The final step is to add some additional geographies to the table - in this case we will append on the corresponding Local Authority District for each LSOA. 
+So now we have a nice tidy table, where each variable is now a percentage. The final step is to add some additional geographies to the table - in this case we will append on the corresponding Local Authority District for each LSOA.
 
 The [Open Geography Portal](https://geoportal.statistics.gov.uk/) is a great place to find lookup tables for any administrative datasets in the UK. The specific table we have given you provides a lookup between Output Areas (OAs), Lower Super Output Areas (LSOAs), Middle Super Output Areas (MSOAs), Local Enterprise Partnerships (LEPs) and Local Authority Districts (LADs). Let's read in the lookup table:
 
@@ -120,7 +121,7 @@ Ok, so we have a nice data set that is cleaned and ready for use in today's prac
 
 For most of today's practical, we are going to be using the [ggplot2 package](https://ggplot2.tidyverse.org/) to learn how to create nice visualisations in R. It is a really awesome package, has really excellent documentation and the quality of graphics it can produce is (arguably) second-to-none.
 
-HOWEVER.... Lot's of people say that ggplot is a tricky syntax to get used to, as it requires a more 'programmatic' style of coding (e.g. piping), instead of line-by-line. 
+HOWEVER.... Lot's of people say that ggplot is a tricky syntax to get used to, as it requires a more 'programmatic' style of coding (e.g. piping), instead of line-by-line.
 
 ### The 'grammar of graphics'
 
@@ -130,6 +131,7 @@ Before getting stuck into ggplot, there are a couple of key fundamentals that yo
 ## Specify db as our source of data
 ggplot(data = db)
 ```
+
 As you can see, ggplot has opened a blank canvas which is going to rely on data from the 'db' object to create some form of visualisation.
 
 The next fundamental relates to how the information from that source of data is going to be represented, which relies on use of ggplot's mapping argument - aes(). With this argument, you are able to identify how different variables from your dataset can be visually represented.
@@ -140,8 +142,8 @@ So for example, let's say we are interested in looking at the association betwee
 ## Set some ggplot aesthetics
 ggplot(data = db, aes(x = work_from_home, y = car_driving)) 
 ```
-Ggplot has now established that those are the two variables you wish to create your visualisation around, and has added axis' that reflect the underlying distribution of these variables. 
-The final fundamental stage is to introduce 'geoms' to our existing plot. Geoms are different types of objects that are used to represent data, including points, bars, lines etc. etc. We will explore lots of these today, but for now, let's just consider plotting a scatter between the two variables in the plot above.
+
+Ggplot has now established that those are the two variables you wish to create your visualisation around, and has added axis' that reflect the underlying distribution of these variables. The final fundamental stage is to introduce 'geoms' to our existing plot. Geoms are different types of objects that are used to represent data, including points, bars, lines etc. etc. We will explore lots of these today, but for now, let's just consider plotting a scatter between the two variables in the plot above.
 
 ```{r}
 ## Add your first geom
@@ -151,9 +153,9 @@ ggplot(data = db, aes(x = work_from_home, y = car_driving)) +
 
 Excellent! Your first ggplot visualisation is now ready. It doesn't look the best (right now), but hopefully you have a good understanding of those three fundamental concepts when using ggplot for plotting. So to recap, for every ggplot visualisation you need to be clear on:
 
-1. Which dataset is being used to generate the visualisation
-2. How you are going to map your variables to generate plot aesthetics (aes)
-3. The specific type of geom that you want to use
+1.  Which dataset is being used to generate the visualisation
+2.  How you are going to map your variables to generate plot aesthetics (aes)
+3.  The specific type of geom that you want to use
 
 Before we move on to exploring other types of data visualisation, let's think about how we can make this plot better, by changing some of the default options.
 
@@ -169,6 +171,7 @@ ggplot(data = db, aes(x = work_from_home, y = car_driving)) +
   geom_point(alpha = 0.3, size = 0.35) +
   geom_smooth(method = "lm") ## geom_smooth is used to add an overall trend line to a plot
 ```
+
 ```{r}
 ## Change axis titles
 ggplot(data = db, aes(x = work_from_home, y = car_driving)) +
@@ -205,7 +208,7 @@ ggplot(data = db, aes(x = work_from_home, y = car_driving)) +
 Have a go at making some other modifications to the plot above:
 
 1.  Change the variables that are being plotted on the x and y axis, to look at associations between different modes of travel.
-2.  Explore [different themes](https://www.datanovia.com/en/blog/ggplot-themes-gallery/), and see which one you like most. 
+2.  Explore [different themes](https://www.datanovia.com/en/blog/ggplot-themes-gallery/), and see which one you like most.
 3.  (*optional*) See if you can figure out how to scale the x and y axis to be between 0 and 100, using the xlim() and ylim() commands.
 
 ```{r}
@@ -247,7 +250,7 @@ ggplot(data = db, aes(x = work_from_home)) +
 
 ```
 
-We can also very easily plot a bar chart using ggplot. Let's look at the distribution of LSOAs across LADs. 
+We can also very easily plot a bar chart using ggplot. Let's look at the distribution of LSOAs across LADs.
 
 But first, let's filter our dataset to only look at LSOAs within Liverpool City Region Combined Authority (LCRCA):
 
@@ -265,6 +268,7 @@ ggplot(data = db_lcr, aes(x = LAD22NM)) +
        caption = "Data: UK Census (2021) - 'Method of travel to work' (ts061)") +
   theme_minimal()
 ```
+
 By default, when you have one variable on the x axis and call geom_bar(), ggplot will return a count of the number of rows in each x axis value.
 
 Sometimes, it's more useful to flip the axis on a plot, especially when you have a lot of categories:
@@ -302,6 +306,7 @@ ggplot(data = db_lcr, aes(x = fct_rev(fct_infreq(LAD22NM)))) + ## Use the fct_re
   theme_minimal() +
   coord_flip()
 ```
+
 What if we wanted to look at the underlying distribution of different commuting methods across the LADs? I really like dotplots as a visualisation technique, and [published a paper](https://rgs-ibg.onlinelibrary.wiley.com/doi/full/10.1111/geoj.12555) using one recently.
 
 Let's use a dotplot to look at the distribution of walking commuters across the six LADs:
@@ -443,7 +448,7 @@ ggplot(data = lcr_avg, aes(x = variable, y = avg_pct, fill = LAD22NM)) +
 Have a go at the following:
 
 1.  See what changes if you ask the summarise_all() command above to calculate median instead of mean.
-2.  Have a go at changing the colour palette used on the plot above, using the scale_fill_brewer() command. Have a look at the [documentation](http://www.sthda.com/english/wiki/ggplot2-colors-how-to-change-colors-automatically-and-manually) for some help with this.  
+2.  Have a go at changing the colour palette used on the plot above, using the scale_fill_brewer() command. Have a look at the [documentation](http://www.sthda.com/english/wiki/ggplot2-colors-how-to-change-colors-automatically-and-manually) for some help with this.\
 3.  See if you can figure out how to generate a facet plot, where six individual plots are created, one per LAD, instead of applying different colours for each LAD. Have a look at [this tutorial](https://www.datacamp.com/tutorial/facets-ggplot-r) for some support with this.
 
 SOLUTION - EXERCISE 2
@@ -458,6 +463,7 @@ ggplot(data = lcr_avg, aes(x = variable, y = avg_pct, fill = LAD22NM)) +
   coord_flip() +
   theme_minimal() 
 ```
+
 SOLUTION - EXERCISE 3
 
 ```{r}
@@ -500,7 +506,8 @@ lsoa <- st_read("data/LCR-LSOA.gpkg")
 ## Inspect
 head(lsoa)
 ```
-The 'geom' column is the most important here - this is what stores the spatial information needed to produce maps. Let's just extract the LSOA code and the 'geom' column. 
+
+The 'geom' column is the most important here - this is what stores the spatial information needed to produce maps. Let's just extract the LSOA code and the 'geom' column.
 
 ```{r}
 ## Tidy up
@@ -554,16 +561,17 @@ ggplot(data = lsoa) +
   labs(fill = "Rail Commuters (%)", caption = "Data: UK Census (2021) - 'Method of travel to work' (ts061)") + ## some labels
   theme_minimal()
 ```
+
 Awesome! You've made a really nice map using R with literally only a couple of lines of code. Take a look at [Geocomputation with R](https://r.geocompx.org/) if you are interested in learning more about how to use R to make maps, or as a GIS. The syntax for different spatial operations (spatial join, intersection etc.) is really intuitive!
 
 ## Interactive Data Visualisation
 
-Ok, so for the final part of today's practical we are going to explore some options for producing interactive visualisations using R. By interactive we mean producing a visual representation of data that can be explored and analysed directly within the visualisation itself. 
+Ok, so for the final part of today's practical we are going to explore some options for producing interactive visualisations using R. By interactive we mean producing a visual representation of data that can be explored and analysed directly within the visualisation itself.
 
 We will be focusing on two types of interactive visualisation:
 
-1. Interactive non-spatial - e.g. graphs, charts
-2. Interactive spatial - e.g. maps
+1.  Interactive non-spatial - e.g. graphs, charts
+2.  Interactive spatial - e.g. maps
 
 ### Interactive non-spatial visualisations
 
@@ -650,7 +658,7 @@ tm_shape(lsoa) +
   tm_layout(frame = FALSE)
 ```
 
-To save this interactive map to a .html file, you just need to save the interactive map as an object, and then run the tmap_save() command to export to a .html. 
+To save this interactive map to a .html file, you just need to save the interactive map as an object, and then run the tmap_save() command to export to a .html.
 
 ```{r}
 ## Save the map to an object

@@ -1,1 +1,199 @@
 # Dashboards and APIs
+
+## Learning Objectives
+
+By the end of today's session you should be able to:
+
+1. Understand the basic principles of APIs
+2. Download and visualise data from NOMIS using the NOMIS API
+3. Understand the basic principles of R Shiny
+4. Build a basic dashboard using R Shiny
+
+```{r include = FALSE}
+## Today's packages
+library(tidyverse)
+library(sf)
+library(nomisr)
+```
+
+## Introduction to APIs
+
+Web services make their data easily accessible to computer programs like R through use of an Application Programming Interface (API). Today's practical will teach you how to access data from APIs, and load them into your R environment for analysis. 
+
+To download data from an API you need to send a HTTP request to a server, which tells the server to return the specific parcel of data that matches the criteria in the HTTP request.
+
+For example, on NOMIS there is a page called ['Census 2021 Bulk Data Download'](https://www.nomisweb.co.uk/sources/census_2021_bulk), which contains .zip files for different tables of data available from the latest census. 
+
+Now you should go to the ['Census 2021 Bulk Data Download'](https://www.nomisweb.co.uk/sources/census_2021_bulk) page, and see what it contains. 
+
+[IMAGE]
+
+There are lots of files on the web page - e.g. census2021-ts001.zip, census2021-ts007a.zip.
+
+You can click on these files individually, download them to your PC, unzip them and read them into R. Alternatively, we can programmatically download the data directly from the webpage.
+
+If you 'right click' on one of the .zip files and press 'copy link', you will have a URL which can access that specific .zip file, as below:
+
+```{r}
+url <- "https://www.nomisweb.co.uk/output/census/2021/census2021-ts061.zip"
+url
+```
+The specific URL above relates to table [TS061 - "Method of Travel to Work"](https://www.ons.gov.uk/employmentandlabourmarket/peopleinwork/employmentandemployeetypes/bulletins/traveltoworkenglandandwales/census2021), which is the same dataset we were using in yesterday's Data Visualisation workshop. 
+
+Now I'm going to show you how to download the .zip file, and read in the file of data we used yesterday. This is a really basic example of using an API, which shows how you can download data from NOMIS into your environment, without having to physically go and download it, save it to a folder, unzip it and read it into memory.
+
+First, let's download the .zip file - this line of code downloads the .zip file to your local machine, which you will be able to find in your working directory - go and take a look!
+
+```{r}
+## Download the .zip file, using the url set above
+download.file(url, "temp.zip")
+```
+Next we need to unzip the folder, to get to the datasets stored within:
+
+```{r}
+## First set where you want the unzipped files to be stored
+outDir <- "data/unzip"
+## Unzip the folder to the data/unzip folder
+unzip("temp.zip", exdir = outDir)
+```
+
+Ok so now that you've downloaded the files to your local machine, we can look and see what files are available to us:
+
+```{r}
+## Use list.files() to see what we unzipped
+list.files("data/unzip")
+```
+Thankfully, NOMIS use a really standard naming protocol for their files, which makes it really easy to tell what each of the files contains. If you cast your mind back to yesterday, we used a file called "census2021-ts061-lsoa.csv", which we provided to you as part of the course materials. However, as you can see from the code above, you have now programmatically downloaded the same file, which we can read in:
+
+```{r}
+## Read in the LSOA census data
+db <- read.csv("data/unzip/census2021-ts061-lsoa.csv")
+```
+
+### Independent exercise - Over to you!
+
+1. As a recap, see if you can reproduce one of the visualisations we produced yesterday using the data we have just scraped from the API. 
+2. Test downloading two more datasets from NOMIS, by swapping in different table names into the URL.
+3. (*optional*) Produce an interesting visualisation from that new dataset. 
+
+## Using the NOMIS API
+
+One of the things that you see more commonly in practice is the construction of specific R packages used to access APIs, with supporting documentation and specific functions that make it easier to use the API.
+
+One such example is [nomisr](https://docs.evanodell.com/nomisr/articles/introduction.html), which is an R package that was built to enable users to query data from NOMIS. It is free to access and contains up-to-date official statistics including data from the latest Census, Labour Force Survey and DWP benefit statistics. 
+
+In the section that follows, I'm going to be showing you how to use the nomisr package to download datasets. 
+
+Vast amounts of data are available through NOMIS, so you need to use some of the different functions within nomisr to identify the specific datasets you want to use. 
+
+An example is presented below which searches for datasets within NOMIS that are specifically about 'Travel':
+
+```{r}
+## Search for data on Labour Force
+search <- nomis_search("*Travel*")
+```
+
+This returns a dataframe (which you should see in your environment) that describes all of the different NOMIS held datasets where 'Travel' is mentioned. The column perhaps of most interest is the short name for the different datasets, which you can inspect below:
+
+```{r}
+## Have a look at the first six datasets 
+head(search$name.value)
+```
+If you open up the dataframe in your environment and scroll down you should see one row has the value - TS061 - Method used to travel to work - which is the one we've been using a lot in this practical. 
+
+We can filter to this row very easily using the filter() command that we introduced yesterday:
+
+```{r}
+## Filter to row of interest
+search_sub <- search %>%
+  filter(name.value == "TS061 - Method used to travel to work")
+
+## Have a look at the result
+search_sub
+```
+We can get some metadata for this dataset very easily using the nomis_get_metadata() command. First, let's see what measures are available:
+
+```{r}
+## Supply the ID of the row we're interested in, and the second parameters specifies we'd like to know more about the measures
+nomis_get_metadata(search_sub$id, "measures")
+```
+So for TS061, we can get both raw counts ('value') and percent. Let's now see what geographies are available:
+
+```{r}
+## Supply the ID of the row we're interested in, and the second parameter specifies that we want to know more about geographies
+nomis_get_metadata(search_sub$id, "geography")
+```
+
+Ok, so this is telling us the different geographic levels we can download the data for. However, if we add an additional parameter to this, we can also see the specific geographic units that this data is available at:
+
+```{r}
+## Add in an additional parameter
+nomis_get_metadata(search_sub$id, "geography", "TYPE")
+```
+
+Those steps basically give us everything we need to download the dataset directly from the NOMIS API using the package, instead of downloading the .zip files directly.
+
+Let's download the file - it could take a while! If you don't understand any of the specific inputs to this line of code, feel free to shout Patrick to talk it through.
+
+```{r}
+## Download the file
+db_v2 <- nomis_get_data(id = "NM_2078_1", time = "latest", geography = c("TYPE151"), measures = "20301")
+```
+The format the data is presented in is not the most intuitive, so those reshaping skills we acquired yesterday are going to come in handy here again!
+
+Firstly, let's get the columns we need for our analysis - LSOA codes, the different modes of transport and the actual reported values. 
+
+```{r}
+## Select columns of interest
+db_clean <- db_v2 %>%
+  select(GEOGRAPHY_CODE, C2021_TTWMETH_12_NAME, OBS_VALUE) 
+
+## Inspect
+head(db_clean)
+```
+So as you can see from the table, it's actually in a long format, whereas we might want it to be in a wide format, where each column is the % of people using each transport mode. Let's use the pivot_wider() command to change this:
+
+```{r}
+## Go from long to wide
+db_clean <- db_clean %>%
+  pivot_wider(names_from = C2021_TTWMETH_12_NAME, values_from = OBS_VALUE)
+
+## Inspect
+head(db_clean)
+```
+
+Great, that's worked! You'll also notice the number of rows of db_clean matches that of db (which was the file we unzipped at the start of the practical). 
+
+Some final data cleaning steps:
+
+```{r}
+## Tidy up the dataset
+db_final <- db_clean %>%
+  setNames(c("LSOA21CD", "total", "work_from_home", "underground_metro", "train", "bus_minibus_coach", 
+             "taxi", "motorcycle", "car_driving", "car_passenger", "bicycle", "foot", "other")) ## set new names
+```
+
+And then we can easily produce one of the visualisations from yesterday:
+
+```{r}
+## Reproduce the scatter plot from yesterday's class
+ggplot(data = db_final, aes(x = work_from_home, y = car_driving)) +
+  geom_point(alpha = 0.3, size = 0.35) +
+  geom_smooth(method = "lm") +
+  xlim(0, 100) +
+  ylim(0, 100) +
+  labs(x = "Population who work from home (%)", y = "Population who drive to work (%)",
+       caption = "Data: UK Census (2021) - 'Method of travel to work' (ts061)") +
+  theme_minimal()
+```
+### Independent exercise - Over to you!
+
+1. Experiment with downloading a different dataset using the nomisr package, and clean it.
+2. Produce an interesting visualisation using your chosen dataset. 
+3. (*optional*) See if you can attach the LAD names to your dataset, and produce a visualisation that examines LAD differences in your chosen dataset - recommend you choose a dataset at either LSOA or MSOA geography to use yesterday's lookup table. 
+
+## Introduction to R Shiny
+
+## Building Dashboards with R Shiny
+
+## Additional Resources 
