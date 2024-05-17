@@ -7,9 +7,9 @@ The website is *free to use* and is licensed under the [Attribution-NonCommercia
 # Contact {.unnumbered}
 
 > | Prof. Francisco Rowe, Professor in Population Data Science
-> | f.rowe-gonzalez [at] liverpool.ac.uk
+> | f.rowe-gonzalez \[at\] liverpool.ac.uk
 > | Department of Geography and Planning, University of Liverpool, Liverpool, United Kingdom
 
 > | Dr. Patrick Ballantyne, Postdoctoral Researcher in Geographic Data Science
-> | p.ballantyne [at] liverpool.ac.uk
+> | p.ballantyne \[at\] liverpool.ac.uk
 > | Department of Geography and Planning, University of Liverpool, Liverpool, United Kingdom

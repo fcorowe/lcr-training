@@ -94,7 +94,7 @@ An example is presented below which searches for datasets within NOMIS that are 
 
 ```{r}
 ## Search for data on Labour Force
-search <- nomis_search("*Travel*")
+search <- nomis_search("*Population*")
 ```
 
 This returns a dataframe (which you should see in your environment) that describes all of the different NOMIS held datasets where 'Travel' is mentioned. The column perhaps of most interest is the short name for the different datasets, which you can inspect below:
@@ -281,37 +281,41 @@ Cool! So the dashboard layout is set up and ready to go!
 
 ### Independent exercise - Over to you!
 
-1. Swap the orientation to be columns
-2. See if you can set up the dashboard to be structured as 1 large pane on the left, and three on the right.
-2. (*optional*) Change the section headers for each pane to list some potential visualisations you might put in each, based on yesterday's class.
+1.  Swap the orientation to be columns
+2.  See if you can set up the dashboard to be structured as 1 large pane on the left, and three on the right.
+3.  (*optional*) Change the section headers for each pane to list some potential visualisations you might put in each, based on yesterday's class.
 
-SOLUTION
+SOLUTION:
 
+![Solution](figs/04/solution1.png)
 
+### Embedding visualisations
 
-### Data processing
+When building a dashboard, a key component will be adding in a number of visualisations to enhance the information being conveyed by the dashboard. As you have seen so far, `flexdashboard` creates panes to host plots and visualisations on.
 
-When building a dashboard, a key component will be adding in a number of visualisations to enhance the information being conveyed by the dashboard.
+However, the visualisations need to be produced within the .Rmd file before they can be displayed on the dashboard itself. This is where you can use code chunks within the .Rmd file to re-run some of the analyses we did yesterday to produce visuals for the dashboard.
 
-However, the visualisations do need to be produced first, before they can be displayed on the dashboard itself. This is where you can use code chunks within the .Rmd file to re-run some of the analyses we did yesterday to produce visuals for the dashboard.
+The code chunks need to be placed before the dashboard structural parameters - i.e. before the \## Column commands in the script. Have a look at the example below where we read in and clean the census data we were using on Day 2:
 
-For example, we can scrape data from the NOMIS API as we did yesterday:
+![How to insert code](figs/04/code-example.png) Then, once you have the read the data in you can produce one of the visualisations we made yesterday - such as the scatter plot we made yesterday:
 
-```{r}
-## Download the data from NOMIS
-db_v2 <- nomis_get_data(id = "NM_2078_1", time = "latest", geography = c("TYPE151"), measures = "20301")
-```
+![Make a plot](figs/04/code-example2.png)
 
-And clean it:
+Now the final step is to think about embedding this plot so it can be displayed on the plot. To do this, all you need to do is call the plot in one of the code blocks which are set up to host visualisations, see below:
 
-```{r}
-## Clean up the dataset, ready for visualisation 
-db_clean <- db_v2 %>%
-  select(GEOGRAPHY_CODE, C2021_TTWMETH_12_NAME, OBS_VALUE) %>%
-  pivot_wider(names_from = C2021_TTWMETH_12_NAME, values_from = OBS_VALUE) %>%
-  setNames(c("LSOA21CD", "total", "work_from_home", "underground_metro", "train", "bus_minibus_coach", 
-             "taxi", "motorcycle", "car_driving", "car_passenger", "bicycle", "foot", "other"))
-```
+![Embed a plot](figs/04/code-example3.png)
+
+Now hit 'Knit' and you should see this plot on the dashboard:
+
+![First stage](figs/04/dashboard-p1.png)
+
+### Independent exericse - Over to you!!
+
+Have a good at embedding some more visualisations on the dashboard. To do this you will need to reproduce lots of the analysis you did on Day 2.
+
+Below I've included something that I put together, which is something you could aim to try and generate...
+
+![Transport Dashboard](figs/04/dashboard-final.png)
 
 ## Other Useful Reporting Techniques
 
@@ -326,5 +330,3 @@ There is lots of useful information online about creating nice reports using R m
 ### Routine Reporting
 
 The Epidemiologist Handbook also has a really nice section on how to use R to run reports routinely, using the reportfactory R package. Have a a look ath the [Organising routing reports](https://epirhandbook.com/en/organizing-routine-reports.html) guide if you are interested in learning more about this!
-
-## Additional Resources

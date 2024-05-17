@@ -187,7 +187,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./04_dashboards-api.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Transport Dashboard - Liverpool</span></a>
+  <a href="./04_dashboards-api.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Dashboards and APIs</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -212,7 +212,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
    
   <ul>
   <li><a href="#description" id="toc-description" class="nav-link active" data-scroll-target="#description">Description</a></li>
-  <li><a href="#structure" id="toc-structure" class="nav-link" data-scroll-target="#structure">Structure</a></li>
+  <li><a href="#delivery-structure" id="toc-delivery-structure" class="nav-link" data-scroll-target="#delivery-structure">Delivery &amp; Structure</a></li>
   <li><a href="#before-the-workshop" id="toc-before-the-workshop" class="nav-link" data-scroll-target="#before-the-workshop">Before the workshop</a></li>
   <li><a href="#during-the-workshop" id="toc-during-the-workshop" class="nav-link" data-scroll-target="#during-the-workshop">During the workshop</a></li>
   </ul>
@@ -239,33 +239,39 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <section id="description" class="level2">
 <h2 class="anchored" data-anchor-id="description">Description</h2>
-<p>This workshop offers xx</p>
+<p>This workshop aims to provide R training to analysts in Liverpool City Region Combined Authority. Over four days we will cover a number of topics, which align with the current needs of the analyst team, demonstrating how R can be used for a diverse range of day-to-day analyst tasks.</p>
 </section>
-<section id="structure" class="level2">
-<h2 class="anchored" data-anchor-id="structure">Structure</h2>
+<section id="delivery-structure" class="level2">
+<h2 class="anchored" data-anchor-id="delivery-structure">Delivery &amp; Structure</h2>
+<p>The course will be taught across four days. Each day will run from 10AM to 3PM. Days 1 &amp; 2 will be hosted at the <a href="https://www.liverpool.ac.uk/geography-and-planning/contacts-and-finding-us/">University of Liverpool</a>, and Days 3 &amp; 4 will be hosted at LCRCA.</p>
 <table class="table">
 <thead>
 <tr class="header">
 <th>Day</th>
 <th>Activity</th>
+<th>Instructor</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td>1</td>
 <td>R Fundamentals</td>
+<td>Francisco Rowe</td>
 </tr>
 <tr class="even">
 <td>2</td>
 <td>Data visualisation</td>
+<td>Patrick Ballantyne</td>
 </tr>
 <tr class="odd">
 <td>3</td>
-<td>Dashboards &amp; APIs</td>
+<td>APIs &amp; Dashboards</td>
+<td>Patrick Ballantyne</td>
 </tr>
 <tr class="even">
 <td>4</td>
 <td>Data modeling</td>
+<td>Francisco Rowe</td>
 </tr>
 </tbody>
 </table>
@@ -323,6 +329,10 @@ Note
 <li><code>leaflet</code></li>
 <li><code>tmap</code></li>
 <li><code>mapdeck</code></li>
+<li><code>plotly</code></li>
+<li><code>htmlwidgets</code></li>
+<li><code>nomisr</code></li>
+<li><code>flexdashboard</code></li>
 </ul>
 <p>To install the packages, open RStudio. On the console window (normally at the bottom left), write the following command: <code>install.packages("name of package")</code>. Make sure you replace “name of package” by the actual name of the package that you want to install e.g.&nbsp;<code>install.packages("tidyverse")</code>. Then, press enter and repeat this process until you have installed all the packages in the list.</p>
 <p>You can install all the packages by copying and running the code below:</p>
@@ -343,15 +353,19 @@ Note
 <span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>   <span class="st">"scales"</span>,</span>
 <span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>   <span class="st">"leaflet"</span>,</span>
 <span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>   <span class="st">"tmap"</span>,</span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>   <span class="st">"mapdeck"</span></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>new.packages.cran <span class="ot">&lt;-</span> list.of.packages.cran[<span class="sc">!</span>(list.of.packages.cran <span class="sc">%in%</span> <span class="fu">installed.packages</span>()[,<span class="st">"Package"</span>])]</span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="fu">length</span>(new.packages.cran)) <span class="fu">install.packages</span>(new.packages.cran)</span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(list.of.packages.cran)) {</span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(list.of.packages.cran[i], <span class="at">character.only =</span> T)</span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>   <span class="st">"mapdeck"</span>,</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>   <span class="st">"plotly"</span>,</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>   <span class="st">"htmlwidgets"</span>,</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>   <span class="st">"nomisr"</span>,</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>   <span class="st">"flexdashboard"</span></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>new.packages.cran <span class="ot">&lt;-</span> list.of.packages.cran[<span class="sc">!</span>(list.of.packages.cran <span class="sc">%in%</span> <span class="fu">installed.packages</span>()[,<span class="st">"Package"</span>])]</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="fu">length</span>(new.packages.cran)) <span class="fu">install.packages</span>(new.packages.cran)</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(list.of.packages.cran)) {</span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(list.of.packages.cran[i], <span class="at">character.only =</span> T)</span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>You can load all the packages by copying and running the code below:</p>
 <div class="cell">
@@ -371,10 +385,14 @@ Note
 <span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>   <span class="st">"scales"</span>,</span>
 <span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>   <span class="st">"leaflet"</span>,</span>
 <span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>   <span class="st">"tmap"</span>,</span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>   <span class="st">"mapdeck"</span></span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(lib <span class="cf">in</span> deps){<span class="fu">library</span>(lib, <span class="at">character.only =</span> <span class="cn">TRUE</span>)}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>   <span class="st">"mapdeck"</span>,</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>   <span class="st">"plotly"</span>,</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>   <span class="st">"htmlwidgets"</span>,</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>   <span class="st">"nomisr"</span>,</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>   <span class="st">"flexdashboard"</span></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(lib <span class="cf">in</span> deps){<span class="fu">library</span>(lib, <span class="at">character.only =</span> <span class="cn">TRUE</span>)}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="callout-note callout callout-style-default callout-captioned">
 <div class="callout-header d-flex align-content-center">
@@ -405,7 +423,7 @@ Important
 </section>
 <section id="during-the-workshop" class="level2">
 <h2 class="anchored" data-anchor-id="during-the-workshop">During the workshop</h2>
-<p>All the workshop material will be made available on this <a href="https://fcorowe.github.io/lrc-training/">website</a> which is currently under construction. Further instructions on how to download the material will be given during the workshop.</p>
+<p>All the workshop material will be made available on this <a href="https://fcorowe.github.io/lcr-training/">website</a> which is currently under construction. Further instructions on how to download the material will be given during the workshop.</p>
 
 
 </section>
