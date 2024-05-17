@@ -139,4 +139,4 @@ Instructions by email will be sent before the workshop to download the Github re
 
 ## During the workshop
 
-All the workshop material will be made available on this [website](https://fcorowe.github.io/lrc-training/) which is currently under construction. Further instructions on how to download the material will be given during the workshop.
+All the workshop material will be made available on this [website](https://fcorowe.github.io/lcr-training/) which is currently under construction. Further instructions on how to download the material will be given during the workshop.
