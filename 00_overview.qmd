@@ -2,16 +2,18 @@
 
 ## Description
 
-This workshop offers xx
+This workshop aims to provide R training to analysts in Liverpool City Region Combined Authority. Over four days we will cover a number of topics, which align with the current needs of the analyst team, demonstrating how R can be used for a diverse range of day-to-day analyst tasks.
 
-## Structure
+## Delivery & Structure
 
-| Day | Activity           |
-|-----|--------------------|
-| 1   | R Fundamentals     |
-| 2   | Data visualisation |
-| 3   | Dashboards & APIs  |
-| 4   | Data modeling      |
+The course will be taught across four days. Each day will run from 10AM to 3PM. Days 1 & 2 will be hosted at the [University of Liverpool](https://www.liverpool.ac.uk/geography-and-planning/contacts-and-finding-us/), and Days 3 & 4 will be hosted at LCRCA.
+
+| Day | Activity           | Instructor         |
+|-----|--------------------|--------------------|
+| 1   | R Fundamentals     | Francisco Rowe     |
+| 2   | Data visualisation | Patrick Ballantyne |
+| 3   | APIs & Dashboards  | Patrick Ballantyne |
+| 4   | Data modeling      | Francisco Rowe     |
 
 ## Before the workshop
 
@@ -55,6 +57,10 @@ Once you have installed R, you will need to install some R extensions, known as 
 -   `leaflet`
 -   `tmap`
 -   `mapdeck`
+-   `plotly`
+-   `htmlwidgets`
+-   `nomisr`
+-   `flexdashboard`
 
 To install the packages, open RStudio. On the console window (normally at the bottom left), write the following command: `install.packages("name of package")`. Make sure you replace "name of package" by the actual name of the package that you want to install e.g. `install.packages("tidyverse")`. Then, press enter and repeat this process until you have installed all the packages in the list.
 
@@ -78,7 +84,11 @@ list.of.packages.cran <- c(
    "scales",
    "leaflet",
    "tmap",
-   "mapdeck"
+   "mapdeck",
+   "plotly",
+   "htmlwidgets",
+   "nomisr",
+   "flexdashboard"
 )
 
 new.packages.cran <- list.of.packages.cran[!(list.of.packages.cran %in% installed.packages()[,"Package"])]
@@ -109,7 +119,11 @@ deps <- list(
    "scales",
    "leaflet",
    "tmap",
-   "mapdeck"
+   "mapdeck",
+   "plotly",
+   "htmlwidgets",
+   "nomisr",
+   "flexdashboard"
 )
 
 for(lib in deps){library(lib, character.only = TRUE)}
