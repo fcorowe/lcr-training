@@ -54,7 +54,27 @@ div.sourceCode
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -165,25 +185,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./02_data-visualisation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Day 2 - Data Visualisation</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./03_dashboards-api.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Dashboards and APIs</span></span></a>
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Data Visualisation</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./04_data-modeling.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Data modeling</span></span></a>
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Data modeling</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./05_data-description.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Data</span></span></a>
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Data</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -204,25 +218,26 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#plan-for-the-day" id="toc-plan-for-the-day" class="nav-link active" data-scroll-target="#plan-for-the-day"><span class="header-section-number">1.1</span> Plan for the day</a></li>
-  <li><a href="#dependencies" id="toc-dependencies" class="nav-link" data-scroll-target="#dependencies"><span class="header-section-number">1.2</span> Dependencies</a></li>
-  <li><a href="#introducing-r" id="toc-introducing-r" class="nav-link" data-scroll-target="#introducing-r"><span class="header-section-number">1.3</span> Introducing R</a></li>
-  <li><a href="#working-directory" id="toc-working-directory" class="nav-link" data-scroll-target="#working-directory"><span class="header-section-number">1.4</span> Working directory</a></li>
-  <li><a href="#r-scripts-and-quarto-documents" id="toc-r-scripts-and-quarto-documents" class="nav-link" data-scroll-target="#r-scripts-and-quarto-documents"><span class="header-section-number">1.5</span> R scripts and Quarto documents</a>
+  <li><a href="#learning-objectives" id="toc-learning-objectives" class="nav-link active" data-scroll-target="#learning-objectives"><span class="header-section-number">1.1</span> Learning Objectives</a></li>
+  <li><a href="#plan-for-the-day" id="toc-plan-for-the-day" class="nav-link" data-scroll-target="#plan-for-the-day"><span class="header-section-number">1.2</span> Plan for the day</a></li>
+  <li><a href="#dependencies" id="toc-dependencies" class="nav-link" data-scroll-target="#dependencies"><span class="header-section-number">1.3</span> Dependencies</a></li>
+  <li><a href="#introducing-r" id="toc-introducing-r" class="nav-link" data-scroll-target="#introducing-r"><span class="header-section-number">1.4</span> Introducing R</a></li>
+  <li><a href="#working-directory" id="toc-working-directory" class="nav-link" data-scroll-target="#working-directory"><span class="header-section-number">1.5</span> Working directory</a></li>
+  <li><a href="#r-scripts-and-quarto-documents" id="toc-r-scripts-and-quarto-documents" class="nav-link" data-scroll-target="#r-scripts-and-quarto-documents"><span class="header-section-number">1.6</span> R scripts and Quarto documents</a>
   <ul class="collapse">
-  <li><a href="#r-script" id="toc-r-script" class="nav-link" data-scroll-target="#r-script"><span class="header-section-number">1.5.1</span> R script</a></li>
-  <li><a href="#quarto-document" id="toc-quarto-document" class="nav-link" data-scroll-target="#quarto-document"><span class="header-section-number">1.5.2</span> Quarto Document</a></li>
-  <li><a href="#using-quarto-documents" id="toc-using-quarto-documents" class="nav-link" data-scroll-target="#using-quarto-documents"><span class="header-section-number">1.5.3</span> Using quarto documents</a></li>
+  <li><a href="#r-script" id="toc-r-script" class="nav-link" data-scroll-target="#r-script"><span class="header-section-number">1.6.1</span> R script</a></li>
+  <li><a href="#quarto-document" id="toc-quarto-document" class="nav-link" data-scroll-target="#quarto-document"><span class="header-section-number">1.6.2</span> Quarto Document</a></li>
+  <li><a href="#using-quarto-documents" id="toc-using-quarto-documents" class="nav-link" data-scroll-target="#using-quarto-documents"><span class="header-section-number">1.6.3</span> Using quarto documents</a></li>
   </ul></li>
-  <li><a href="#help" id="toc-help" class="nav-link" data-scroll-target="#help"><span class="header-section-number">1.6</span> Help</a></li>
-  <li><a href="#r-data-types" id="toc-r-data-types" class="nav-link" data-scroll-target="#r-data-types"><span class="header-section-number">1.7</span> R data types</a>
+  <li><a href="#help" id="toc-help" class="nav-link" data-scroll-target="#help"><span class="header-section-number">1.7</span> Help</a></li>
+  <li><a href="#r-data-types" id="toc-r-data-types" class="nav-link" data-scroll-target="#r-data-types"><span class="header-section-number">1.8</span> R data types</a>
   <ul class="collapse">
-  <li><a href="#factors" id="toc-factors" class="nav-link" data-scroll-target="#factors"><span class="header-section-number">1.7.1</span> Factors</a></li>
+  <li><a href="#factors" id="toc-factors" class="nav-link" data-scroll-target="#factors"><span class="header-section-number">1.8.1</span> Factors</a></li>
   </ul></li>
-  <li><a href="#data-frames" id="toc-data-frames" class="nav-link" data-scroll-target="#data-frames"><span class="header-section-number">1.8</span> Data frames</a>
+  <li><a href="#data-frames" id="toc-data-frames" class="nav-link" data-scroll-target="#data-frames"><span class="header-section-number">1.9</span> Data frames</a>
   <ul class="collapse">
-  <li><a href="#non-geographic-data-frames" id="toc-non-geographic-data-frames" class="nav-link" data-scroll-target="#non-geographic-data-frames"><span class="header-section-number">1.8.1</span> Non-geographic data frames</a></li>
-  <li><a href="#geographic-data-frames" id="toc-geographic-data-frames" class="nav-link" data-scroll-target="#geographic-data-frames"><span class="header-section-number">1.8.2</span> Geographic data frames</a></li>
+  <li><a href="#non-geographic-data-frames" id="toc-non-geographic-data-frames" class="nav-link" data-scroll-target="#non-geographic-data-frames"><span class="header-section-number">1.9.1</span> Non-geographic data frames</a></li>
+  <li><a href="#geographic-data-frames" id="toc-geographic-data-frames" class="nav-link" data-scroll-target="#geographic-data-frames"><span class="header-section-number">1.9.2</span> Geographic data frames</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -250,8 +265,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <p>This session will introduce the fundamental concepts, principles and tools that we will use during the course. Understanding these components provides the foundation for the rest of the course.</p>
-<section id="plan-for-the-day" class="level2" data-number="1.1">
-<h2 data-number="1.1" class="anchored" data-anchor-id="plan-for-the-day"><span class="header-section-number">1.1</span> Plan for the day</h2>
+<section id="learning-objectives" class="level2" data-number="1.1">
+<h2 data-number="1.1" class="anchored" data-anchor-id="learning-objectives"><span class="header-section-number">1.1</span> Learning Objectives</h2>
+<p>By the end of today’s session you should be able to:</p>
+<ol type="1">
+<li>Be familiar with R, RStudio, Quarto and R programming.</li>
+<li>Handle different data types, including numeric, string and factors.</li>
+<li>Understand how to create and handle non-geographic and geographic data frames.</li>
+<li>Be familiar with common R packages, including the tidyverse and r-spatial ecosystems.</li>
+</ol>
+</section>
+<section id="plan-for-the-day" class="level2" data-number="1.2">
+<h2 data-number="1.2" class="anchored" data-anchor-id="plan-for-the-day"><span class="header-section-number">1.2</span> Plan for the day</h2>
 <table class="table">
 <thead>
 <tr class="header">
@@ -261,67 +286,52 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </thead>
 <tbody>
 <tr class="odd">
-<td>9.00 - 9.15</td>
+<td>10.00 - 10.15</td>
 <td>Introduction</td>
 </tr>
 <tr class="even">
-<td>9.15 - 9.45</td>
+<td>10.15 - 10.45</td>
 <td>Setting up &amp; interacting with materials</td>
 </tr>
 <tr class="odd">
-<td>9.45 - 10.30</td>
+<td>10.45 - 11.30</td>
 <td>R Basics</td>
 </tr>
 <tr class="even">
-<td>10.30 - 10.50</td>
+<td>11.30 - 11.50</td>
 <td>Break</td>
 </tr>
 <tr class="odd">
-<td>10.50 - 11.50</td>
-<td>Data types</td>
+<td>11.50 - 12.50</td>
+<td>Using Quarto documents &amp; Data types</td>
 </tr>
 <tr class="even">
-<td>11.50 - 12.30</td>
-<td>Non-geographic data frames</td>
-</tr>
-<tr class="odd">
-<td>12.30 - 13.30</td>
+<td>12.50 - 13.30</td>
 <td>Lunch</td>
 </tr>
+<tr class="odd">
+<td>13.30 - 14.15</td>
+<td>Non-geographic data frames</td>
+</tr>
 <tr class="even">
-<td>12.30 - 13.30</td>
-<td></td>
+<td>14.15 - 14.45</td>
+<td>Geographic data frames</td>
 </tr>
 </tbody>
 </table>
 </section>
-<section id="dependencies" class="level2" data-number="1.2">
-<h2 data-number="1.2" class="anchored" data-anchor-id="dependencies"><span class="header-section-number">1.2</span> Dependencies</h2>
+<section id="dependencies" class="level2" data-number="1.3">
+<h2 data-number="1.3" class="anchored" data-anchor-id="dependencies"><span class="header-section-number">1.3</span> Dependencies</h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># data manipulation</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
-✔ dplyr     1.1.4     ✔ readr     2.1.5
-✔ forcats   1.0.0     ✔ stringr   1.5.1
-✔ ggplot2   3.4.4     ✔ tibble    3.2.1
-✔ lubridate 1.9.3     ✔ tidyr     1.3.1
-✔ purrr     1.0.2     
-── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
-✖ dplyr::filter() masks stats::filter()
-✖ dplyr::lag()    masks stats::lag()
-ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># spatial data manipulation</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Linking to GEOS 3.11.0, GDAL 3.5.3, PROJ 9.1.0; sf_use_s2() is TRUE</code></pre>
-</div>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># spatial data manipulation</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="introducing-r" class="level2 page-columns page-full" data-number="1.3">
-<h2 data-number="1.3" class="anchored" data-anchor-id="introducing-r"><span class="header-section-number">1.3</span> Introducing R</h2>
-<p>R is a freely available language and environment for statistical computing and graphics which provides a wide variety of statistical and graphical techniques. It has gained widespread use in academia and industry. R offers a wider array of functionality than a traditional statistics package, is composed of core (base) functionality, and is expandable through libraries hosted on (The Comprehensive R Archive Network (CRAN))[]. CRAN is a network of ftp and web servers around the world that store identical, up-to-date, versions of code and documentation for R.</p>
+<section id="introducing-r" class="level2 page-columns page-full" data-number="1.4">
+<h2 data-number="1.4" class="anchored" data-anchor-id="introducing-r"><span class="header-section-number">1.4</span> Introducing R</h2>
+<p>R is a freely available language and environment for statistical computing and graphics which provides a wide variety of statistical and graphical techniques. It has gained widespread use in academia and industry. R offers a wider array of functionality than a traditional statistics package, is composed of core (base) functionality, and is expandable through libraries hosted on (The Comprehensive R Archive Network (CRAN))[https://cran.r-project.org]. CRAN is a network of ftp and web servers around the world that store identical, up-to-date, versions of code and documentation for R.</p>
 <p>Commands are sent to R using either the terminal / command line or the R Console which is installed with R on either Windows or OS X. On Linux, there is no equivalent of the console, however, third party solutions exist. On your own machine, R can be installed from here.</p>
 <p>Normally RStudio is used to implement R coding. RStudio is an integrated development environment (IDE) for R and provides a more user-friendly front-end to R than the front-end provided with R.</p>
 <p>To run R or RStudio, just double click on the R or RStudio icon. Throughout this course, we will be using RStudio:</p>
@@ -342,28 +352,28 @@ Note
 </div>
 </div>
 </div></div></section>
-<section id="working-directory" class="level2" data-number="1.4">
-<h2 data-number="1.4" class="anchored" data-anchor-id="working-directory"><span class="header-section-number">1.4</span> Working directory</h2>
+<section id="working-directory" class="level2" data-number="1.5">
+<h2 data-number="1.5" class="anchored" data-anchor-id="working-directory"><span class="header-section-number">1.5</span> Working directory</h2>
 <p>Before we start any analysis, ensure to set the path to the directory where we are working. We have two options to do this.</p>
 <p><strong>Option 1</strong></p>
 <p>Once you have opened R, you can use the command <code>setwd( )</code> to set the working directory. For example, replace in the following line the path to the folder where you have placed this file and where the data folder lives.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">setwd</span>(<span class="st">""</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">setwd</span>(<span class="st">""</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>You can check your current working directory by typing:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">getwd</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">getwd</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><strong>Option 2</strong></p>
-<p>Before opening any files in the folder, open the file with the extension <code>*.Rproj</code>. This is a R project and automatically indexes all the files in the folder and subfolders so there is no need to explicitly set the working directory. You can call any files in the R project folder by replacing the working directory with <code>.</code>. For instance, let us open a dataset from our subfolder data:</p>
+<p>Before opening any files in the folder, open the file with the extension <code>*.Rproj</code>. This is a R project and automatically indexes all the files in the folder and subfolders so there is no need to explicitly set the working directory. You can call any files in the R project folder by replacing the working directory with “<code>.</code>”. For instance, let us open a dataset from our subfolder data:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">read_csv</span>(<span class="st">"./data"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">read_csv</span>(<span class="st">"./data"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="r-scripts-and-quarto-documents" class="level2 page-columns page-full" data-number="1.5">
-<h2 data-number="1.5" class="anchored" data-anchor-id="r-scripts-and-quarto-documents"><span class="header-section-number">1.5</span> R scripts and Quarto documents</h2>
-<section id="r-script" class="level3 page-columns page-full" data-number="1.5.1">
-<h3 data-number="1.5.1" class="anchored" data-anchor-id="r-script"><span class="header-section-number">1.5.1</span> R script</h3>
+<section id="r-scripts-and-quarto-documents" class="level2 page-columns page-full" data-number="1.6">
+<h2 data-number="1.6" class="anchored" data-anchor-id="r-scripts-and-quarto-documents"><span class="header-section-number">1.6</span> R scripts and Quarto documents</h2>
+<section id="r-script" class="level3 page-columns page-full" data-number="1.6.1">
+<h3 data-number="1.6.1" class="anchored" data-anchor-id="r-script"><span class="header-section-number">1.6.1</span> R script</h3>
 <p>An <em>R script</em> is a series of commands that you can execute at one time and help you save time. R scripts are useful to ensure reproducibility; that is if you want to repeat the same series of steps with the same or different datasets. An R script is a plain text file with R commands.</p>
 
 <div class="no-row-height column-margin column-container"><div class="">
@@ -380,9 +390,14 @@ Note
 <p>To get familiar with good practices in writing your code in R, we recommend the Chapter Workflow: basics and Workflow: scripts and projects from the R in Data Science book by <a href="https://r4ds.hadley.nz/workflow-basics.html">Wickham, Çetinkaya-Rundel, and Grolemund (2023)</a></p>
 </div>
 </div>
-</div></div><p>To create an R script in RStudio, you need to: * Open a new script file: File &gt; New File &gt; R Script * Write some code on your new script window by typing eg. mtcars * Run the script. Click anywhere on the line of code, then hit Ctrl + Enter (Windows) or Cmd + Enter (Mac) to run the command or select the code chunk and click run on the right-top corner of your script window. If do that, you should get:</p>
+</div></div><p>To create an R script in RStudio, you need to:</p>
+<ul>
+<li><p>Open a new script file: File &gt; New File &gt; R Script</p></li>
+<li><p>Write some code on your new script window by typing eg. mtcars</p></li>
+<li><p>Run the script. Click anywhere on the line of code, then hit Ctrl + Enter (Windows) or Cmd + Enter (Mac) to run the command or select the code chunk and click run on the right-top corner of your script window. If do that, you should get:</p></li>
+</ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>mtcars</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>mtcars</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>                     mpg cyl  disp  hp drat    wt  qsec vs am gear carb
 Mazda RX4           21.0   6 160.0 110 3.90 2.620 16.46  0  1    4    4
@@ -419,46 +434,292 @@ Maserati Bora       15.0   8 301.0 335 3.54 3.570 14.60  0  1    5    8
 Volvo 142E          21.4   4 121.0 109 4.11 2.780 18.60  1  1    4    2</code></pre>
 </div>
 </div>
+<ul>
+<li>Save the script:&nbsp;<em>File</em>&nbsp;&gt;&nbsp;<em>Save As</em>, select your required destination folder, and enter any filename that you like, provided that it ends with the file extension&nbsp;<em>.R</em></li>
+</ul>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p><strong>Task</strong></p>
+<p>Open and create a basic R Script</p>
+</div>
+</div>
+</div>
 </section>
-<section id="quarto-document" class="level3" data-number="1.5.2">
-<h3 data-number="1.5.2" class="anchored" data-anchor-id="quarto-document"><span class="header-section-number">1.5.2</span> Quarto Document</h3>
-<p>A <em>Quarto Document</em> is based on Markdown technology. It allows to integrate descriptive text and code chunks. Code chunks can be executed independently and interactively, with output visible immediately beneath a code chunk - see Xie, Allaire, and Grolemund (2019). A Quarto Document is an improved version of the original R Notebook. Quarto Document requires a package called Quarto. Quarto does not have a dependency or requirement for R. Quarto is multilingual, beginning with R, Python, Javascript, and Julia. The concept is that Quarto will work even for languages that do not yet exist.</p>
+<section id="quarto-document" class="level3" data-number="1.6.2">
+<h3 data-number="1.6.2" class="anchored" data-anchor-id="quarto-document"><span class="header-section-number">1.6.2</span> Quarto Document</h3>
+<p>A <em>Quarto Document</em> is based on Markdown technology. It allows to integrate descriptive text and code chunks. Code chunks can be executed independently and interactively, with output visible immediately beneath a code chunk - see <span class="citation" data-cites="xie2018">Xie, Allaire, and Grolemund (<a href="references.html#ref-xie2018" role="doc-biblioref">2018</a>)</span>. A Quarto Document is an improved version of the original R Notebook. Quarto Document requires a package called Quarto. Quarto does not have a dependency or requirement for R. Quarto is multilingual, beginning with R, Python, Javascript, and Julia. The concept is that Quarto will work even for languages that do not yet exist.</p>
 <p>To create a Quarto Document, you need to:</p>
 <ul>
 <li><p>Open a new script file: File &gt; New File &gt; Quarto Document.</p></li>
 <li><p>Quarto Documents work in the same way as R Notebooks with small variations. You can find a comprehensive guide on how to use Quarto Documents on the Quarto website.</p></li>
 </ul>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p><strong>Task</strong></p>
+<p>Open, create, preview and render a Quarto Document</p>
+</div>
+</div>
+</div>
+<p>Now that you are familiar with Quarto, we will explore some basic elements:</p>
+<ul>
+<li><p>YAML options</p></li>
+<li><p>Code chunks</p></li>
+<li><p>Preview</p></li>
+<li><p>Rendering</p></li>
+</ul>
+<p>To master Quarto, please read the <a href="https://quarto.org/docs/guide/">Quarto Guide page</a>.</p>
 </section>
-<section id="using-quarto-documents" class="level3" data-number="1.5.3">
-<h3 data-number="1.5.3" class="anchored" data-anchor-id="using-quarto-documents"><span class="header-section-number">1.5.3</span> Using quarto documents</h3>
-<p>Quarto documents are very flexible. They can be rendered into different formats, including pdf, html and doc files. They can be used to product reports, articles, briefs, websites, books and more. We can explore how this can be done using some of the templates we have produced and are hosted on our personal <a href="https://github.com/fcorowe/document-template">Github</a> repository.</p>
+<section id="using-quarto-documents" class="level3" data-number="1.6.3">
+<h3 data-number="1.6.3" class="anchored" data-anchor-id="using-quarto-documents"><span class="header-section-number">1.6.3</span> Using quarto documents</h3>
+<p>Quarto documents are very flexible. They can be rendered into different formats, including pdf, html and doc files. They can be used to product reports, articles, briefs, websites, books and more. We can explore how this can be done using some of the templates we have produced and are hosted on our personal <a href="https://github.com/fcorowe/research-article-template">Github</a> repository.</p>
+<p>Let us explore the use of Quarto documents by downloading the repository above and examine the various templates available.</p>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p><strong>Task</strong></p>
+<p>Include your name and affiliation on one of the Quarto Document templates. Also try changing the font family.</p>
+</div>
+</div>
+</div>
 </section>
 </section>
-<section id="help" class="level2" data-number="1.6">
-<h2 data-number="1.6" class="anchored" data-anchor-id="help"><span class="header-section-number">1.6</span> Help</h2>
+<section id="help" class="level2" data-number="1.7">
+<h2 data-number="1.7" class="anchored" data-anchor-id="help"><span class="header-section-number">1.7</span> Help</h2>
+<p>You can use&nbsp;<code>help</code>&nbsp;or&nbsp;<code>?</code>&nbsp;to ask for details for a specific function:</p>
+<pre><code>help(sqrt) #or ?sqrt</code></pre>
+<p>And using&nbsp;<code>example</code>&nbsp;provides examples for said function:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">example</span>(geom_map)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+gem_mp&gt; # First, a made-up example containing a few polygons, to explain
+gem_mp&gt; # how `geom_map()` works. It requires two data frames:
+gem_mp&gt; # One contains the coordinates of each polygon (`positions`), and is
+gem_mp&gt; # provided via the `map` argument. The other contains the
+gem_mp&gt; # other the values associated with each polygon (`values`).  An id
+gem_mp&gt; # variable links the two together.
+gem_mp&gt; 
+gem_mp&gt; ids &lt;- factor(c("1.1", "2.1", "1.2", "2.2", "1.3", "2.3"))
+
+gem_mp&gt; values &lt;- data.frame(
+gem_mp+   id = ids,
+gem_mp+   value = c(3, 3.1, 3.1, 3.2, 3.15, 3.5)
+gem_mp+ )
+
+gem_mp&gt; positions &lt;- data.frame(
+gem_mp+   id = rep(ids, each = 4),
+gem_mp+   x = c(2, 1, 1.1, 2.2, 1, 0, 0.3, 1.1, 2.2, 1.1, 1.2, 2.5, 1.1, 0.3,
+gem_mp+   0.5, 1.2, 2.5, 1.2, 1.3, 2.7, 1.2, 0.5, 0.6, 1.3),
+gem_mp+   y = c(-0.5, 0, 1, 0.5, 0, 0.5, 1.5, 1, 0.5, 1, 2.1, 1.7, 1, 1.5,
+gem_mp+   2.2, 2.1, 1.7, 2.1, 3.2, 2.8, 2.1, 2.2, 3.3, 3.2)
+gem_mp+ )
+
+gem_mp&gt; ggplot(values) +
+gem_mp+   geom_map(aes(map_id = id), map = positions) +
+gem_mp+   expand_limits(positions)</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="01_fundamentals_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+gem_mp&gt; ggplot(values, aes(fill = value)) +
+gem_mp+   geom_map(aes(map_id = id), map = positions) +
+gem_mp+   expand_limits(positions)</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="01_fundamentals_files/figure-html/unnamed-chunk-6-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+gem_mp&gt; ggplot(values, aes(fill = value)) +
+gem_mp+   geom_map(aes(map_id = id), map = positions) +
+gem_mp+   expand_limits(positions) + ylim(0, 3)</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="01_fundamentals_files/figure-html/unnamed-chunk-6-3.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+gem_mp&gt; # Now some examples with real maps
+gem_mp&gt; if (require(maps)) {
+gem_mp+ 
+gem_mp+   crimes &lt;- data.frame(state = tolower(rownames(USArrests)), USArrests)
+gem_mp+ 
+gem_mp+   # Equivalent to crimes %&gt;% tidyr::pivot_longer(Murder:Rape)
+gem_mp+   vars &lt;- lapply(names(crimes)[-1], function(j) {
+gem_mp+     data.frame(state = crimes$state, variable = j, value = crimes[[j]])
+gem_mp+   })
+gem_mp+   crimes_long &lt;- do.call("rbind", vars)
+gem_mp+ 
+gem_mp+   states_map &lt;- map_data("state")
+gem_mp+ 
+gem_mp+   # without geospatial coordinate system, the resulting plot
+gem_mp+   # looks weird
+gem_mp+   ggplot(crimes, aes(map_id = state)) +
+gem_mp+     geom_map(aes(fill = Murder), map = states_map) +
+gem_mp+     expand_limits(x = states_map$long, y = states_map$lat)
+gem_mp+ 
+gem_mp+   # in combination with `coord_sf()` we get an appropriate result
+gem_mp+   ggplot(crimes, aes(map_id = state)) +
+gem_mp+     geom_map(aes(fill = Murder), map = states_map) +
+gem_mp+     # crs = 5070 is a Conus Albers projection for North America,
+gem_mp+     #   see: https://epsg.io/5070
+gem_mp+     # default_crs = 4326 tells coord_sf() that the input map data
+gem_mp+     #   are in longitude-latitude format
+gem_mp+     coord_sf(
+gem_mp+       crs = 5070, default_crs = 4326,
+gem_mp+       xlim = c(-125, -70), ylim = c(25, 52)
+gem_mp+     )
+gem_mp+ 
+gem_mp+  ggplot(crimes_long, aes(map_id = state)) +
+gem_mp+    geom_map(aes(fill = value), map = states_map) +
+gem_mp+    coord_sf(
+gem_mp+      crs = 5070, default_crs = 4326,
+gem_mp+      xlim = c(-125, -70), ylim = c(25, 52)
+gem_mp+    ) +
+gem_mp+    facet_wrap(~variable)
+gem_mp+ }</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="01_fundamentals_files/figure-html/unnamed-chunk-6-4.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p><strong>Task</strong></p>
+<p>Ask for help for a different function.</p>
+</div>
+</div>
+</div>
 </section>
-<section id="r-data-types" class="level2" data-number="1.7">
-<h2 data-number="1.7" class="anchored" data-anchor-id="r-data-types"><span class="header-section-number">1.7</span> R data types</h2>
-<section id="factors" class="level3" data-number="1.7.1">
-<h3 data-number="1.7.1" class="anchored" data-anchor-id="factors"><span class="header-section-number">1.7.1</span> Factors</h3>
+<section id="r-data-types" class="level2" data-number="1.8">
+<h2 data-number="1.8" class="anchored" data-anchor-id="r-data-types"><span class="header-section-number">1.8</span> R data types</h2>
+<p>There are a number of data types. Four are the most common. In R, numeric is the default type for numbers. It stores all numbers as floating-point numbers (numbers with decimals). This is because most statistical calculations deal with numbers with up to two decimals.</p>
+<p>Numeric</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>num <span class="ot">&lt;-</span> <span class="fl">4.5</span> <span class="co"># Decimal values</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(num)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "numeric"</code></pre>
+</div>
+</div>
+<p>Integer</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>int <span class="ot">&lt;-</span> <span class="fu">as.integer</span>(<span class="dv">4</span>) <span class="co"># Natural numbers. Note integers are also numerics.</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(int)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "integer"</code></pre>
+</div>
+</div>
+<p>Character</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>cha <span class="ot">&lt;-</span> <span class="st">"are you enjoying this?"</span> <span class="co"># text or string. You can also type `as.character("are you enjoying this?")`</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(cha)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "character"</code></pre>
+</div>
+</div>
+<p>Logical</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>log <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="sc">&lt;</span> <span class="dv">1</span> <span class="co"># assigns TRUE or FALSE. In this case, FALSE as 2 is greater than 1</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>log</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] FALSE</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(log)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "logical"</code></pre>
+</div>
+</div>
+<p>You can create vectors by concatenating elements:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>data_vector <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>)</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>data_vector</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2 3 4 5 6</code></pre>
+</div>
+</div>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p><strong>Task</strong></p>
+<p>Create a variable called income, with the following five respondent values: high, low, low, middle, high.</p>
+</div>
+</div>
+</div>
+<section id="factors" class="level3" data-number="1.8.1">
+<h3 data-number="1.8.1" class="anchored" data-anchor-id="factors"><span class="header-section-number">1.8.1</span> Factors</h3>
+<p>A factor variable assigns a numeric code to each possible category (level) in a variable. Behind the scenes, R stores the variable using these numeric codes to save space and speed up computing. For example, compare the size of a list of 10,000 males and females to a list of 10,000 1s and 0s. At the same time R also saves the category names associated with each numeric code (level). These are used for display purposes.</p>
+<p>For example, the variable gender, converted to a factor, would be stored as a series of 1s and 2s, where 1 = female and 2 = male; but would be displayed in all outputs using their category labels of female and male.</p>
+<p><strong>Defining a factor</strong></p>
+<p>A factor can be defined by first creating a numeric or character vector; for example:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>gender <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"female"</span>, <span class="st">"male"</span>, <span class="st">"male"</span>, <span class="st">"female"</span>, <span class="st">"female"</span>) <span class="co"># create a gender variable</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>gender <span class="ot">&lt;-</span> <span class="fu">factor</span>(gender) <span class="co"># replace character vector with a factor version</span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>gender</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] female male   male   female female
+Levels: female male</code></pre>
+</div>
+</div>
 </section>
 </section>
-<section id="data-frames" class="level2" data-number="1.8">
-<h2 data-number="1.8" class="anchored" data-anchor-id="data-frames"><span class="header-section-number">1.8</span> Data frames</h2>
-<section id="non-geographic-data-frames" class="level3" data-number="1.8.1">
-<h3 data-number="1.8.1" class="anchored" data-anchor-id="non-geographic-data-frames"><span class="header-section-number">1.8.1</span> Non-geographic data frames</h3>
+<section id="data-frames" class="level2" data-number="1.9">
+<h2 data-number="1.9" class="anchored" data-anchor-id="data-frames"><span class="header-section-number">1.9</span> Data frames</h2>
+<section id="non-geographic-data-frames" class="level3" data-number="1.9.1">
+<h3 data-number="1.9.1" class="anchored" data-anchor-id="non-geographic-data-frames"><span class="header-section-number">1.9.1</span> Non-geographic data frames</h3>
 <p><strong>Reading data frames</strong></p>
 <p><strong>Creating data frames</strong></p>
 <p><strong>Referencing data frames</strong></p>
 <p><strong>Manipulating data frames</strong></p>
 <p><code>tidyverse</code></p>
 </section>
-<section id="geographic-data-frames" class="level3" data-number="1.8.2">
-<h3 data-number="1.8.2" class="anchored" data-anchor-id="geographic-data-frames"><span class="header-section-number">1.8.2</span> Geographic data frames</h3>
+<section id="geographic-data-frames" class="level3" data-number="1.9.2">
+<h3 data-number="1.9.2" class="anchored" data-anchor-id="geographic-data-frames"><span class="header-section-number">1.9.2</span> Geographic data frames</h3>
 <p><strong>Reading geographic data frames</strong></p>
 <p><strong>Manipulating geographic data frames</strong></p>
 
 
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
+<div id="ref-xie2018" class="csl-entry" role="listitem">
+Xie, Yihui, J. J. Allaire, and Garrett Grolemund. 2018. <em>R Markdown</em>. Chapman; Hall/CRC. <a href="https://doi.org/10.1201/9781138359444">https://doi.org/10.1201/9781138359444</a>.
+</div>
+</div>
 </section>
 </section>
 
@@ -857,8 +1118,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./02_data-visualisation.html" class="pagination-link" aria-label="<span class='chapter-number'>2</span>&nbsp; <span class='chapter-title'>Day 2 - Data Visualisation</span>">
-        <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Day 2 - Data Visualisation</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./02_data-visualisation.html" class="pagination-link" aria-label="<span class='chapter-number'>2</span>&nbsp; <span class='chapter-title'>Data Visualisation</span>">
+        <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Data Visualisation</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

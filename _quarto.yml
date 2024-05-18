@@ -11,7 +11,7 @@ book:
     - 00_overview.qmd
     - 01_fundamentals.qmd
     - 02_data-visualisation.qmd
-    - 03_dashboards-api.qmd
+#    - 03_dashboards-api.qmd
     - 04_data-modeling.qmd
     - 05_data-description.qmd
     - references.qmd
@@ -22,7 +22,7 @@ book:
 
 bibliography: references.bib
 margin-header: |
-  ![](/cover.pdf)
+  ![](/cover.png)
 
 format:
   html:
