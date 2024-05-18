@@ -9,11 +9,11 @@ book:
   chapters:
     - index.qmd
     - 00_overview.qmd
-    - 01_data-description.qmd
-    - 02_fundamentals.qmd
-    - 03_data-visualisation.qmd
-    - 04_dashboards-api.qmd
-    - 05_data-modeling.qmd
+    - 01_fundamentals.qmd
+    - 02_data-visualisation.qmd
+    - 03_dashboards-api.qmd
+    - 04_data-modeling.qmd
+    - 05_data-description.qmd
     - references.qmd
 
   search: true
@@ -22,7 +22,7 @@ book:
 
 bibliography: references.bib
 margin-header: |
-  ![](/cover.png)
+  ![](/cover.pdf)
 
 format:
   html:
