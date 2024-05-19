@@ -23,6 +23,7 @@ By the end of today's session you should be able to:
 | 12.50 - 13.30 | Lunch                                   |
 | 13.30 - 14.15 | Non-geographic data frames              |
 | 14.15 - 14.45 | Geographic data frames                  |
+| 14.45 - 15.00 | Questions & closing                     |
 
 ## Dependencies
 
