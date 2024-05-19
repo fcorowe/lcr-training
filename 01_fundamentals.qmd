@@ -1,6 +1,6 @@
 # R Fundamentals
 
-This session will introduce the fundamental concepts, principles and tools that we will use during the course. Understanding these components provides the foundation for the rest of the course.
+This session will introduce the fundamental concepts, principles and tools that we will use during the course. Understanding these components provides the foundation for the rest of the course. We will introduce key concepts and functions relating to what computational notebooks are and how they work. We will also cover basic R functions and data types, including the use of factors. Additionally, we will offer a basic understanding of the manipulation non-geographic and geographic data frames using commonly used libraries the tidyverse and r-spatial ecosystems, including sf.
 
 ## Learning Objectives
 
@@ -177,30 +177,35 @@ example(geom_map)
 Ask for help for a different function.
 :::
 
-
 ## R data types
 
 There are a number of data types. Four are the most common. In R, numeric is the default type for numbers. It stores all numbers as floating-point numbers (numbers with decimals). This is because most statistical calculations deal with numbers with up to two decimals.
 
+Before starting with the various data types which R can handle, we should understand that any element appearing in our R environment is called a R object and they can take different shapes. It could be a single character, a vector, a matrix, a list or have a more complex structure.
+
 Numeric
+
 ```{r}
 num <- 4.5 # Decimal values
 class(num)
 ```
 
 Integer
+
 ```{r}
 int <- as.integer(4) # Natural numbers. Note integers are also numerics.
 class(int)
 ```
 
 Character
+
 ```{r}
 cha <- "are you enjoying this?" # text or string. You can also type `as.character("are you enjoying this?")`
 class(cha)
 ```
 
 Logical
+
 ```{r}
 log <- 2 < 1 # assigns TRUE or FALSE. In this case, FALSE as 2 is greater than 1
 log
@@ -208,18 +213,17 @@ class(log)
 ```
 
 You can create vectors by concatenating elements:
+
 ```{r}
 data_vector <- c(2, 3, 4, 5, 6)
 data_vector
 ```
-
 
 ::: {.callout-tip appearance="simple" icon="false"}
 **Task**
 
 Create a variable called income, with the following five respondent values: high, low, low, middle, high.
 :::
-
 
 ### Factors
 
@@ -237,23 +241,372 @@ gender <- factor(gender) # replace character vector with a factor version
 gender
 ```
 
+We can ask the class of `gender`:
+
+```{r}
+class(gender)
+```
+
+And also its structure:
+
+```{r}
+str(gender)
+```
+
+`gender` is a factor and is stored as a series of 1s and 2s, with 1s representing females and 2s representing males. The function levels( ) lists the levels (categories) associated with a given factor variable:
+
+```{r}
+levels(gender)
+```
+
+The categories are reported in the order that they have been numbered (starting from 1). Hence from the output we can infer that females are coded as 1, and males as 2. Factor variables are useful to encode categorical or qualitative data; that is, data on nominal or ordinal scales.
+
+**Defining an ordered factor**
+
+By default the levels of the factor (variable categories) are allocated in alphabetical order. Hence in the example above `female = 1` and `male = 2`.
+
+Sometimes an alternative ordering is required, for example `male = 1` and `female = 2`.
+
+For nominal variables, the solution is to specify the required order of the levels when calling the `factor( )` function via the `levels( )` sub-command:
+
+```{r}
+gender2 <- factor(gender, levels= c("male", "female"))
+gender2
+```
+
+**Using a factor to define nominal and ordinal variables**
+
+For ordinal variables, such as income (income bracket), we create an ordered factor by calling the `ordered( )` rather than `factor( )` function, including a call to the sub-command `levels( )` which specifies the required category order:
+
+```{r}
+income <- c("high", "low", "low", "middle", "high")
+income <- ordered(income, levels = c("low", "middle", "high"))
+income
+```
+
+Let us explore its class, structure and levels:
+
+```{r}
+class(income)
+
+str(income)
+
+levels(income)
+```
+
+Note that if we do not use the `levels( )` sub-command, then the default behaviour of `ordered( )` is to order the categories alphabetically, like `factor( )`.
+
+::: {.callout-tip appearance="simple" icon="false"}
+**Task**
+
+Run the following line of code, then convert the resulting variable into a factor with the categories ordered car, train, bus, bicycle:
+
+`travel_mode <- c("train", "bicycle", "bus", "car", "car")`
+:::
 
 ## Data frames
 
+R stores different types of data using different types of data structure. Data are normally stored as a data.frame. Data frames are a special R object. A data frame contains one row per observation and one column per attribute. In this course, we distinguish between non-geographic and geographic data frames.
+
 ### Non-geographic data frames
+
+Non-geographic data frames are data structures which have no indexed spatial elements as we will see below.
 
 **Reading data frames**
 
+We will start by illustrating how data frames can be read from our local hard drive. R has many commands to read and load data objects. The command to use will depend upon the format they have been saved. Normally they are saved in csv format from Excel or other software packages. So we use either of these lines of code:
+
+```{r}
+#| eval: false
+df <- read.csv("path/file_name.csv", header = FALSE)
+
+df <- read.table("path/file_name.csv", header = FALSE, sep =",")
+
+df <- read("path/file_name.csv", header = FALSE)
+
+df <- read.csv2("path/file_name.csv", header = FALSE)
+```
+
+Let us use the first option to read some 2021 Census data.
+
+```{r}
+df_census <- read.csv("./data/census2021-ts061-lsoa.csv")
+str(df_census)
+```
+
+::: {.callout-tip appearance="simple" icon="false"}
+**Task**
+
+Let us inspect the data: What class is the data frame? What data type are the variables in the data frame? What are the name of all columns in the data frame?
+:::
+
+::: column-margin
+::: callout-note
+To read files in other formats, refer to this useful [DataCamp tutorial](https://www.datacamp.com/tutorial/r-data-import-tutorial#csv).
+:::
+:::
+
 **Creating data frames**
+
+We can also create a data frame from scratch within R. We first need to create each column independently. We create three variables: `lt_la` (lower tier local authorities), `deprivation_category` and `deprivation` based on the 2021 census data on deprivation from the [ONS website](https://www.ons.gov.uk/datasets/TS011/editions/2021/versions/6/filter-outputs/628653ca-2c26-4fed-8ed4-322e3b16634c#get-data).
+
+```{r}
+lt_la <- c("Knowsley", "Knowsley", "Knowsley", "Knowsley", "Knowsley", "Knowsley", "Liverpool", "Liverpool", "Liverpool", "Liverpool", "Liverpool", "Liverpool", "St. Helens", "St. Helens", "St. Helens", "St. Helens", "St. Helens", "St. Helens", "Sefton", "Sefton", "Sefton", "Sefton", "Sefton", "Sefton", "Wirral", "Wirral", "Wirral", "Wirral", "Wirral", "Wirral")
+
+deprivation_category <- c("Does not apply", "Household is not deprived in any dimension", "Household is deprived in one dimension", "Household is deprived in two dimensions", "Household is deprived in three dimensions", "Household is deprived in four dimensions", "Does not apply", "Household is not deprived in any dimension", "Household is deprived in one dimension", "Household is deprived in two dimensions", "Household is deprived in three dimensions", "Household is deprived in four dimensions", "Does not apply", "Household is not deprived in any dimension", "Household is deprived in one dimension", "Household is deprived in two dimensions", "Household is deprived in three dimensions", "Household is deprived in four dimensions", "Does not apply", "Household is not deprived in any dimension", "Household is deprived in one dimension", "Household is deprived in two dimensions", "Household is deprived in three dimensions", "Household is deprived in four dimensions", "Does not apply", "Household is not deprived in any dimension", "Household is deprived in one dimension", "Household is deprived in two dimensions", "Household is deprived in three dimensions", "Household is deprived in four dimensions")
+
+deprivation <- c(0, 26952, 21374, 12688, 4856, 203, 0, 86264, 67761, 38407, 14386, 673, 0, 35793, 27070, 13852, 4161, 137, 0, 55668, 41850, 19817, 5463, 275, 0, 65530, 47854, 22925, 6645, 298)
+
+```
+
+We now need to put these columns together as a data frame as follows:
+
+```{r}
+df <- data.frame(lt_la, deprivation_category, deprivation)
+```
+
+We can explore its structure:
+
+```{r}
+str(df)
+```
 
 **Referencing data frames**
 
+To refer to particular parts of a data frame - say, a particular column, or a subset of respondents. Hence it is worth spending some time understanding how to reference data frames.
+
+The relevant R function, `[ ]`, has the format `[row,col]` or, more generally, `[set of rows, set of cols]`.
+
+Run the following commands to get a feel of how to extract different slices of the data:
+
+```{r}
+#| eval: false
+df # whole data.frame
+
+df[1, 1] # contents of first row and column
+
+df[2, 2:3] # contents of the second row, second and third columns
+
+df[1, ] # first row, ALL columns [the default if no columns specified]
+
+df[ ,1:2] # ALL rows; first and second columns
+
+df[c(1,3,5), ] # rows 1,3,5; ALL columns
+
+df[ , 2] # ALL rows; second column (by default results containing only 
+             #one column are converted back into a vector)
+
+df[ , 2, drop=FALSE] # ALL rows; second column (returned as a data.frame)
+```
+
+In the above, note that we have used two other R functions:
+
+`1:3` The colon operator tells R to produce a list of numbers including the named start and end points.
+
+`c(1,3,5)` tells R to combine the contents within the brackets into one list of objects.
+
+Run both of these functions on their own to get a better understanding of what they do.
+
+Three other methods for referencing the contents of a data.frame make direct use of the variable names within the data.frame, which tends to make for easier to read/understand code:
+
+```         
+df[, "deprivation"] # variable name in quotes inside the square brackets
+
+df$deprivation # variable name prefixed with $ and appended to the data.frame name
+# or you can use attach
+
+attach(df)
+deprivation # but be careful if you already have an age variable in your local workspace
+```
+
+Want to check the variables available, use the `names( )`:
+
+```{r}
+names(df)
+```
+
 **Manipulating data frames**
 
-`tidyverse`
+[*Adding new columns*]{.underline}
+
+Usually you want to add or create new variables to your data frame using existing variables e.g. computing percentages by dividing two variables. There are many ways in which you can do this i.e. referencing a data frame as we have done above, or using `$` (e.g. df_census\$pop). For this course, we will use tidyverse.
+
+```{r}
+df_census <- df_census %>% 
+  mutate( active_travel = Method.of.travel.to.workplace..Bicycle + Method.of.travel.to.workplace..On.foot )
+str(df_census)
+```
+
+Note we used a pipe operator `%>%`. This operator helps make the code more efficient and readable, see @wickham2023r for more details. When using the pipe operator, recall to first indicate the data frame before `%>%`.
+
+Note also the use a variable name before the `=` sign in brackets to indicate the name of the new variable after mutate.
+
+[*Selecting columns*]{.underline}
+
+Usually you want to select a subset of variables for your analysis as storing to large data sets in your R memory can reduce the processing speed of your machine. A selection of data can be achieved by using the `select` function:
+
+```{r}
+ndf <- df_census %>% 
+  select( geography, active_travel)
+```
+
+Again first indicate the data frame and then the variable you want to select to build a new data frame. Note the code chunk above has created a new data frame called `ndf`. Explore it.
+
+[*Filtering data*]{.underline}
+
+You may also want to filter values based on defined conditions. You may want to filter observations greater than a certain threshold or only areas within a certain region. For example, you may want to select areas with an active travel count over 100:
+
+```{r}
+ndf2 <- ndf %>% 
+  filter( active_travel > 100 )
+```
+
+You can use more than one variable to set conditions. Use "`,`" to add a condition.
+
+[*Joining data frames*]{.underline}
+
+We often need to join data from separate data frames. To this end, you need a common unique id variable. Let us imagine we have two separate data frames i.e. our original census data frame (`df_census`) and our data frame containing our active travel counts (i.e. `ndf`), and we want to join them. We re-read our `df_census` and then join the data frames.
+
+```{r}
+# read data
+df_census <- read.csv("./data/census2021-ts061-lsoa.csv")
+# visualise data structure
+str(df_census)
+```
+
+The variable `geography` in this data frame corresponds to the unique identifier we will use. As they are unique, they can be automatically matched by using the `merge()` function. The `merge()` function uses two arguments: `x` and `y`. The former refers to data frame 1 and the latter to data frame 2. Both of these two data frames must have a id variable containing the same information. Note they can have different names. Another key argument to include is `all.x=TRUE` which tells the function to keep all the records in `x`, but only those in `y` that match in case there are discrepancies in the `id` variable.
+
+```{r}
+# join data frames
+join_dfs <- merge( df_census, # df1
+                   ndf, # df2
+                   by.x="geography", by.y="geography", # common ids
+                   all.x = TRUE)
+# check data
+head(join_dfs)
+```
+
+[*Saving data*]{.underline}
+
+You may need to save your R projects. Projects contain all the objects that you have created in your workspace. You can save them by using the `save.image( )` function:
+
+```{r}
+#| eval: false
+save.image("lcr-course_day-1.RData")
+```
+
+This creates a file labelled `“lcr-course_day-1.RData”` in your working directory. You can load this at a later stage using the `load( )` function.
+
+```{r}
+#| eval: false
+load("lcr-course_day-1.RData")
+```
+
+Alternatively you can save or export your data into a csv file. The first argument in the function is the object name, and the second: the name of the csv we want to create.
+
+```{r}
+#| eval: false
+write.csv(join_dfs, "join_censusdfs.csv")
+```
 
 ### Geographic data frames
 
+An important component of geographic data science is to manipulate geographic data frames. R has various purposely designed `packages` for manipulation of spatial data and spatial analysis techniques. Various packages exist in CRAN, including `sf` [@sf2018; @R-sf], `stars` [@R-stars], `terra`, `s2` [@R-s2], `lwgeom` [@R-lwgeom], `gstat` [@pebesma2004; @R-gstat], `spdep` [@R-spdep], `spatialreg` [@R-spatialreg], `spatstat` [@baddeley2015spatial; @R-spatstat], `tmap` [@tmap2018; @R-tmap], `mapview` [@R-mapview] and more. A key package is this ecosystem is `sf` [@pebesma2023spatial]. R package `sf` provides a table format for simple features, where feature geometries are stored in a list-column. It appeared in 2016 and was developed to move spatial data analysis in R closer to standards-based approaches seen in the industry and open source projects, to build upon more modern versions of open source geospatial software stack and allow for integration of R spatial software with the `tidyverse` [@tidyverse2019], particularly `ggplot2`, `dplyr`, and `tidyr`. Hence, this book relies heavely on `sf` for the manipulation and analysis of the data.
+
+::: column-margin
+
+::: callout-note
+
+@lovelace2024 provide a helpful overview and evolution of R spatial package ecosystem.
+
+:::
+
+:::
+
+
 **Reading geographic data frames**
 
+To read our spatial data, we use the st_read function. We read a shapefile containing data at the Lower Super Output Areas (LSOAs) level.
+
+```{r}
+sdf <- st_read("./data/LCR-LSOA.gpkg") 
+head(sdf)
+```
+
+Examine the input data. A spatial data frame stores a range of attributes derived from a shapefile including the geometry of features (e.g. polygon shape and location), attributes for each feature (stored in the .dbf), projection and coordinates of the shapefile’s bounding box - for details, execute:
+
+```{r}
+#| eval: false
+?st_read
+```
+
+You can employ the usual functions to visualise the content of the created data frame:
+
+```{r}
+# visualise variable names
+names(sdf)
+```
+
+```{r}
+# data structure
+str(sdf)
+```
+
+```{r}
+# see first few observations
+head(sdf)
+```
+
 **Manipulating geographic data frames**
+
+As indicated above, the advantage of using `sf` to handle spatial data frames is that you can deploy all the tidyverse ecosystem. For example, try the tasks below.
+
+::: {.callout-tip appearance="simple" icon="false"}
+**Task**
+
+Try selecting columns "LSOA21NM" and "Decile" and using the new data frame to filter the data by "Decile = 5".
+:::
+
+[*Simplifying boundaries*]{.underline}
+
+Normally, the resolution of boundaries is very detailed and precise, but such level of detail and precision is not necessary for visualisation purposes, making their rendering small and computationally intensive. To address this, we simplify the boundaries which means we make them less detailed and precise. We can achive this as follows"
+
+```{r}
+# simplify boundaries
+simple_sdf <- sdf %>% 
+  st_simplify(preserveTopology =T, 
+              dTolerance = 100) %>%  # 100m
+  sf::st_make_valid() # check the geometry is valid
+
+simple_sdf
+```
+
+[*Reprojecting boundaries*]{.underline}
+
+We often work with multiple shapefiles in one project and these shapefiles can have boundaries in different projections. As such, they need to be harmonised before they can be integrated in analysis. We show how this process can be conducted. 
+
+The first step is to decide the Coordinate Reference Systems (CRS) for the data to be projected. In this example, we use the World Geodetic System 1984 (i.e. EPSG:4326). 
+
+```{r}
+# set crs
+crs_default = "EPSG:4326"
+```
+
+```{r}
+# change crs
+repro_simple_sdf <- simple_sdf %>% 
+  st_transform(crs_default) 
+
+repro_simple_sdf
+```
+
+[*Mapping*]{.underline}
+
+We can also quickly map spatial boundaries by using the R base function `plot`. 
+
+```{r}
+plot(simple_sdf$geom)
+```
+
+During the next session, we will explore more sophisticated ways of mapping spatial data using different packages and functions.
+

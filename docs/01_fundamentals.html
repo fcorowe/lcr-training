@@ -264,7 +264,7 @@ div.csl-indent {
 </header>
 
 
-<p>This session will introduce the fundamental concepts, principles and tools that we will use during the course. Understanding these components provides the foundation for the rest of the course.</p>
+<p>This session will introduce the fundamental concepts, principles and tools that we will use during the course. Understanding these components provides the foundation for the rest of the course. We will introduce key concepts and functions relating to what computational notebooks are and how they work. We will also cover basic R functions and data types, including the use of factors. Additionally, we will offer a basic understanding of the manipulation non-geographic and geographic data frames using commonly used libraries the tidyverse and r-spatial ecosystems, including sf.</p>
 <section id="learning-objectives" class="level2" data-number="1.1">
 <h2 data-number="1.1" class="anchored" data-anchor-id="learning-objectives"><span class="header-section-number">1.1</span> Learning Objectives</h2>
 <p>By the end of today’s session you should be able to:</p>
@@ -627,6 +627,7 @@ gem_mp+ }</code></pre>
 <section id="r-data-types" class="level2" data-number="1.8">
 <h2 data-number="1.8" class="anchored" data-anchor-id="r-data-types"><span class="header-section-number">1.8</span> R data types</h2>
 <p>There are a number of data types. Four are the most common. In R, numeric is the default type for numbers. It stores all numbers as floating-point numbers (numbers with decimals). This is because most statistical calculations deal with numbers with up to two decimals.</p>
+<p>Before starting with the various data types which R can handle, we should understand that any element appearing in our R environment is called a R object and they can take different shapes. It could be a single character, a vector, a matrix, a list or have a more complex structure.</p>
 <p>Numeric</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>num <span class="ot">&lt;-</span> <span class="fl">4.5</span> <span class="co"># Decimal values</span></span>
@@ -697,25 +698,676 @@ gem_mp+ }</code></pre>
 Levels: female male</code></pre>
 </div>
 </div>
+<p>We can ask the class of <code>gender</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(gender)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "factor"</code></pre>
+</div>
+</div>
+<p>And also its structure:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(gender)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> Factor w/ 2 levels "female","male": 1 2 2 1 1</code></pre>
+</div>
+</div>
+<p><code>gender</code> is a factor and is stored as a series of 1s and 2s, with 1s representing females and 2s representing males. The function levels( ) lists the levels (categories) associated with a given factor variable:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(gender)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "female" "male"  </code></pre>
+</div>
+</div>
+<p>The categories are reported in the order that they have been numbered (starting from 1). Hence from the output we can infer that females are coded as 1, and males as 2. Factor variables are useful to encode categorical or qualitative data; that is, data on nominal or ordinal scales.</p>
+<p><strong>Defining an ordered factor</strong></p>
+<p>By default the levels of the factor (variable categories) are allocated in alphabetical order. Hence in the example above <code>female = 1</code> and <code>male = 2</code>.</p>
+<p>Sometimes an alternative ordering is required, for example <code>male = 1</code> and <code>female = 2</code>.</p>
+<p>For nominal variables, the solution is to specify the required order of the levels when calling the <code>factor( )</code> function via the <code>levels( )</code> sub-command:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>gender2 <span class="ot">&lt;-</span> <span class="fu">factor</span>(gender, <span class="at">levels=</span> <span class="fu">c</span>(<span class="st">"male"</span>, <span class="st">"female"</span>))</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>gender2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] female male   male   female female
+Levels: male female</code></pre>
+</div>
+</div>
+<p><strong>Using a factor to define nominal and ordinal variables</strong></p>
+<p>For ordinal variables, such as income (income bracket), we create an ordered factor by calling the <code>ordered( )</code> rather than <code>factor( )</code> function, including a call to the sub-command <code>levels( )</code> which specifies the required category order:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>income <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"high"</span>, <span class="st">"low"</span>, <span class="st">"low"</span>, <span class="st">"middle"</span>, <span class="st">"high"</span>)</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>income <span class="ot">&lt;-</span> <span class="fu">ordered</span>(income, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"low"</span>, <span class="st">"middle"</span>, <span class="st">"high"</span>))</span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>income</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] high   low    low    middle high  
+Levels: low &lt; middle &lt; high</code></pre>
+</div>
+</div>
+<p>Let us explore its class, structure and levels:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(income)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "ordered" "factor" </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(income)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> Ord.factor w/ 3 levels "low"&lt;"middle"&lt;..: 3 1 1 2 3</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(income)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "low"    "middle" "high"  </code></pre>
+</div>
+</div>
+<p>Note that if we do not use the <code>levels( )</code> sub-command, then the default behaviour of <code>ordered( )</code> is to order the categories alphabetically, like <code>factor( )</code>.</p>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p><strong>Task</strong></p>
+<p>Run the following line of code, then convert the resulting variable into a factor with the categories ordered car, train, bus, bicycle:</p>
+<p><code>travel_mode &lt;- c("train", "bicycle", "bus", "car", "car")</code></p>
+</div>
+</div>
+</div>
 </section>
 </section>
-<section id="data-frames" class="level2" data-number="1.9">
+<section id="data-frames" class="level2 page-columns page-full" data-number="1.9">
 <h2 data-number="1.9" class="anchored" data-anchor-id="data-frames"><span class="header-section-number">1.9</span> Data frames</h2>
-<section id="non-geographic-data-frames" class="level3" data-number="1.9.1">
+<p>R stores different types of data using different types of data structure. Data are normally stored as a data.frame. Data frames are a special R object. A data frame contains one row per observation and one column per attribute. In this course, we distinguish between non-geographic and geographic data frames.</p>
+<section id="non-geographic-data-frames" class="level3 page-columns page-full" data-number="1.9.1">
 <h3 data-number="1.9.1" class="anchored" data-anchor-id="non-geographic-data-frames"><span class="header-section-number">1.9.1</span> Non-geographic data frames</h3>
+<p>Non-geographic data frames are data structures which have no indexed spatial elements as we will see below.</p>
 <p><strong>Reading data frames</strong></p>
-<p><strong>Creating data frames</strong></p>
+<p>We will start by illustrating how data frames can be read from our local hard drive. R has many commands to read and load data objects. The command to use will depend upon the format they have been saved. Normally they are saved in csv format from Excel or other software packages. So we use either of these lines of code:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"path/file_name.csv"</span>, <span class="at">header =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">"path/file_name.csv"</span>, <span class="at">header =</span> <span class="cn">FALSE</span>, <span class="at">sep =</span><span class="st">","</span>)</span>
+<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">read</span>(<span class="st">"path/file_name.csv"</span>, <span class="at">header =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb43-6"><a href="#cb43-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-7"><a href="#cb43-7" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">read.csv2</span>(<span class="st">"path/file_name.csv"</span>, <span class="at">header =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Let us use the first option to read some 2021 Census data.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>df_census <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"./data/census2021-ts061-lsoa.csv"</span>)</span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(df_census)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>'data.frame':   35672 obs. of  15 variables:
+ $ date                                                                                                                     : int  2021 2021 2021 2021 2021 2021 2021 2021 2021 2021 ...
+ $ geography                                                                                                                : chr  "City of London 001A" "City of London 001B" "City of London 001C" "City of London 001E" ...
+ $ geography.code                                                                                                           : chr  "E01000001" "E01000002" "E01000003" "E01000005" ...
+ $ Method.of.travel.to.workplace..Total..All.usual.residents.aged.16.years.and.over.in.employment.the.week.before.the.census: int  866 881 1000 496 888 1385 651 784 740 904 ...
+ $ Method.of.travel.to.workplace..Work.mainly.at.or.from.home                                                               : int  639 676 618 203 192 370 80 163 136 188 ...
+ $ Method.of.travel.to.workplace..Underground..metro..light.rail..tram                                                      : int  35 31 74 69 205 358 126 201 155 203 ...
+ $ Method.of.travel.to.workplace..Train                                                                                     : int  17 10 21 25 104 177 74 96 88 112 ...
+ $ Method.of.travel.to.workplace..Bus..minibus.or.coach                                                                     : int  13 15 26 44 60 117 125 70 86 98 ...
+ $ Method.of.travel.to.workplace..Taxi                                                                                      : int  4 2 4 2 1 8 4 1 1 10 ...
+ $ Method.of.travel.to.workplace..Motorcycle..scooter.or.moped                                                              : int  3 1 4 3 5 3 3 4 3 5 ...
+ $ Method.of.travel.to.workplace..Driving.a.car.or.van                                                                      : int  18 19 24 33 227 220 176 166 174 203 ...
+ $ Method.of.travel.to.workplace..Passenger.in.a.car.or.van                                                                 : int  0 3 7 1 10 21 11 19 28 12 ...
+ $ Method.of.travel.to.workplace..Bicycle                                                                                   : int  24 25 62 18 6 21 6 5 12 14 ...
+ $ Method.of.travel.to.workplace..On.foot                                                                                   : int  109 92 143 90 61 71 40 44 42 38 ...
+ $ Method.of.travel.to.workplace..Other.method.of.travel.to.work                                                            : int  4 7 17 8 17 19 6 15 15 21 ...</code></pre>
+</div>
+</div>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p><strong>Task</strong></p>
+<p>Let us inspect the data: What class is the data frame? What data type are the variables in the data frame? What are the name of all columns in the data frame?</p>
+</div>
+</div>
+</div>
+
+<div class="no-row-height column-margin column-container"><div class="">
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>To read files in other formats, refer to this useful <a href="https://www.datacamp.com/tutorial/r-data-import-tutorial#csv">DataCamp tutorial</a>.</p>
+</div>
+</div>
+</div></div><p><strong>Creating data frames</strong></p>
+<p>We can also create a data frame from scratch within R. We first need to create each column independently. We create three variables: <code>lt_la</code> (lower tier local authorities), <code>deprivation_category</code> and <code>deprivation</code> based on the 2021 census data on deprivation from the <a href="https://www.ons.gov.uk/datasets/TS011/editions/2021/versions/6/filter-outputs/628653ca-2c26-4fed-8ed4-322e3b16634c#get-data">ONS website</a>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>lt_la <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Knowsley"</span>, <span class="st">"Knowsley"</span>, <span class="st">"Knowsley"</span>, <span class="st">"Knowsley"</span>, <span class="st">"Knowsley"</span>, <span class="st">"Knowsley"</span>, <span class="st">"Liverpool"</span>, <span class="st">"Liverpool"</span>, <span class="st">"Liverpool"</span>, <span class="st">"Liverpool"</span>, <span class="st">"Liverpool"</span>, <span class="st">"Liverpool"</span>, <span class="st">"St. Helens"</span>, <span class="st">"St. Helens"</span>, <span class="st">"St. Helens"</span>, <span class="st">"St. Helens"</span>, <span class="st">"St. Helens"</span>, <span class="st">"St. Helens"</span>, <span class="st">"Sefton"</span>, <span class="st">"Sefton"</span>, <span class="st">"Sefton"</span>, <span class="st">"Sefton"</span>, <span class="st">"Sefton"</span>, <span class="st">"Sefton"</span>, <span class="st">"Wirral"</span>, <span class="st">"Wirral"</span>, <span class="st">"Wirral"</span>, <span class="st">"Wirral"</span>, <span class="st">"Wirral"</span>, <span class="st">"Wirral"</span>)</span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>deprivation_category <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Does not apply"</span>, <span class="st">"Household is not deprived in any dimension"</span>, <span class="st">"Household is deprived in one dimension"</span>, <span class="st">"Household is deprived in two dimensions"</span>, <span class="st">"Household is deprived in three dimensions"</span>, <span class="st">"Household is deprived in four dimensions"</span>, <span class="st">"Does not apply"</span>, <span class="st">"Household is not deprived in any dimension"</span>, <span class="st">"Household is deprived in one dimension"</span>, <span class="st">"Household is deprived in two dimensions"</span>, <span class="st">"Household is deprived in three dimensions"</span>, <span class="st">"Household is deprived in four dimensions"</span>, <span class="st">"Does not apply"</span>, <span class="st">"Household is not deprived in any dimension"</span>, <span class="st">"Household is deprived in one dimension"</span>, <span class="st">"Household is deprived in two dimensions"</span>, <span class="st">"Household is deprived in three dimensions"</span>, <span class="st">"Household is deprived in four dimensions"</span>, <span class="st">"Does not apply"</span>, <span class="st">"Household is not deprived in any dimension"</span>, <span class="st">"Household is deprived in one dimension"</span>, <span class="st">"Household is deprived in two dimensions"</span>, <span class="st">"Household is deprived in three dimensions"</span>, <span class="st">"Household is deprived in four dimensions"</span>, <span class="st">"Does not apply"</span>, <span class="st">"Household is not deprived in any dimension"</span>, <span class="st">"Household is deprived in one dimension"</span>, <span class="st">"Household is deprived in two dimensions"</span>, <span class="st">"Household is deprived in three dimensions"</span>, <span class="st">"Household is deprived in four dimensions"</span>)</span>
+<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a>deprivation <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">26952</span>, <span class="dv">21374</span>, <span class="dv">12688</span>, <span class="dv">4856</span>, <span class="dv">203</span>, <span class="dv">0</span>, <span class="dv">86264</span>, <span class="dv">67761</span>, <span class="dv">38407</span>, <span class="dv">14386</span>, <span class="dv">673</span>, <span class="dv">0</span>, <span class="dv">35793</span>, <span class="dv">27070</span>, <span class="dv">13852</span>, <span class="dv">4161</span>, <span class="dv">137</span>, <span class="dv">0</span>, <span class="dv">55668</span>, <span class="dv">41850</span>, <span class="dv">19817</span>, <span class="dv">5463</span>, <span class="dv">275</span>, <span class="dv">0</span>, <span class="dv">65530</span>, <span class="dv">47854</span>, <span class="dv">22925</span>, <span class="dv">6645</span>, <span class="dv">298</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We now need to put these columns together as a data frame as follows:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(lt_la, deprivation_category, deprivation)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We can explore its structure:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>'data.frame':   30 obs. of  3 variables:
+ $ lt_la               : chr  "Knowsley" "Knowsley" "Knowsley" "Knowsley" ...
+ $ deprivation_category: chr  "Does not apply" "Household is not deprived in any dimension" "Household is deprived in one dimension" "Household is deprived in two dimensions" ...
+ $ deprivation         : num  0 26952 21374 12688 4856 ...</code></pre>
+</div>
+</div>
 <p><strong>Referencing data frames</strong></p>
+<p>To refer to particular parts of a data frame - say, a particular column, or a subset of respondents. Hence it is worth spending some time understanding how to reference data frames.</p>
+<p>The relevant R function, <code>[ ]</code>, has the format <code>[row,col]</code> or, more generally, <code>[set of rows, set of cols]</code>.</p>
+<p>Run the following commands to get a feel of how to extract different slices of the data:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>df <span class="co"># whole data.frame</span></span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a>df[<span class="dv">1</span>, <span class="dv">1</span>] <span class="co"># contents of first row and column</span></span>
+<span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-5"><a href="#cb50-5" aria-hidden="true" tabindex="-1"></a>df[<span class="dv">2</span>, <span class="dv">2</span><span class="sc">:</span><span class="dv">3</span>] <span class="co"># contents of the second row, second and third columns</span></span>
+<span id="cb50-6"><a href="#cb50-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-7"><a href="#cb50-7" aria-hidden="true" tabindex="-1"></a>df[<span class="dv">1</span>, ] <span class="co"># first row, ALL columns [the default if no columns specified]</span></span>
+<span id="cb50-8"><a href="#cb50-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-9"><a href="#cb50-9" aria-hidden="true" tabindex="-1"></a>df[ ,<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>] <span class="co"># ALL rows; first and second columns</span></span>
+<span id="cb50-10"><a href="#cb50-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-11"><a href="#cb50-11" aria-hidden="true" tabindex="-1"></a>df[<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">5</span>), ] <span class="co"># rows 1,3,5; ALL columns</span></span>
+<span id="cb50-12"><a href="#cb50-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-13"><a href="#cb50-13" aria-hidden="true" tabindex="-1"></a>df[ , <span class="dv">2</span>] <span class="co"># ALL rows; second column (by default results containing only </span></span>
+<span id="cb50-14"><a href="#cb50-14" aria-hidden="true" tabindex="-1"></a>             <span class="co">#one column are converted back into a vector)</span></span>
+<span id="cb50-15"><a href="#cb50-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-16"><a href="#cb50-16" aria-hidden="true" tabindex="-1"></a>df[ , <span class="dv">2</span>, drop<span class="ot">=</span><span class="cn">FALSE</span>] <span class="co"># ALL rows; second column (returned as a data.frame)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>In the above, note that we have used two other R functions:</p>
+<p><code>1:3</code> The colon operator tells R to produce a list of numbers including the named start and end points.</p>
+<p><code>c(1,3,5)</code> tells R to combine the contents within the brackets into one list of objects.</p>
+<p>Run both of these functions on their own to get a better understanding of what they do.</p>
+<p>Three other methods for referencing the contents of a data.frame make direct use of the variable names within the data.frame, which tends to make for easier to read/understand code:</p>
+<pre><code>df[, "deprivation"] # variable name in quotes inside the square brackets
+
+df$deprivation # variable name prefixed with $ and appended to the data.frame name
+# or you can use attach
+
+attach(df)
+deprivation # but be careful if you already have an age variable in your local workspace</code></pre>
+<p>Want to check the variables available, use the <code>names( )</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "lt_la"                "deprivation_category" "deprivation"         </code></pre>
+</div>
+</div>
 <p><strong>Manipulating data frames</strong></p>
-<p><code>tidyverse</code></p>
+<p><u><em>Adding new columns</em></u></p>
+<p>Usually you want to add or create new variables to your data frame using existing variables e.g.&nbsp;computing percentages by dividing two variables. There are many ways in which you can do this i.e.&nbsp;referencing a data frame as we have done above, or using <code>$</code> (e.g.&nbsp;df_census$pop). For this course, we will use tidyverse.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>df_census <span class="ot">&lt;-</span> df_census <span class="sc">%&gt;%</span> </span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>( <span class="at">active_travel =</span> Method.of.travel.to.workplace..Bicycle <span class="sc">+</span> Method.of.travel.to.workplace..On.foot )</span>
+<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(df_census)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>'data.frame':   35672 obs. of  16 variables:
+ $ date                                                                                                                     : int  2021 2021 2021 2021 2021 2021 2021 2021 2021 2021 ...
+ $ geography                                                                                                                : chr  "City of London 001A" "City of London 001B" "City of London 001C" "City of London 001E" ...
+ $ geography.code                                                                                                           : chr  "E01000001" "E01000002" "E01000003" "E01000005" ...
+ $ Method.of.travel.to.workplace..Total..All.usual.residents.aged.16.years.and.over.in.employment.the.week.before.the.census: int  866 881 1000 496 888 1385 651 784 740 904 ...
+ $ Method.of.travel.to.workplace..Work.mainly.at.or.from.home                                                               : int  639 676 618 203 192 370 80 163 136 188 ...
+ $ Method.of.travel.to.workplace..Underground..metro..light.rail..tram                                                      : int  35 31 74 69 205 358 126 201 155 203 ...
+ $ Method.of.travel.to.workplace..Train                                                                                     : int  17 10 21 25 104 177 74 96 88 112 ...
+ $ Method.of.travel.to.workplace..Bus..minibus.or.coach                                                                     : int  13 15 26 44 60 117 125 70 86 98 ...
+ $ Method.of.travel.to.workplace..Taxi                                                                                      : int  4 2 4 2 1 8 4 1 1 10 ...
+ $ Method.of.travel.to.workplace..Motorcycle..scooter.or.moped                                                              : int  3 1 4 3 5 3 3 4 3 5 ...
+ $ Method.of.travel.to.workplace..Driving.a.car.or.van                                                                      : int  18 19 24 33 227 220 176 166 174 203 ...
+ $ Method.of.travel.to.workplace..Passenger.in.a.car.or.van                                                                 : int  0 3 7 1 10 21 11 19 28 12 ...
+ $ Method.of.travel.to.workplace..Bicycle                                                                                   : int  24 25 62 18 6 21 6 5 12 14 ...
+ $ Method.of.travel.to.workplace..On.foot                                                                                   : int  109 92 143 90 61 71 40 44 42 38 ...
+ $ Method.of.travel.to.workplace..Other.method.of.travel.to.work                                                            : int  4 7 17 8 17 19 6 15 15 21 ...
+ $ active_travel                                                                                                            : int  133 117 205 108 67 92 46 49 54 52 ...</code></pre>
+</div>
+</div>
+<p>Note we used a pipe operator <code>%&gt;%</code>. This operator helps make the code more efficient and readable, see <span class="citation" data-cites="wickham2023r">Wickham, Çetinkaya-Rundel, and Grolemund (<a href="references.html#ref-wickham2023r" role="doc-biblioref">2023</a>)</span> for more details. When using the pipe operator, recall to first indicate the data frame before <code>%&gt;%</code>.</p>
+<p>Note also the use a variable name before the <code>=</code> sign in brackets to indicate the name of the new variable after mutate.</p>
+<p><u><em>Selecting columns</em></u></p>
+<p>Usually you want to select a subset of variables for your analysis as storing to large data sets in your R memory can reduce the processing speed of your machine. A selection of data can be achieved by using the <code>select</code> function:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a>ndf <span class="ot">&lt;-</span> df_census <span class="sc">%&gt;%</span> </span>
+<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>( geography, active_travel)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Again first indicate the data frame and then the variable you want to select to build a new data frame. Note the code chunk above has created a new data frame called <code>ndf</code>. Explore it.</p>
+<p><u><em>Filtering data</em></u></p>
+<p>You may also want to filter values based on defined conditions. You may want to filter observations greater than a certain threshold or only areas within a certain region. For example, you may want to select areas with an active travel count over 100:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a>ndf2 <span class="ot">&lt;-</span> ndf <span class="sc">%&gt;%</span> </span>
+<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>( active_travel <span class="sc">&gt;</span> <span class="dv">100</span> )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>You can use more than one variable to set conditions. Use “<code>,</code>” to add a condition.</p>
+<p><u><em>Joining data frames</em></u></p>
+<p>We often need to join data from separate data frames. To this end, you need a common unique id variable. Let us imagine we have two separate data frames i.e.&nbsp;our original census data frame (<code>df_census</code>) and our data frame containing our active travel counts (i.e.&nbsp;<code>ndf</code>), and we want to join them. We re-read our <code>df_census</code> and then join the data frames.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="co"># read data</span></span>
+<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a>df_census <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"./data/census2021-ts061-lsoa.csv"</span>)</span>
+<span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a><span class="co"># visualise data structure</span></span>
+<span id="cb58-4"><a href="#cb58-4" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(df_census)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>'data.frame':   35672 obs. of  15 variables:
+ $ date                                                                                                                     : int  2021 2021 2021 2021 2021 2021 2021 2021 2021 2021 ...
+ $ geography                                                                                                                : chr  "City of London 001A" "City of London 001B" "City of London 001C" "City of London 001E" ...
+ $ geography.code                                                                                                           : chr  "E01000001" "E01000002" "E01000003" "E01000005" ...
+ $ Method.of.travel.to.workplace..Total..All.usual.residents.aged.16.years.and.over.in.employment.the.week.before.the.census: int  866 881 1000 496 888 1385 651 784 740 904 ...
+ $ Method.of.travel.to.workplace..Work.mainly.at.or.from.home                                                               : int  639 676 618 203 192 370 80 163 136 188 ...
+ $ Method.of.travel.to.workplace..Underground..metro..light.rail..tram                                                      : int  35 31 74 69 205 358 126 201 155 203 ...
+ $ Method.of.travel.to.workplace..Train                                                                                     : int  17 10 21 25 104 177 74 96 88 112 ...
+ $ Method.of.travel.to.workplace..Bus..minibus.or.coach                                                                     : int  13 15 26 44 60 117 125 70 86 98 ...
+ $ Method.of.travel.to.workplace..Taxi                                                                                      : int  4 2 4 2 1 8 4 1 1 10 ...
+ $ Method.of.travel.to.workplace..Motorcycle..scooter.or.moped                                                              : int  3 1 4 3 5 3 3 4 3 5 ...
+ $ Method.of.travel.to.workplace..Driving.a.car.or.van                                                                      : int  18 19 24 33 227 220 176 166 174 203 ...
+ $ Method.of.travel.to.workplace..Passenger.in.a.car.or.van                                                                 : int  0 3 7 1 10 21 11 19 28 12 ...
+ $ Method.of.travel.to.workplace..Bicycle                                                                                   : int  24 25 62 18 6 21 6 5 12 14 ...
+ $ Method.of.travel.to.workplace..On.foot                                                                                   : int  109 92 143 90 61 71 40 44 42 38 ...
+ $ Method.of.travel.to.workplace..Other.method.of.travel.to.work                                                            : int  4 7 17 8 17 19 6 15 15 21 ...</code></pre>
+</div>
+</div>
+<p>The variable <code>geography</code> in this data frame corresponds to the unique identifier we will use. As they are unique, they can be automatically matched by using the <code>merge()</code> function. The <code>merge()</code> function uses two arguments: <code>x</code> and <code>y</code>. The former refers to data frame 1 and the latter to data frame 2. Both of these two data frames must have a id variable containing the same information. Note they can have different names. Another key argument to include is <code>all.x=TRUE</code> which tells the function to keep all the records in <code>x</code>, but only those in <code>y</code> that match in case there are discrepancies in the <code>id</code> variable.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="co"># join data frames</span></span>
+<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a>join_dfs <span class="ot">&lt;-</span> <span class="fu">merge</span>( df_census, <span class="co"># df1</span></span>
+<span id="cb60-3"><a href="#cb60-3" aria-hidden="true" tabindex="-1"></a>                   ndf, <span class="co"># df2</span></span>
+<span id="cb60-4"><a href="#cb60-4" aria-hidden="true" tabindex="-1"></a>                   <span class="at">by.x=</span><span class="st">"geography"</span>, <span class="at">by.y=</span><span class="st">"geography"</span>, <span class="co"># common ids</span></span>
+<span id="cb60-5"><a href="#cb60-5" aria-hidden="true" tabindex="-1"></a>                   <span class="at">all.x =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb60-6"><a href="#cb60-6" aria-hidden="true" tabindex="-1"></a><span class="co"># check data</span></span>
+<span id="cb60-7"><a href="#cb60-7" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(join_dfs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  geography date geography.code
+1 Adur 001A 2021      E01031349
+2 Adur 001B 2021      E01031350
+3 Adur 001C 2021      E01031351
+4 Adur 001D 2021      E01031352
+5 Adur 001E 2021      E01031370
+6 Adur 001F 2021      E01031374
+  Method.of.travel.to.workplace..Total..All.usual.residents.aged.16.years.and.over.in.employment.the.week.before.the.census
+1                                                                                                                       665
+2                                                                                                                       655
+3                                                                                                                       771
+4                                                                                                                       685
+5                                                                                                                       694
+6                                                                                                                       832
+  Method.of.travel.to.workplace..Work.mainly.at.or.from.home
+1                                                        203
+2                                                        170
+3                                                        216
+4                                                        192
+5                                                        191
+6                                                        301
+  Method.of.travel.to.workplace..Underground..metro..light.rail..tram
+1                                                                   0
+2                                                                   2
+3                                                                   0
+4                                                                   0
+5                                                                   1
+6                                                                   0
+  Method.of.travel.to.workplace..Train
+1                                   15
+2                                   12
+3                                   13
+4                                    9
+5                                    8
+6                                   21
+  Method.of.travel.to.workplace..Bus..minibus.or.coach
+1                                                   20
+2                                                   36
+3                                                   24
+4                                                   31
+5                                                   20
+6                                                   23
+  Method.of.travel.to.workplace..Taxi
+1                                   0
+2                                   4
+3                                   3
+4                                   4
+5                                   4
+6                                   1
+  Method.of.travel.to.workplace..Motorcycle..scooter.or.moped
+1                                                           7
+2                                                           3
+3                                                           4
+4                                                           6
+5                                                           6
+6                                                           4
+  Method.of.travel.to.workplace..Driving.a.car.or.van
+1                                                 326
+2                                                 318
+3                                                 412
+4                                                 351
+5                                                 341
+6                                                 364
+  Method.of.travel.to.workplace..Passenger.in.a.car.or.van
+1                                                       23
+2                                                       33
+3                                                       22
+4                                                       25
+5                                                       22
+6                                                       28
+  Method.of.travel.to.workplace..Bicycle Method.of.travel.to.workplace..On.foot
+1                                     17                                     48
+2                                     18                                     48
+3                                     24                                     44
+4                                     19                                     41
+5                                     25                                     66
+6                                     32                                     52
+  Method.of.travel.to.workplace..Other.method.of.travel.to.work active_travel
+1                                                             6            65
+2                                                            11            66
+3                                                             9            68
+4                                                             7            60
+5                                                            10            91
+6                                                             6            84</code></pre>
+</div>
+</div>
+<p><u><em>Saving data</em></u></p>
+<p>You may need to save your R projects. Projects contain all the objects that you have created in your workspace. You can save them by using the <code>save.image( )</code> function:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="fu">save.image</span>(<span class="st">"lcr-course_day-1.RData"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>This creates a file labelled <code>“lcr-course_day-1.RData”</code> in your working directory. You can load this at a later stage using the <code>load( )</code> function.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">"lcr-course_day-1.RData"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Alternatively you can save or export your data into a csv file. The first argument in the function is the object name, and the second: the name of the csv we want to create.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(join_dfs, <span class="st">"join_censusdfs.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </section>
-<section id="geographic-data-frames" class="level3" data-number="1.9.2">
+<section id="geographic-data-frames" class="level3 page-columns page-full" data-number="1.9.2">
 <h3 data-number="1.9.2" class="anchored" data-anchor-id="geographic-data-frames"><span class="header-section-number">1.9.2</span> Geographic data frames</h3>
-<p><strong>Reading geographic data frames</strong></p>
+<p>An important component of geographic data science is to manipulate geographic data frames. R has various purposely designed <code>packages</code> for manipulation of spatial data and spatial analysis techniques. Various packages exist in CRAN, including <code>sf</code> <span class="citation" data-cites="sf2018 R-sf">(<a href="references.html#ref-sf2018" role="doc-biblioref">E. Pebesma 2018</a>, <a href="references.html#ref-R-sf" role="doc-biblioref">2022a</a>)</span>, <code>stars</code> <span class="citation" data-cites="R-stars">(<a href="references.html#ref-R-stars" role="doc-biblioref">E. Pebesma 2022b</a>)</span>, <code>terra</code>, <code>s2</code> <span class="citation" data-cites="R-s2">(<a href="references.html#ref-R-s2" role="doc-biblioref">Dunnington, Pebesma, and Rubak 2023</a>)</span>, <code>lwgeom</code> <span class="citation" data-cites="R-lwgeom">(<a href="references.html#ref-R-lwgeom" role="doc-biblioref">E. Pebesma 2023</a>)</span>, <code>gstat</code> <span class="citation" data-cites="pebesma2004 R-gstat">(<a href="references.html#ref-pebesma2004" role="doc-biblioref">E. J. Pebesma 2004</a>; <a href="references.html#ref-R-gstat" role="doc-biblioref">E. Pebesma and Graeler 2022</a>)</span>, <code>spdep</code> <span class="citation" data-cites="R-spdep">(<a href="references.html#ref-R-spdep" role="doc-biblioref">Bivand 2022</a>)</span>, <code>spatialreg</code> <span class="citation" data-cites="R-spatialreg">(<a href="references.html#ref-R-spatialreg" role="doc-biblioref">Bivand and Piras 2022</a>)</span>, <code>spatstat</code> <span class="citation" data-cites="baddeley2015spatial R-spatstat">(<a href="references.html#ref-baddeley2015spatial" role="doc-biblioref">Baddeley, Rubak, and Turner 2015</a>; <a href="references.html#ref-R-spatstat" role="doc-biblioref">Baddeley, Turner, and Rubak 2022</a>)</span>, <code>tmap</code> <span class="citation" data-cites="tmap2018 R-tmap">(<a href="references.html#ref-tmap2018" role="doc-biblioref">Tennekes 2018</a>, <a href="references.html#ref-R-tmap" role="doc-biblioref">2022</a>)</span>, <code>mapview</code> <span class="citation" data-cites="R-mapview">(<a href="references.html#ref-R-mapview" role="doc-biblioref">Appelhans et al. 2022</a>)</span> and more. A key package is this ecosystem is <code>sf</code> <span class="citation" data-cites="pebesma2023spatial">(<a href="references.html#ref-pebesma2023spatial" role="doc-biblioref">E. Pebesma and Bivand 2023</a>)</span>. R package <code>sf</code> provides a table format for simple features, where feature geometries are stored in a list-column. It appeared in 2016 and was developed to move spatial data analysis in R closer to standards-based approaches seen in the industry and open source projects, to build upon more modern versions of open source geospatial software stack and allow for integration of R spatial software with the <code>tidyverse</code> <span class="citation" data-cites="tidyverse2019">(<a href="references.html#ref-tidyverse2019" role="doc-biblioref">Wickham et al. 2019</a>)</span>, particularly <code>ggplot2</code>, <code>dplyr</code>, and <code>tidyr</code>. Hence, this book relies heavely on <code>sf</code> for the manipulation and analysis of the data.</p>
+
+<div class="no-row-height column-margin column-container"><div class="">
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><span class="citation" data-cites="lovelace2024">Lovelace, Nowosad, and Muenchow (<a href="references.html#ref-lovelace2024" role="doc-biblioref">2024</a>)</span> provide a helpful overview and evolution of R spatial package ecosystem.</p>
+</div>
+</div>
+</div></div><p><strong>Reading geographic data frames</strong></p>
+<p>To read our spatial data, we use the st_read function. We read a shapefile containing data at the Lower Super Output Areas (LSOAs) level.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb65"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a>sdf <span class="ot">&lt;-</span> <span class="fu">st_read</span>(<span class="st">"./data/LCR-LSOA.gpkg"</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Reading layer `LCR-LSOA' from data source 
+  `/Users/franciscorowe/Dropbox/Francisco/Research/grants/2024/lcr_training/lcr-training/data/LCR-LSOA.gpkg' 
+  using driver `GPKG'
+Simple feature collection with 1043 features and 7 fields
+Geometry type: MULTIPOLYGON
+Dimension:     XY
+Bounding box:  xmin: 318351.7 ymin: 377513.8 xmax: 361791.1 ymax: 422866.5
+Projected CRS: OSGB36 / British National Grid</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb67"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(sdf)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Simple feature collection with 6 features and 7 fields
+Geometry type: MULTIPOLYGON
+Dimension:     XY
+Bounding box:  xmin: 356526.1 ymin: 397294.1 xmax: 359746.3 ymax: 399734.2
+Projected CRS: OSGB36 / British National Grid
+   LSOA21CD   LSOA21NM                               GlobalID Rank. Decile
+1 E01006220 Wigan 035A {6A968831-6B5B-42A7-AFDE-9A2FD2E01FE2}     5      5
+2 E01006225 Wigan 036B {0727B328-8FBD-4074-A887-A40CB89502E2}     9      9
+3 E01006226 Wigan 035E {8A587355-7518-47EF-A60A-6CB117F54F05}     8      8
+4 E01006227 Wigan 038A {CC387BCB-5B3B-4E57-ABA3-4ADB3175D624}     8      8
+5 E01006264 Wigan 036D {89C9660D-5EC9-4498-BEBF-BED018377F41}    10     10
+6 E01006346 Wigan 038E {37DD7E6B-F345-400F-BD76-D8700BFCE534}     7      7
+       Top  Bottom.                           geom
+1 17.47911 42.96657 MULTIPOLYGON (((359223.5 39...
+2 39.40579 27.52150 MULTIPOLYGON (((356696.7 39...
+3 29.37013 36.02265 MULTIPOLYGON (((358079.4 39...
+4 27.95950 37.14953 MULTIPOLYGON (((359464.4 39...
+5 38.51224 26.55367 MULTIPOLYGON (((356526.2 39...
+6 28.96305 36.88915 MULTIPOLYGON (((359465.7 39...</code></pre>
+</div>
+</div>
+<p>Examine the input data. A spatial data frame stores a range of attributes derived from a shapefile including the geometry of features (e.g.&nbsp;polygon shape and location), attributes for each feature (stored in the .dbf), projection and coordinates of the shapefile’s bounding box - for details, execute:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb69"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a>?st_read</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>You can employ the usual functions to visualise the content of the created data frame:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb70"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a><span class="co"># visualise variable names</span></span>
+<span id="cb70-2"><a href="#cb70-2" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(sdf)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "LSOA21CD" "LSOA21NM" "GlobalID" "Rank."    "Decile"   "Top"      "Bottom." 
+[8] "geom"    </code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb72"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a><span class="co"># data structure</span></span>
+<span id="cb72-2"><a href="#cb72-2" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(sdf)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Classes 'sf' and 'data.frame':  1043 obs. of  8 variables:
+ $ LSOA21CD: chr  "E01006220" "E01006225" "E01006226" "E01006227" ...
+ $ LSOA21NM: chr  "Wigan 035A" "Wigan 036B" "Wigan 035E" "Wigan 038A" ...
+ $ GlobalID: chr  "{6A968831-6B5B-42A7-AFDE-9A2FD2E01FE2}" "{0727B328-8FBD-4074-A887-A40CB89502E2}" "{8A587355-7518-47EF-A60A-6CB117F54F05}" "{CC387BCB-5B3B-4E57-ABA3-4ADB3175D624}" ...
+ $ Rank.   : num  5 9 8 8 10 7 10 7 9 1 ...
+ $ Decile  : int  5 9 8 8 10 7 10 7 9 1 ...
+ $ Top     : num  17.5 39.4 29.4 28 38.5 ...
+ $ Bottom. : num  43 27.5 36 37.1 26.6 ...
+ $ geom    :sfc_MULTIPOLYGON of length 1043; first list element: List of 3
+  ..$ :List of 1
+  .. ..$ : num [1:17, 1:2] 359223 359312 359308 359300 359297 ...
+  ..$ :List of 1
+  .. ..$ : num [1:4, 1:2] 359352 359347 359346 359352 398448 ...
+  ..$ :List of 1
+  .. ..$ : num [1:12, 1:2] 359474 359467 359461 359462 359464 ...
+  ..- attr(*, "class")= chr [1:3] "XY" "MULTIPOLYGON" "sfg"
+ - attr(*, "sf_column")= chr "geom"
+ - attr(*, "agr")= Factor w/ 3 levels "constant","aggregate",..: NA NA NA NA NA NA NA
+  ..- attr(*, "names")= chr [1:7] "LSOA21CD" "LSOA21NM" "GlobalID" "Rank." ...</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb74"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a><span class="co"># see first few observations</span></span>
+<span id="cb74-2"><a href="#cb74-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(sdf)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Simple feature collection with 6 features and 7 fields
+Geometry type: MULTIPOLYGON
+Dimension:     XY
+Bounding box:  xmin: 356526.1 ymin: 397294.1 xmax: 359746.3 ymax: 399734.2
+Projected CRS: OSGB36 / British National Grid
+   LSOA21CD   LSOA21NM                               GlobalID Rank. Decile
+1 E01006220 Wigan 035A {6A968831-6B5B-42A7-AFDE-9A2FD2E01FE2}     5      5
+2 E01006225 Wigan 036B {0727B328-8FBD-4074-A887-A40CB89502E2}     9      9
+3 E01006226 Wigan 035E {8A587355-7518-47EF-A60A-6CB117F54F05}     8      8
+4 E01006227 Wigan 038A {CC387BCB-5B3B-4E57-ABA3-4ADB3175D624}     8      8
+5 E01006264 Wigan 036D {89C9660D-5EC9-4498-BEBF-BED018377F41}    10     10
+6 E01006346 Wigan 038E {37DD7E6B-F345-400F-BD76-D8700BFCE534}     7      7
+       Top  Bottom.                           geom
+1 17.47911 42.96657 MULTIPOLYGON (((359223.5 39...
+2 39.40579 27.52150 MULTIPOLYGON (((356696.7 39...
+3 29.37013 36.02265 MULTIPOLYGON (((358079.4 39...
+4 27.95950 37.14953 MULTIPOLYGON (((359464.4 39...
+5 38.51224 26.55367 MULTIPOLYGON (((356526.2 39...
+6 28.96305 36.88915 MULTIPOLYGON (((359465.7 39...</code></pre>
+</div>
+</div>
 <p><strong>Manipulating geographic data frames</strong></p>
+<p>As indicated above, the advantage of using <code>sf</code> to handle spatial data frames is that you can deploy all the tidyverse ecosystem. For example, try the tasks below.</p>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p><strong>Task</strong></p>
+<p>Try selecting columns “LSOA21NM” and “Decile” and using the new data frame to filter the data by “Decile = 5”.</p>
+</div>
+</div>
+</div>
+<p><u><em>Simplifying boundaries</em></u></p>
+<p>Normally, the resolution of boundaries is very detailed and precise, but such level of detail and precision is not necessary for visualisation purposes, making their rendering small and computationally intensive. To address this, we simplify the boundaries which means we make them less detailed and precise. We can achive this as follows”</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb76"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb76-1"><a href="#cb76-1" aria-hidden="true" tabindex="-1"></a><span class="co"># simplify boundaries</span></span>
+<span id="cb76-2"><a href="#cb76-2" aria-hidden="true" tabindex="-1"></a>simple_sdf <span class="ot">&lt;-</span> sdf <span class="sc">%&gt;%</span> </span>
+<span id="cb76-3"><a href="#cb76-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_simplify</span>(<span class="at">preserveTopology =</span>T, </span>
+<span id="cb76-4"><a href="#cb76-4" aria-hidden="true" tabindex="-1"></a>              <span class="at">dTolerance =</span> <span class="dv">100</span>) <span class="sc">%&gt;%</span>  <span class="co"># 100m</span></span>
+<span id="cb76-5"><a href="#cb76-5" aria-hidden="true" tabindex="-1"></a>  sf<span class="sc">::</span><span class="fu">st_make_valid</span>() <span class="co"># check the geometry is valid</span></span>
+<span id="cb76-6"><a href="#cb76-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb76-7"><a href="#cb76-7" aria-hidden="true" tabindex="-1"></a>simple_sdf</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Simple feature collection with 1043 features and 7 fields
+Geometry type: GEOMETRY
+Dimension:     XY
+Bounding box:  xmin: 318370.4 ymin: 377513.8 xmax: 361791.1 ymax: 422852
+Projected CRS: OSGB36 / British National Grid
+First 10 features:
+    LSOA21CD      LSOA21NM                               GlobalID Rank. Decile
+1  E01006220    Wigan 035A {6A968831-6B5B-42A7-AFDE-9A2FD2E01FE2}     5      5
+2  E01006225    Wigan 036B {0727B328-8FBD-4074-A887-A40CB89502E2}     9      9
+3  E01006226    Wigan 035E {8A587355-7518-47EF-A60A-6CB117F54F05}     8      8
+4  E01006227    Wigan 038A {CC387BCB-5B3B-4E57-ABA3-4ADB3175D624}     8      8
+5  E01006264    Wigan 036D {89C9660D-5EC9-4498-BEBF-BED018377F41}    10     10
+6  E01006346    Wigan 038E {37DD7E6B-F345-400F-BD76-D8700BFCE534}     7      7
+7  E01006348    Wigan 039E {A24ED8C9-78AC-4C8C-8E32-45135C82072B}    10     10
+8  E01006366    Wigan 018E {3CF75243-6530-41F4-81F5-12B8F9C9FD73}     7      7
+9  E01006368    Wigan 018G {02EA8DCD-7F22-4B80-A9D2-C16E346F6AB4}     9      9
+10 E01006412 Knowsley 006A {F20DE2BD-17F4-4CAC-B81D-DDCD2335AD32}     1      1
+        Top  Bottom.                           geom
+1  17.47911 42.96657 MULTIPOLYGON (((359466.9 39...
+2  39.40579 27.52150 MULTIPOLYGON (((357307.6 39...
+3  29.37013 36.02265 MULTIPOLYGON (((358079.4 39...
+4  27.95950 37.14953 MULTIPOLYGON (((359464.7 39...
+5  38.51224 26.55367 MULTIPOLYGON (((356600.3 39...
+6  28.96305 36.88915 MULTIPOLYGON (((359555.1 39...
+7  45.76905 19.96260 MULTIPOLYGON (((359656.1 39...
+8  35.56405 29.57298 MULTIPOLYGON (((352147.5 40...
+9  35.92737 26.32944 MULTIPOLYGON (((353739.3 40...
+10 11.05569 42.80964 POLYGON ((342810.5 394193.3...</code></pre>
+</div>
+</div>
+<p><u><em>Reprojecting boundaries</em></u></p>
+<p>We often work with multiple shapefiles in one project and these shapefiles can have boundaries in different projections. As such, they need to be harmonised before they can be integrated in analysis. We show how this process can be conducted.</p>
+<p>The first step is to decide the Coordinate Reference Systems (CRS) for the data to be projected. In this example, we use the World Geodetic System 1984 (i.e.&nbsp;EPSG:4326).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb78"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb78-1"><a href="#cb78-1" aria-hidden="true" tabindex="-1"></a><span class="co"># set crs</span></span>
+<span id="cb78-2"><a href="#cb78-2" aria-hidden="true" tabindex="-1"></a>crs_default <span class="ot">=</span> <span class="st">"EPSG:4326"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb79"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb79-1"><a href="#cb79-1" aria-hidden="true" tabindex="-1"></a><span class="co"># change crs</span></span>
+<span id="cb79-2"><a href="#cb79-2" aria-hidden="true" tabindex="-1"></a>repro_simple_sdf <span class="ot">&lt;-</span> simple_sdf <span class="sc">%&gt;%</span> </span>
+<span id="cb79-3"><a href="#cb79-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_transform</span>(crs_default) </span>
+<span id="cb79-4"><a href="#cb79-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb79-5"><a href="#cb79-5" aria-hidden="true" tabindex="-1"></a>repro_simple_sdf</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Simple feature collection with 1043 features and 7 fields
+Geometry type: GEOMETRY
+Dimension:     XY
+Bounding box:  xmin: -3.22874 ymin: 53.28929 xmax: -2.576743 ymax: 53.69821
+Geodetic CRS:  WGS 84
+First 10 features:
+    LSOA21CD      LSOA21NM                               GlobalID Rank. Decile
+1  E01006220    Wigan 035A {6A968831-6B5B-42A7-AFDE-9A2FD2E01FE2}     5      5
+2  E01006225    Wigan 036B {0727B328-8FBD-4074-A887-A40CB89502E2}     9      9
+3  E01006226    Wigan 035E {8A587355-7518-47EF-A60A-6CB117F54F05}     8      8
+4  E01006227    Wigan 038A {CC387BCB-5B3B-4E57-ABA3-4ADB3175D624}     8      8
+5  E01006264    Wigan 036D {89C9660D-5EC9-4498-BEBF-BED018377F41}    10     10
+6  E01006346    Wigan 038E {37DD7E6B-F345-400F-BD76-D8700BFCE534}     7      7
+7  E01006348    Wigan 039E {A24ED8C9-78AC-4C8C-8E32-45135C82072B}    10     10
+8  E01006366    Wigan 018E {3CF75243-6530-41F4-81F5-12B8F9C9FD73}     7      7
+9  E01006368    Wigan 018G {02EA8DCD-7F22-4B80-A9D2-C16E346F6AB4}     9      9
+10 E01006412 Knowsley 006A {F20DE2BD-17F4-4CAC-B81D-DDCD2335AD32}     1      1
+        Top  Bottom.                           geom
+1  17.47911 42.96657 MULTIPOLYGON (((-2.612213 5...
+2  39.40579 27.52150 MULTIPOLYGON (((-2.644766 5...
+3  29.37013 36.02265 MULTIPOLYGON (((-2.633147 5...
+4  27.95950 37.14953 MULTIPOLYGON (((-2.612225 5...
+5  38.51224 26.55367 MULTIPOLYGON (((-2.655565 5...
+6  28.96305 36.88915 MULTIPOLYGON (((-2.610809 5...
+7  45.76905 19.96260 MULTIPOLYGON (((-2.609102 5...
+8  35.56405 29.57298 MULTIPOLYGON (((-2.723027 5...
+9  35.92737 26.32944 MULTIPOLYGON (((-2.698892 5...
+10 11.05569 42.80964 POLYGON ((-2.862428 53.4413...</code></pre>
+</div>
+</div>
+<p><u><em>Mapping</em></u></p>
+<p>We can also quickly map spatial boundaries by using the R base function <code>plot</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb81"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb81-1"><a href="#cb81-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(simple_sdf<span class="sc">$</span>geom)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="01_fundamentals_files/figure-html/unnamed-chunk-42-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>During the next session, we will explore more sophisticated ways of mapping spatial data using different packages and functions.</p>
 
 
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
+<div id="ref-R-mapview" class="csl-entry" role="listitem">
+Appelhans, Tim, Florian Detsch, Christoph Reudenbach, and Stefan Woellauer. 2022. <em>Mapview: Interactive Viewing of Spatial Data in r</em>. <a href="https://github.com/r-spatial/mapview">https://github.com/r-spatial/mapview</a>.
+</div>
+<div id="ref-baddeley2015spatial" class="csl-entry" role="listitem">
+Baddeley, Adrian, Ege Rubak, and Rolf Turner. 2015. <em>Spatial Point Patterns: Methodology and Applications with r</em>. CRC press.
+</div>
+<div id="ref-R-spatstat" class="csl-entry" role="listitem">
+Baddeley, Adrian, Rolf Turner, and Ege Rubak. 2022. <em>Spatstat: Spatial Point Pattern Analysis, Model-Fitting, Simulation, Tests</em>. <a href="http://spatstat.org/">http://spatstat.org/</a>.
+</div>
+<div id="ref-R-spdep" class="csl-entry" role="listitem">
+Bivand, Roger. 2022. <em>Spdep: Spatial Dependence: Weighting Schemes, Statistics</em>.
+</div>
+<div id="ref-R-spatialreg" class="csl-entry" role="listitem">
+Bivand, Roger, and Gianfranco Piras. 2022. <em>Spatialreg: Spatial Regression Analysis</em>. <a href="https://CRAN.R-project.org/package=spatialreg">https://CRAN.R-project.org/package=spatialreg</a>.
+</div>
+<div id="ref-R-s2" class="csl-entry" role="listitem">
+Dunnington, Dewey, Edzer Pebesma, and Ege Rubak. 2023. <em>S2: Spherical Geometry Operators Using the S2 Geometry Library</em>. <a href="https://CRAN.R-project.org/package=s2">https://CRAN.R-project.org/package=s2</a>.
+</div>
+<div id="ref-lovelace2024" class="csl-entry" role="listitem">
+Lovelace, Robin, Jakub Nowosad, and Jannes Muenchow. 2024. <em>Geocomputation with r</em>. Online. <a href="https://doi.org/10.1201/9780203730058">https://doi.org/10.1201/9780203730058</a>.
+</div>
+<div id="ref-sf2018" class="csl-entry" role="listitem">
+Pebesma, Edzer. 2018. <span>“<span class="nocase">Simple Features for R: Standardized Support for Spatial Vector Data</span>.”</span> <em><span>The R Journal</span></em> 10 (1): 439–46. <a href="https://doi.org/10.32614/RJ-2018-009">https://doi.org/10.32614/RJ-2018-009</a>.
+</div>
+<div id="ref-R-sf" class="csl-entry" role="listitem">
+———. 2022a. <em>Sf: Simple Features for r</em>. <a href="https://CRAN.R-project.org/package=sf">https://CRAN.R-project.org/package=sf</a>.
+</div>
+<div id="ref-R-stars" class="csl-entry" role="listitem">
+———. 2022b. <em>Stars: Spatiotemporal Arrays, Raster and Vector Data Cubes</em>. <a href="https://CRAN.R-project.org/package=stars">https://CRAN.R-project.org/package=stars</a>.
+</div>
+<div id="ref-R-lwgeom" class="csl-entry" role="listitem">
+———. 2023. <em>Lwgeom: Bindings to Selected Liblwgeom Functions for Simple Features</em>. <a href="https://github.com/r-spatial/lwgeom/">https://github.com/r-spatial/lwgeom/</a>.
+</div>
+<div id="ref-pebesma2004" class="csl-entry" role="listitem">
+Pebesma, Edzer J. 2004. <span>“Multivariable Geostatistics in S: The Gstat Package.”</span> <em>Computers &amp; Geosciences</em> 30 (7): 683–91. <a href="https://doi.org/10.1016/j.cageo.2004.03.012">https://doi.org/10.1016/j.cageo.2004.03.012</a>.
+</div>
+<div id="ref-pebesma2023spatial" class="csl-entry" role="listitem">
+Pebesma, Edzer, and Roger Bivand. 2023. <em>Spatial Data Science: With Applications in r</em>. CRC Press.
+</div>
+<div id="ref-R-gstat" class="csl-entry" role="listitem">
+Pebesma, Edzer, and Benedikt Graeler. 2022. <em>Gstat: Spatial and Spatio-Temporal Geostatistical Modelling, Prediction and Simulation</em>. <a href="https://github.com/r-spatial/gstat/">https://github.com/r-spatial/gstat/</a>.
+</div>
+<div id="ref-tmap2018" class="csl-entry" role="listitem">
+Tennekes, Martijn. 2018. <span>“<span class="nocase">tmap</span>: Thematic Maps in <span>R</span>.”</span> <em>Journal of Statistical Software</em> 84 (6): 1–39. <a href="https://doi.org/10.18637/jss.v084.i06">https://doi.org/10.18637/jss.v084.i06</a>.
+</div>
+<div id="ref-R-tmap" class="csl-entry" role="listitem">
+———. 2022. <em>Tmap: Thematic Maps</em>. <a href="https://github.com/r-tmap/tmap">https://github.com/r-tmap/tmap</a>.
+</div>
+<div id="ref-tidyverse2019" class="csl-entry" role="listitem">
+Wickham, Hadley, Mara Averick, Jennifer Bryan, Winston Chang, Lucy D’Agostino McGowan, Romain François, Garrett Grolemund, et al. 2019. <span>“Welcome to the <span class="nocase">tidyverse</span>.”</span> <em>Journal of Open Source Software</em> 4 (43): 1686. <a href="https://doi.org/10.21105/joss.01686">https://doi.org/10.21105/joss.01686</a>.
+</div>
+<div id="ref-wickham2023r" class="csl-entry" role="listitem">
+Wickham, Hadley, Mine Çetinkaya-Rundel, and Garrett Grolemund. 2023. <em>R for Data Science</em>. " O’Reilly Media, Inc.".
+</div>
 <div id="ref-xie2018" class="csl-entry" role="listitem">
 Xie, Yihui, J. J. Allaire, and Garrett Grolemund. 2018. <em>R Markdown</em>. Chapman; Hall/CRC. <a href="https://doi.org/10.1201/9781138359444">https://doi.org/10.1201/9781138359444</a>.
 </div>
