@@ -1,6 +1,6 @@
 # Data Visualisation
 
-## Learning Objectives
+## Learning objectives
 
 By the end of today's session you should be able to:
 
@@ -18,7 +18,7 @@ library(plotly)
 library(htmlwidgets)
 ```
 
-## Introducing Today's Dataset(s)
+## Data
 
 For today's practical, we will be using a couple of different datasets.
 
@@ -117,7 +117,7 @@ colnames(db)
 
 Ok, so we have a nice data set that is cleaned and ready for use in today's practical.
 
-## Static Data Visualisation (Easy)
+## Static data visualisation (basic)
 
 For most of today's practical, we are going to be using the [ggplot2 package](https://ggplot2.tidyverse.org/) to learn how to create nice visualisations in R. It is a really awesome package, has really excellent documentation and the quality of graphics it can produce is (arguably) second-to-none.
 
@@ -324,7 +324,7 @@ However, as you're probably thinking, something more advanced might be needed to
 
 We will explore some of these ideas in the next part of the course, where I will show you how to reshape dataframes, and the importance of doing so for producing really powerful visualisations.
 
-## Static Data Visualisation (Harder)
+## Static data visualisation (advanced)
 
 Ok, so by now you should understand the basics of producing static visualisations with ggplot. Now, we are going to work towards building some better visualisations, which are not possible to achieve without learning more about reshaping data. If you are familar with pivot tables, its a similar concept!
 
@@ -564,7 +564,7 @@ ggplot(data = lsoa) +
 
 Awesome! You've made a really nice map using R with literally only a couple of lines of code. Take a look at [Geocomputation with R](https://r.geocompx.org/) if you are interested in learning more about how to use R to make maps, or as a GIS. The syntax for different spatial operations (spatial join, intersection etc.) is really intuitive!
 
-## Interactive Data Visualisation
+## Interactive data visualisation
 
 Ok, so for the final part of today's practical we are going to explore some options for producing interactive visualisations using R. By interactive we mean producing a visual representation of data that can be explored and analysed directly within the visualisation itself.
 
@@ -676,7 +676,7 @@ tmap_save(p3, "figs/Map.html")
 2.  Think about what additional spatial information you might add to a map like this to tell a good story - chat to Patrick. Clue: how might data on transport infrastructure help to explain differences in public transport usage.
 3.  (*optional*) Download another spatial dataset, and have a go at trying to produce a map with it.
 
-## Additional Resources
+## Additional resources
 
 As I said at the beginning of the practical, ggplot really benefits from a great community which contributes lots of documentation and examples about how to use ggplot for different applications.
 

@@ -223,21 +223,20 @@ div.csl-indent {
   <li><a href="#dependencies" id="toc-dependencies" class="nav-link" data-scroll-target="#dependencies"><span class="header-section-number">1.3</span> Dependencies</a></li>
   <li><a href="#introducing-r" id="toc-introducing-r" class="nav-link" data-scroll-target="#introducing-r"><span class="header-section-number">1.4</span> Introducing R</a></li>
   <li><a href="#working-directory" id="toc-working-directory" class="nav-link" data-scroll-target="#working-directory"><span class="header-section-number">1.5</span> Working directory</a></li>
-  <li><a href="#r-scripts-and-quarto-documents" id="toc-r-scripts-and-quarto-documents" class="nav-link" data-scroll-target="#r-scripts-and-quarto-documents"><span class="header-section-number">1.6</span> R scripts and Quarto documents</a>
+  <li><a href="#r-scripts" id="toc-r-scripts" class="nav-link" data-scroll-target="#r-scripts"><span class="header-section-number">1.6</span> R scripts</a></li>
+  <li><a href="#quarto-document" id="toc-quarto-document" class="nav-link" data-scroll-target="#quarto-document"><span class="header-section-number">1.7</span> Quarto Document</a>
   <ul class="collapse">
-  <li><a href="#r-script" id="toc-r-script" class="nav-link" data-scroll-target="#r-script"><span class="header-section-number">1.6.1</span> R script</a></li>
-  <li><a href="#quarto-document" id="toc-quarto-document" class="nav-link" data-scroll-target="#quarto-document"><span class="header-section-number">1.6.2</span> Quarto Document</a></li>
-  <li><a href="#using-quarto-documents" id="toc-using-quarto-documents" class="nav-link" data-scroll-target="#using-quarto-documents"><span class="header-section-number">1.6.3</span> Using quarto documents</a></li>
+  <li><a href="#using-quarto-documents" id="toc-using-quarto-documents" class="nav-link" data-scroll-target="#using-quarto-documents"><span class="header-section-number">1.7.1</span> Using quarto documents</a></li>
   </ul></li>
-  <li><a href="#help" id="toc-help" class="nav-link" data-scroll-target="#help"><span class="header-section-number">1.7</span> Help</a></li>
-  <li><a href="#r-data-types" id="toc-r-data-types" class="nav-link" data-scroll-target="#r-data-types"><span class="header-section-number">1.8</span> R data types</a>
+  <li><a href="#help" id="toc-help" class="nav-link" data-scroll-target="#help"><span class="header-section-number">1.8</span> Help</a></li>
+  <li><a href="#r-data-types" id="toc-r-data-types" class="nav-link" data-scroll-target="#r-data-types"><span class="header-section-number">1.9</span> R data types</a>
   <ul class="collapse">
-  <li><a href="#factors" id="toc-factors" class="nav-link" data-scroll-target="#factors"><span class="header-section-number">1.8.1</span> Factors</a></li>
+  <li><a href="#factors" id="toc-factors" class="nav-link" data-scroll-target="#factors"><span class="header-section-number">1.9.1</span> Factors</a></li>
   </ul></li>
-  <li><a href="#data-frames" id="toc-data-frames" class="nav-link" data-scroll-target="#data-frames"><span class="header-section-number">1.9</span> Data frames</a>
+  <li><a href="#data-frames" id="toc-data-frames" class="nav-link" data-scroll-target="#data-frames"><span class="header-section-number">1.10</span> Data frames</a>
   <ul class="collapse">
-  <li><a href="#non-geographic-data-frames" id="toc-non-geographic-data-frames" class="nav-link" data-scroll-target="#non-geographic-data-frames"><span class="header-section-number">1.9.1</span> Non-geographic data frames</a></li>
-  <li><a href="#geographic-data-frames" id="toc-geographic-data-frames" class="nav-link" data-scroll-target="#geographic-data-frames"><span class="header-section-number">1.9.2</span> Geographic data frames</a></li>
+  <li><a href="#non-geographic-data-frames" id="toc-non-geographic-data-frames" class="nav-link" data-scroll-target="#non-geographic-data-frames"><span class="header-section-number">1.10.1</span> Non-geographic data frames</a></li>
+  <li><a href="#geographic-data-frames" id="toc-geographic-data-frames" class="nav-link" data-scroll-target="#geographic-data-frames"><span class="header-section-number">1.10.2</span> Geographic data frames</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -335,9 +334,9 @@ div.csl-indent {
 </section>
 <section id="introducing-r" class="level2 page-columns page-full" data-number="1.4">
 <h2 data-number="1.4" class="anchored" data-anchor-id="introducing-r"><span class="header-section-number">1.4</span> Introducing R</h2>
-<p>R is a freely available language and environment for statistical computing and graphics which provides a wide variety of statistical and graphical techniques. It has gained widespread use in academia and industry. R offers a wider array of functionality than a traditional statistics package, is composed of core (base) functionality, and is expandable through libraries hosted on (The Comprehensive R Archive Network (CRAN))[https://cran.r-project.org]. CRAN is a network of ftp and web servers around the world that store identical, up-to-date, versions of code and documentation for R.</p>
-<p>Commands are sent to R using either the terminal / command line or the R Console which is installed with R on either Windows or OS X. On Linux, there is no equivalent of the console, however, third party solutions exist. On your own machine, R can be installed from here.</p>
-<p>Normally RStudio is used to implement R coding. RStudio is an integrated development environment (IDE) for R and provides a more user-friendly front-end to R than the front-end provided with R.</p>
+<p>R is a freely available language and environment for statistical computing and graphics which provides a wide variety of statistical and graphical techniques. It has gained widespread use in academia and industry. R offers a wider array of functionality than a traditional statistics package, is composed of core (base) functionality, and is expandable through libraries hosted on <a href="https://cran.r-project.org">The Comprehensive R Archive Network (CRAN)</a>. CRAN is a network of ftp and web servers around the world that store identical, up-to-date, versions of code and documentation for R.</p>
+<p>Commands are sent to R using either the terminal / command line or the R Console which is installed with R on either Windows or OS X. On Linux, there is no equivalent of the console, however, third party solutions exist. On your own machine, R can be installed from <a href="https://www.r-project.org">here</a>.</p>
+<p>Normally RStudio is used to implement R coding. <a href="https://posit.co/download/rstudio-desktop/">RStudio</a> is an integrated development environment (IDE) for R and provides a more user-friendly front-end to R than the front-end provided with R.</p>
 <p>To run R or RStudio, just double click on the R or RStudio icon. Throughout this course, we will be using RStudio:</p>
 <p><img src="./figs/01/rstudio-shot.png" class="img-fluid"></p>
 
@@ -352,7 +351,7 @@ Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>If you would like to know more about the various features of RStudio, watch this video.</p>
+<p>If you would like to know more about the various features of RStudio, read this <a href="https://www.datacamp.com/tutorial/r-studio-tutorial">post</a>.</p>
 </div>
 </div>
 </div></div></section>
@@ -374,10 +373,8 @@ Note
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">read_csv</span>(<span class="st">"./data"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="r-scripts-and-quarto-documents" class="level2 page-columns page-full" data-number="1.6">
-<h2 data-number="1.6" class="anchored" data-anchor-id="r-scripts-and-quarto-documents"><span class="header-section-number">1.6</span> R scripts and Quarto documents</h2>
-<section id="r-script" class="level3 page-columns page-full" data-number="1.6.1">
-<h3 data-number="1.6.1" class="anchored" data-anchor-id="r-script"><span class="header-section-number">1.6.1</span> R script</h3>
+<section id="r-scripts" class="level2 page-columns page-full" data-number="1.6">
+<h2 data-number="1.6" class="anchored" data-anchor-id="r-scripts"><span class="header-section-number">1.6</span> R scripts</h2>
 <p>An <em>R script</em> is a series of commands that you can execute at one time and help you save time. R scripts are useful to ensure reproducibility; that is if you want to repeat the same series of steps with the same or different datasets. An R script is a plain text file with R commands.</p>
 
 <div class="no-row-height column-margin column-container"><div class="">
@@ -453,8 +450,8 @@ Volvo 142E          21.4   4 121.0 109 4.11 2.780 18.60  1  1    4    2</code></
 </div>
 </div>
 </section>
-<section id="quarto-document" class="level3" data-number="1.6.2">
-<h3 data-number="1.6.2" class="anchored" data-anchor-id="quarto-document"><span class="header-section-number">1.6.2</span> Quarto Document</h3>
+<section id="quarto-document" class="level2" data-number="1.7">
+<h2 data-number="1.7" class="anchored" data-anchor-id="quarto-document"><span class="header-section-number">1.7</span> Quarto Document</h2>
 <p>A <em>Quarto Document</em> is based on Markdown technology. It allows to integrate descriptive text and code chunks. Code chunks can be executed independently and interactively, with output visible immediately beneath a code chunk - see <span class="citation" data-cites="xie2018">Xie, Allaire, and Grolemund (<a href="references.html#ref-xie2018" role="doc-biblioref">2018</a>)</span>. A Quarto Document is an improved version of the original R Notebook. Quarto Document requires a package called Quarto. Quarto does not have a dependency or requirement for R. Quarto is multilingual, beginning with R, Python, Javascript, and Julia. The concept is that Quarto will work even for languages that do not yet exist.</p>
 <p>To create a Quarto Document, you need to:</p>
 <ul>
@@ -480,9 +477,8 @@ Volvo 142E          21.4   4 121.0 109 4.11 2.780 18.60  1  1    4    2</code></
 <li><p>Rendering</p></li>
 </ul>
 <p>To master Quarto, please read the <a href="https://quarto.org/docs/guide/">Quarto Guide page</a>.</p>
-</section>
-<section id="using-quarto-documents" class="level3" data-number="1.6.3">
-<h3 data-number="1.6.3" class="anchored" data-anchor-id="using-quarto-documents"><span class="header-section-number">1.6.3</span> Using quarto documents</h3>
+<section id="using-quarto-documents" class="level3" data-number="1.7.1">
+<h3 data-number="1.7.1" class="anchored" data-anchor-id="using-quarto-documents"><span class="header-section-number">1.7.1</span> Using quarto documents</h3>
 <p>Quarto documents are very flexible. They can be rendered into different formats, including pdf, html and doc files. They can be used to product reports, articles, briefs, websites, books and more. We can explore how this can be done using some of the templates we have produced and are hosted on our personal <a href="https://github.com/fcorowe/research-article-template">Github</a> repository.</p>
 <p>Let us explore the use of Quarto documents by downloading the repository above and examine the various templates available.</p>
 <div class="callout callout-style-simple callout-tip no-icon">
@@ -498,8 +494,8 @@ Volvo 142E          21.4   4 121.0 109 4.11 2.780 18.60  1  1    4    2</code></
 </div>
 </section>
 </section>
-<section id="help" class="level2" data-number="1.7">
-<h2 data-number="1.7" class="anchored" data-anchor-id="help"><span class="header-section-number">1.7</span> Help</h2>
+<section id="help" class="level2" data-number="1.8">
+<h2 data-number="1.8" class="anchored" data-anchor-id="help"><span class="header-section-number">1.8</span> Help</h2>
 <p>You can use&nbsp;<code>help</code>&nbsp;or&nbsp;<code>?</code>&nbsp;to ask for details for a specific function:</p>
 <pre><code>help(sqrt) #or ?sqrt</code></pre>
 <p>And using&nbsp;<code>example</code>&nbsp;provides examples for said function:</p>
@@ -628,8 +624,8 @@ gem_mp+ }</code></pre>
 </div>
 </div>
 </section>
-<section id="r-data-types" class="level2" data-number="1.8">
-<h2 data-number="1.8" class="anchored" data-anchor-id="r-data-types"><span class="header-section-number">1.8</span> R data types</h2>
+<section id="r-data-types" class="level2" data-number="1.9">
+<h2 data-number="1.9" class="anchored" data-anchor-id="r-data-types"><span class="header-section-number">1.9</span> R data types</h2>
 <p>There are a number of data types. Four are the most common. In R, numeric is the default type for numbers. It stores all numbers as floating-point numbers (numbers with decimals). This is because most statistical calculations deal with numbers with up to two decimals.</p>
 <p>Before starting with the various data types which R can handle, we should understand that any element appearing in our R environment is called a R object and they can take different shapes. It could be a single character, a vector, a matrix, a list or have a more complex structure.</p>
 <p>Numeric</p>
@@ -687,8 +683,8 @@ gem_mp+ }</code></pre>
 </div>
 </div>
 </div>
-<section id="factors" class="level3" data-number="1.8.1">
-<h3 data-number="1.8.1" class="anchored" data-anchor-id="factors"><span class="header-section-number">1.8.1</span> Factors</h3>
+<section id="factors" class="level3" data-number="1.9.1">
+<h3 data-number="1.9.1" class="anchored" data-anchor-id="factors"><span class="header-section-number">1.9.1</span> Factors</h3>
 <p>A factor variable assigns a numeric code to each possible category (level) in a variable. Behind the scenes, R stores the variable using these numeric codes to save space and speed up computing. For example, compare the size of a list of 10,000 males and females to a list of 10,000 1s and 0s. At the same time R also saves the category names associated with each numeric code (level). These are used for display purposes.</p>
 <p>For example, the variable gender, converted to a factor, would be stored as a series of 1s and 2s, where 1 = female and 2 = male; but would be displayed in all outputs using their category labels of female and male.</p>
 <p><strong>Defining a factor</strong></p>
@@ -777,11 +773,11 @@ Levels: low &lt; middle &lt; high</code></pre>
 </div>
 </section>
 </section>
-<section id="data-frames" class="level2 page-columns page-full" data-number="1.9">
-<h2 data-number="1.9" class="anchored" data-anchor-id="data-frames"><span class="header-section-number">1.9</span> Data frames</h2>
+<section id="data-frames" class="level2 page-columns page-full" data-number="1.10">
+<h2 data-number="1.10" class="anchored" data-anchor-id="data-frames"><span class="header-section-number">1.10</span> Data frames</h2>
 <p>R stores different types of data using different types of data structure. Data are normally stored as a data.frame. Data frames are a special R object. A data frame contains one row per observation and one column per attribute. In this course, we distinguish between non-geographic and geographic data frames.</p>
-<section id="non-geographic-data-frames" class="level3 page-columns page-full" data-number="1.9.1">
-<h3 data-number="1.9.1" class="anchored" data-anchor-id="non-geographic-data-frames"><span class="header-section-number">1.9.1</span> Non-geographic data frames</h3>
+<section id="non-geographic-data-frames" class="level3 page-columns page-full" data-number="1.10.1">
+<h3 data-number="1.10.1" class="anchored" data-anchor-id="non-geographic-data-frames"><span class="header-section-number">1.10.1</span> Non-geographic data frames</h3>
 <p>Non-geographic data frames are data structures which have no indexed spatial elements as we will see below.</p>
 <p><strong>Reading data frames</strong></p>
 <p>We will start by illustrating how data frames can be read from our local hard drive. R has many commands to read and load data objects. The command to use will depend upon the format they have been saved. Normally they are saved in csv format from Excel or other software packages. So we use either of these lines of code:</p>
@@ -1086,8 +1082,8 @@ deprivation # but be careful if you already have an age variable in your local w
 <div class="sourceCode cell-code" id="cb64"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(join_dfs, <span class="st">"join_censusdfs.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="geographic-data-frames" class="level3 page-columns page-full" data-number="1.9.2">
-<h3 data-number="1.9.2" class="anchored" data-anchor-id="geographic-data-frames"><span class="header-section-number">1.9.2</span> Geographic data frames</h3>
+<section id="geographic-data-frames" class="level3 page-columns page-full" data-number="1.10.2">
+<h3 data-number="1.10.2" class="anchored" data-anchor-id="geographic-data-frames"><span class="header-section-number">1.10.2</span> Geographic data frames</h3>
 <p>An important component of geographic data science is to manipulate geographic data frames. R has various purposely designed <code>packages</code> for manipulation of spatial data and spatial analysis techniques. Various packages exist in CRAN, including <code>sf</code> <span class="citation" data-cites="sf2018 R-sf">(<a href="references.html#ref-sf2018" role="doc-biblioref">E. Pebesma 2018</a>, <a href="references.html#ref-R-sf" role="doc-biblioref">2022a</a>)</span>, <code>stars</code> <span class="citation" data-cites="R-stars">(<a href="references.html#ref-R-stars" role="doc-biblioref">E. Pebesma 2022b</a>)</span>, <code>terra</code>, <code>s2</code> <span class="citation" data-cites="R-s2">(<a href="references.html#ref-R-s2" role="doc-biblioref">Dunnington, Pebesma, and Rubak 2023</a>)</span>, <code>lwgeom</code> <span class="citation" data-cites="R-lwgeom">(<a href="references.html#ref-R-lwgeom" role="doc-biblioref">E. Pebesma 2023</a>)</span>, <code>gstat</code> <span class="citation" data-cites="pebesma2004 R-gstat">(<a href="references.html#ref-pebesma2004" role="doc-biblioref">E. J. Pebesma 2004</a>; <a href="references.html#ref-R-gstat" role="doc-biblioref">E. Pebesma and Graeler 2022</a>)</span>, <code>spdep</code> <span class="citation" data-cites="R-spdep">(<a href="references.html#ref-R-spdep" role="doc-biblioref">Bivand 2022</a>)</span>, <code>spatialreg</code> <span class="citation" data-cites="R-spatialreg">(<a href="references.html#ref-R-spatialreg" role="doc-biblioref">Bivand and Piras 2022</a>)</span>, <code>spatstat</code> <span class="citation" data-cites="baddeley2015spatial R-spatstat">(<a href="references.html#ref-baddeley2015spatial" role="doc-biblioref">Baddeley, Rubak, and Turner 2015</a>; <a href="references.html#ref-R-spatstat" role="doc-biblioref">Baddeley, Turner, and Rubak 2022</a>)</span>, <code>tmap</code> <span class="citation" data-cites="tmap2018 R-tmap">(<a href="references.html#ref-tmap2018" role="doc-biblioref">Tennekes 2018</a>, <a href="references.html#ref-R-tmap" role="doc-biblioref">2022</a>)</span>, <code>mapview</code> <span class="citation" data-cites="R-mapview">(<a href="references.html#ref-R-mapview" role="doc-biblioref">Appelhans et al. 2022</a>)</span> and more. A key package is this ecosystem is <code>sf</code> <span class="citation" data-cites="pebesma2023spatial">(<a href="references.html#ref-pebesma2023spatial" role="doc-biblioref">E. Pebesma and Bivand 2023</a>)</span>. R package <code>sf</code> provides a table format for simple features, where feature geometries are stored in a list-column. It appeared in 2016 and was developed to move spatial data analysis in R closer to standards-based approaches seen in the industry and open source projects, to build upon more modern versions of open source geospatial software stack and allow for integration of R spatial software with the <code>tidyverse</code> <span class="citation" data-cites="tidyverse2019">(<a href="references.html#ref-tidyverse2019" role="doc-biblioref">Wickham et al. 2019</a>)</span>, particularly <code>ggplot2</code>, <code>dplyr</code>, and <code>tidyr</code>. Hence, this book relies heavely on <code>sf</code> for the manipulation and analysis of the data.</p>
 
 <div class="no-row-height column-margin column-container"><div class="">
