@@ -2,34 +2,30 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://fcorowe.github.io/lcr-training/index.html</loc>
-    <lastmod>2024-05-16T08:41:41.311Z</lastmod>
+    <lastmod>2024-05-20T10:49:24.467Z</lastmod>
   </url>
   <url>
     <loc>https://fcorowe.github.io/lcr-training/00_overview.html</loc>
-    <lastmod>2024-05-17T10:54:30.942Z</lastmod>
+    <lastmod>2024-05-20T10:49:24.469Z</lastmod>
   </url>
   <url>
-    <loc>https://fcorowe.github.io/lcr-training/01_data-description.html</loc>
-    <lastmod>2024-05-06T07:42:36.789Z</lastmod>
+    <loc>https://fcorowe.github.io/lcr-training/01_fundamentals.html</loc>
+    <lastmod>2024-05-20T10:49:24.481Z</lastmod>
   </url>
   <url>
-    <loc>https://fcorowe.github.io/lcr-training/02_fundamentals.html</loc>
-    <lastmod>2024-05-20T08:56:54.977Z</lastmod>
+    <loc>https://fcorowe.github.io/lcr-training/02_data-visualisation.html</loc>
+    <lastmod>2024-05-20T10:49:24.585Z</lastmod>
   </url>
   <url>
-    <loc>https://fcorowe.github.io/lcr-training/03_data-visualisation.html</loc>
-    <lastmod>2024-05-20T08:57:09.551Z</lastmod>
+    <loc>https://fcorowe.github.io/lcr-training/04_data-modeling.html</loc>
+    <lastmod>2024-05-20T10:49:24.587Z</lastmod>
   </url>
   <url>
-    <loc>https://fcorowe.github.io/lcr-training/04_dashboards-api.html</loc>
-    <lastmod>2024-05-20T10:29:17.627Z</lastmod>
-  </url>
-  <url>
-    <loc>https://fcorowe.github.io/lcr-training/05_data-modeling.html</loc>
-    <lastmod>2024-05-20T08:30:16.955Z</lastmod>
+    <loc>https://fcorowe.github.io/lcr-training/05_data-description.html</loc>
+    <lastmod>2024-05-20T10:49:24.589Z</lastmod>
   </url>
   <url>
     <loc>https://fcorowe.github.io/lcr-training/references.html</loc>
-    <lastmod>2024-05-15T09:23:13.303Z</lastmod>
+    <lastmod>2024-05-20T10:49:24.591Z</lastmod>
   </url>
 </urlset>
