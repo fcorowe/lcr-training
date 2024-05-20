@@ -6,8 +6,8 @@ By the end of today's session you should be able to:
 
 1.  Understand the basic principles of APIs
 2.  Download and visualise data from NOMIS using the NOMIS API
-3.  Understand the basic principles of R Shiny
-4.  Build a basic dashboard using R Shiny
+3.  Understand the basic principles of flexdashboard
+4.  Build a basic dashboard using flexdashboard
 
 ```{r include = FALSE}
 ## Today's packages
@@ -27,7 +27,7 @@ For example, on NOMIS there is a page called ['Census 2021 Bulk Data Download'](
 
 Now you should go to the ['Census 2021 Bulk Data Download'](https://www.nomisweb.co.uk/sources/census_2021_bulk) page, and see what it contains.
 
-\[IMAGE\]
+![NOMIS](figs/04/nomis.png)
 
 There are lots of files on the web page - e.g. census2021-ts001.zip, census2021-ts007a.zip.
 
@@ -40,11 +40,11 @@ url <- "https://www.nomisweb.co.uk/output/census/2021/census2021-ts061.zip"
 url
 ```
 
-The specific URL above relates to table [TS061 - "Method of Travel to Work"](https://www.ons.gov.uk/employmentandlabourmarket/peopleinwork/employmentandemployeetypes/bulletins/traveltoworkenglandandwales/census2021), which is the same dataset we were using in yesterday's Data Visualisation workshop.
+The specific URL above relates to table [TS061 - "Method of Travel to Work"](https://www.ons.gov.uk/employmentandlabourmarket/peopleinwork/employmentandemployeetypes/bulletins/traveltoworkenglandandwales/census2021), which is the same dataset we were using in the Data Visualisation workshop.
 
 Now I'm going to show you how to download the .zip file, and read in the file of data we used yesterday. This is a really basic example of using an API, which shows how you can download data from NOMIS into your environment, without having to physically go and download it, save it to a folder, unzip it and read it into memory.
 
-First, let's download the .zip file - this line of code downloads the .zip file to your local machine, which you will be able to find in your working directory - go and take a look!
+First, let's download the .zip file - this line of code downloads the .zip file to your local machine. It creates a new file in your working directory called 'temp.zip' - go and take a look!
 
 ```{r}
 ## Download the .zip file, using the url set above
@@ -74,11 +74,54 @@ Thankfully, NOMIS use a really standard naming protocol for their files, which m
 db <- read.csv("data/unzip/census2021-ts061-lsoa.csv")
 ```
 
-### Independent exercise - Over to you!
+### Independent exercise - Over to you! (15 - 20 mins)
 
 1.  As a recap, see if you can reproduce one of the visualisations we produced yesterday using the data we have just scraped from the API.
-2.  Test downloading two more datasets from NOMIS, by swapping in different table names into the URL.
+2.  Test downloading two more datasets from NOMIS, by swapping in new URLs, and reading in one of the files from the folder you download.
 3.  (*optional*) Produce an interesting visualisation from that new dataset.
+
+**Solution 2**
+
+```{r}
+## Set the new URL
+url2 <- "https://www.nomisweb.co.uk/output/census/2021/census2021-ts066.zip"
+
+## Download the files
+download.file(url2, "temp2.zip")
+
+## Unzip the files
+outDir2 <- "data/unzip2"
+## Unzip the folder to the data/unzip folder
+unzip("temp2.zip", exdir = outDir2)
+
+## Read in the LSOA census data
+db2 <- read.csv("data/unzip2/census2021-ts066-lsoa.csv")
+
+## Select some columns to work with, and calculate % student
+db2_clean <- db2 %>%
+  select(geography.code, Economic.activity.status..Total..All.usual.residents.aged.16.years.and.over, Economic.activity.status..Economically.inactive..Student) %>%
+  setNames(c("LSOA21CD", "total", "student")) %>%
+  mutate(student = (student / total) * 100)
+```
+
+**Solution 3** 
+
+```{r}
+## Produce a histogram
+ggplot(data = db2_clean, aes(x = student)) +
+  geom_density(fill = "orange") +
+  labs(x = "Population who are students (%)", y = "Number of LSOAs",
+       caption = "Data: UK Census (2021) - 'Economic Activity Status' (ts066)") +
+  theme_minimal()
+```
+
+So what have we achieved? 
+
+1. You can now programmatically download datasets from the NOMIS bulk census page, without needing to download the files. 
+2. You can produce visualisations using these different datasets.
+3. You are in a position to automate download and visualisation of census data from NOMIS.
+
+However, there is one easier way of getting the data from NOMIS, and this involves use of the NOMIS API.
 
 ## Using the NOMIS API
 
@@ -88,13 +131,11 @@ One such example is [nomisr](https://docs.evanodell.com/nomisr/articles/introduc
 
 In the section that follows, I'm going to be showing you how to use the nomisr package to download datasets.
 
-Vast amounts of data are available through NOMIS, so you need to use some of the different functions within nomisr to identify the specific datasets you want to use.
-
-An example is presented below which searches for datasets within NOMIS that are specifically about 'Travel':
+Vast amounts of data are available through NOMIS, so you need to use some of the different functions within nomisr to identify the specific datasets you want to use. An example is presented below which searches for datasets within NOMIS that are specifically about 'Travel':
 
 ```{r}
 ## Search for data on Labour Force
-search <- nomis_search("*Population*")
+search <- nomis_search("*Travel*")
 ```
 
 This returns a dataframe (which you should see in your environment) that describes all of the different NOMIS held datasets where 'Travel' is mentioned. The column perhaps of most interest is the short name for the different datasets, which you can inspect below:
@@ -103,7 +144,6 @@ This returns a dataframe (which you should see in your environment) that describ
 ## Have a look at the first six datasets 
 head(search$name.value)
 ```
-
 If you open up the dataframe in your environment and scroll down you should see one row has the value - TS061 - Method used to travel to work - which is the one we've been using a lot in this practical.
 
 We can filter to this row very easily using the filter() command that we introduced yesterday:
@@ -116,6 +156,7 @@ search_sub <- search %>%
 ## Have a look at the result
 search_sub
 ```
+Notice how the table ID is `NM_2078_1`. 
 
 We can get some metadata for this dataset very easily using the nomis_get_metadata() command. First, let's see what measures are available:
 
@@ -124,7 +165,7 @@ We can get some metadata for this dataset very easily using the nomis_get_metada
 nomis_get_metadata(search_sub$id, "measures")
 ```
 
-So for TS061, we can get both raw counts ('value') and percent. Let's now see what geographies are available:
+So for TS061, we can get both raw counts ('value') and percent. Notice how the ID for counts is `20100` and the ID for percent is `20301`. Let's now see what geographies are available:
 
 ```{r}
 ## Supply the ID of the row we're interested in, and the second parameter specifies that we want to know more about geographies
@@ -138,9 +179,9 @@ Ok, so this is telling us the different geographic levels we can download the da
 nomis_get_metadata(search_sub$id, "geography", "TYPE")
 ```
 
-Those steps basically give us everything we need to download the dataset directly from the NOMIS API using the package, instead of downloading the .zip files directly.
+So there are a variety of different geographic levels at which we can download the dataset, including LSOA - see `2021 super output areas - lower layer`. Notice how the ID for LSOAs is `TYPE151`. 
 
-Let's download the file - it could take a while! If you don't understand any of the specific inputs to this line of code, feel free to shout Patrick to talk it through.
+Those steps we have just performed basically give us everything we need to download the dataset directly from the NOMIS API using the package, instead of downloading the .zip files directly. Let's download the file - it could take a while! If you don't understand any of the specific inputs to this line of code, feel free to shout Patrick to talk it through.
 
 ```{r}
 ## Download the file
@@ -160,7 +201,7 @@ db_clean <- db_v2 %>%
 head(db_clean)
 ```
 
-So as you can see from the table, it's actually in a long format, whereas we might want it to be in a wide format, where each column is the % of people using each transport mode. Let's use the pivot_wider() command to change this:
+So as you can see from the table, it's actually in a long format, whereas we might want it to be in a wide format, where each column is the % of people using each transport mode. Let's use the `pivot_wider()` command to change this:
 
 ```{r}
 ## Go from long to wide
@@ -195,18 +236,19 @@ ggplot(data = db_final, aes(x = work_from_home, y = car_driving)) +
        caption = "Data: UK Census (2021) - 'Method of travel to work' (ts061)") +
   theme_minimal()
 ```
+Nice! You have now learned how to programmatically use the API to scrape data from NOMIS, bypassing the need to download and unzip the files directly. Now, some independent tasks to check you can reproduce the steps. 
 
 ### Independent exercise - Over to you!
 
 1.  Experiment with downloading a different dataset using the nomisr package, and clean it.
 2.  Produce an interesting visualisation using your chosen dataset.
-3.  (*optional*) See if you can attach the LAD names to your dataset, and produce a visualisation that examines LAD differences in your chosen dataset - recommend you choose a dataset at either LSOA or MSOA geography to use yesterday's lookup table.
+3.  (*optional*) See if you can attach the LAD names to your dataset, and produce a visualisation that examines LAD differences in your chosen dataset - recommend you choose a dataset at either LSOA or MSOA geography to use yesterday's lookup table. If you are unsure of how to do this, you will need to go back to `Day 2 - Data Visualisation`. 
 
 ## Building Dashboards in R
 
 Dashboards are often a great way to share results and analyses with others. There are a number of ways you can build dashboards in R, including:
 
-1.  Using markdown (flexdashboard R package)
+1.  Using markdown (`flexdashboard` R package)
 2.  Using R shiny.
 
 The former offers you to create a dashboard with panels and pages very easily, and has significant advantages over R Shiny:
@@ -219,7 +261,7 @@ The former offers you to create a dashboard with panels and pages very easily, a
 
 To build a dashboard using R markdown, we will need to use an alternate type of computational workbook - thus far we have been working with Quarto files (.qmd), but now we need to switch to the format that supports "Flex Dashboards".
 
-However, flexdashboard runs into problems when linked to an existing R project, especially one which is hooked up to Quarto.
+However, `flexdashboard` runs into problems when linked to an existing R project, especially one which is hooked up to Quarto.
 
 **Important** So for this part of the project please create a new directory where you want to build your dashboard. For example, I've created a new folder called 'Dashboard', which is where I will be building my dashboard. Also, make sure to copy some of the datasets we have been using into this new directory:
 
@@ -231,7 +273,9 @@ The final step is to create a new file which will be used to build your dashboar
 
 The file should open up automatically, and should look the one below:
 
-![Blank Dashboard Template](figs/04/dashboard-raw.png) Now save it **inside your new folder** as something you can remember - e.g., dashboard.Rmd. It is vital that this new .Rmd is saved within your new folder, which should now look like this:
+![Blank Dashboard Template](figs/04/dashboard-raw.png) 
+
+Now save it **inside your new folder** as something you can remember - e.g., dashboard.Rmd. It is vital that this new .Rmd is saved within your new folder, which should now look like this:
 
 ![Full Directory](figs/04/complete.png)
 
@@ -250,7 +294,9 @@ Inside the file you will notice a couple of different things:
 
 Have a go at changing your YAML header to the following:
 
-![YAML](figs/04/yaml.png) These parameters are doing the following:
+![YAML](figs/04/yaml.png) 
+
+These parameters are doing the following:
 
 -   title: sets a title to appear at the top of the dashboard.
 -   orientation: determines whether charts should be aligned in rows or columns
@@ -262,7 +308,7 @@ R should open up a new window that looks like this:
 
 ![First Dashboard](figs/04/first.png)
 
-So you can see that the dashboard has three panes set up to host different types of visualisation. In the .Rmd file you'll notice that each \## denotes the start of a new column, and each \### denotes a new pane for visualisation.
+So you can see that the dashboard has three panes set up to host different types of visualisation. In the .Rmd file you'll notice that each `##` denotes the start of a new column, and each `###` denotes a new pane for visualisation.
 
 Let's change the layout slightly, to create a grid of four equally sized panes. To do this you need to:
 
@@ -282,7 +328,7 @@ Cool! So the dashboard layout is set up and ready to go!
 ### Independent exercise - Over to you!
 
 1.  Swap the orientation to be columns
-2.  See if you can set up the dashboard to be structured as 1 large pane on the left, and three on the right.
+2.  See if you can set up the dashboard to be structured as 1 large panel on the left, and three on the right.
 3.  (*optional*) Change the section headers for each pane to list some potential visualisations you might put in each, based on yesterday's class.
 
 SOLUTION:
@@ -297,7 +343,9 @@ However, the visualisations need to be produced within the .Rmd file before they
 
 The code chunks need to be placed before the dashboard structural parameters - i.e. before the \## Column commands in the script. Have a look at the example below where we read in and clean the census data we were using on Day 2:
 
-![How to insert code](figs/04/code-example.png) Then, once you have the read the data in you can produce one of the visualisations we made yesterday - such as the scatter plot we made yesterday:
+![How to insert code](figs/04/code-example.png) 
+
+Then, once you have the read the data in you can produce one of the visualisations we made yesterday - such as the scatter plot we made yesterday:
 
 ![Make a plot](figs/04/code-example2.png)
 
@@ -309,9 +357,9 @@ Now hit 'Knit' and you should see this plot on the dashboard:
 
 ![First stage](figs/04/dashboard-p1.png)
 
-### Independent exericse - Over to you!!
+### Independent exericse - Over to you!! (30 - 45 mins)
 
-Have a good at embedding some more visualisations on the dashboard. To do this you will need to reproduce lots of the analysis you did on Day 2.
+Have a go at embedding some more visualisations on the dashboard. To do this you will need to reproduce lots of the analysis you did on Day 2.
 
 Below I've included something that I put together, which is something you could aim to try and generate...
 

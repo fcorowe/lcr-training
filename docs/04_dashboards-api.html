@@ -6,7 +6,6 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Dr.&nbsp;Patrick Ballantyne">
 
 <title>R training: Liverpool City Region - 4&nbsp; Dashboards and APIs</title>
 <style>
@@ -135,7 +134,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
     <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title">Transport Dashboard - Liverpool</h1>
+      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Dashboards and APIs</span></h1>
       <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
         <i class="bi bi-chevron-right"></i>
       </button>
@@ -188,7 +187,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./04_dashboards-api.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Transport Dashboard - Liverpool</span></a>
+  <a href="./04_dashboards-api.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Dashboards and APIs</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -215,22 +214,25 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <li><a href="#learning-objectives" id="toc-learning-objectives" class="nav-link active" data-scroll-target="#learning-objectives"><span class="toc-section-number">4.1</span>  Learning Objectives</a></li>
   <li><a href="#introduction-to-apis" id="toc-introduction-to-apis" class="nav-link" data-scroll-target="#introduction-to-apis"><span class="toc-section-number">4.2</span>  Introduction to APIs</a>
   <ul class="collapse">
-  <li><a href="#independent-exercise---over-to-you" id="toc-independent-exercise---over-to-you" class="nav-link" data-scroll-target="#independent-exercise---over-to-you"><span class="toc-section-number">4.2.1</span>  Independent exercise - Over to you!</a></li>
+  <li><a href="#independent-exercise---over-to-you-15---20-mins" id="toc-independent-exercise---over-to-you-15---20-mins" class="nav-link" data-scroll-target="#independent-exercise---over-to-you-15---20-mins"><span class="toc-section-number">4.2.1</span>  Independent exercise - Over to you! (15 - 20 mins)</a></li>
   </ul></li>
   <li><a href="#using-the-nomis-api" id="toc-using-the-nomis-api" class="nav-link" data-scroll-target="#using-the-nomis-api"><span class="toc-section-number">4.3</span>  Using the NOMIS API</a>
   <ul class="collapse">
-  <li><a href="#independent-exercise---over-to-you-1" id="toc-independent-exercise---over-to-you-1" class="nav-link" data-scroll-target="#independent-exercise---over-to-you-1"><span class="toc-section-number">4.3.1</span>  Independent exercise - Over to you!</a></li>
+  <li><a href="#independent-exercise---over-to-you" id="toc-independent-exercise---over-to-you" class="nav-link" data-scroll-target="#independent-exercise---over-to-you"><span class="toc-section-number">4.3.1</span>  Independent exercise - Over to you!</a></li>
   </ul></li>
   <li><a href="#building-dashboards-in-r" id="toc-building-dashboards-in-r" class="nav-link" data-scroll-target="#building-dashboards-in-r"><span class="toc-section-number">4.4</span>  Building Dashboards in R</a>
   <ul class="collapse">
   <li><a href="#getting-started" id="toc-getting-started" class="nav-link" data-scroll-target="#getting-started"><span class="toc-section-number">4.4.1</span>  Getting started</a></li>
+  <li><a href="#introduction-to-flex-dashboard" id="toc-introduction-to-flex-dashboard" class="nav-link" data-scroll-target="#introduction-to-flex-dashboard"><span class="toc-section-number">4.4.2</span>  Introduction to Flex Dashboard</a></li>
+  <li><a href="#independent-exercise---over-to-you-1" id="toc-independent-exercise---over-to-you-1" class="nav-link" data-scroll-target="#independent-exercise---over-to-you-1"><span class="toc-section-number">4.4.3</span>  Independent exercise - Over to you!</a></li>
+  <li><a href="#embedding-visualisations" id="toc-embedding-visualisations" class="nav-link" data-scroll-target="#embedding-visualisations"><span class="toc-section-number">4.4.4</span>  Embedding visualisations</a></li>
+  <li><a href="#independent-exericse---over-to-you-30---45-mins" id="toc-independent-exericse---over-to-you-30---45-mins" class="nav-link" data-scroll-target="#independent-exericse---over-to-you-30---45-mins"><span class="toc-section-number">4.4.5</span>  Independent exericse - Over to you!! (30 - 45 mins)</a></li>
   </ul></li>
   <li><a href="#other-useful-reporting-techniques" id="toc-other-useful-reporting-techniques" class="nav-link" data-scroll-target="#other-useful-reporting-techniques"><span class="toc-section-number">4.5</span>  Other Useful Reporting Techniques</a>
   <ul class="collapse">
   <li><a href="#constructing-reports" id="toc-constructing-reports" class="nav-link" data-scroll-target="#constructing-reports"><span class="toc-section-number">4.5.1</span>  Constructing Reports</a></li>
   <li><a href="#routine-reporting" id="toc-routine-reporting" class="nav-link" data-scroll-target="#routine-reporting"><span class="toc-section-number">4.5.2</span>  Routine Reporting</a></li>
   </ul></li>
-  <li><a href="#additional-resources" id="toc-additional-resources" class="nav-link" data-scroll-target="#additional-resources"><span class="toc-section-number">4.6</span>  Additional Resources</a></li>
   </ul>
 </nav>
     </div>
@@ -239,26 +241,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title d-none d-lg-block">Transport Dashboard - Liverpool</h1>
+<h1 class="title d-none d-lg-block"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Dashboards and APIs</span></h1>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
-    <div>
-    <div class="quarto-title-meta-heading">Author</div>
-    <div class="quarto-title-meta-contents">
-             <p>Dr.&nbsp;Patrick Ballantyne </p>
-          </div>
-  </div>
     
-    <div>
-    <div class="quarto-title-meta-heading">Published</div>
-    <div class="quarto-title-meta-contents">
-      <p class="date">`r Sys.Date()</p>
-    </div>
-  </div>
     
   </div>
   
@@ -271,8 +261,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ol type="1">
 <li>Understand the basic principles of APIs</li>
 <li>Download and visualise data from NOMIS using the NOMIS API</li>
-<li>Understand the basic principles of R Shiny</li>
-<li>Build a basic dashboard using R Shiny</li>
+<li>Understand the basic principles of flexdashboard</li>
+<li>Build a basic dashboard using flexdashboard</li>
 </ol>
 </section>
 <section id="introduction-to-apis" class="level2" data-number="4.2">
@@ -281,7 +271,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>To download data from an API you need to send a HTTP request to a server, which tells the server to return the specific parcel of data that matches the criteria in the HTTP request.</p>
 <p>For example, on NOMIS there is a page called <a href="https://www.nomisweb.co.uk/sources/census_2021_bulk">‘Census 2021 Bulk Data Download’</a>, which contains .zip files for different tables of data available from the latest census.</p>
 <p>Now you should go to the <a href="https://www.nomisweb.co.uk/sources/census_2021_bulk">‘Census 2021 Bulk Data Download’</a> page, and see what it contains.</p>
-<p>[IMAGE]</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figs/04/nomis.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">NOMIS</figcaption><p></p>
+</figure>
+</div>
 <p>There are lots of files on the web page - e.g.&nbsp;census2021-ts001.zip, census2021-ts007a.zip.</p>
 <p>You can click on these files individually, download them to your PC, unzip them and read them into R. Alternatively, we can programmatically download the data directly from the webpage.</p>
 <p>If you ‘right click’ on one of the .zip files and press ‘copy link’, you will have a URL which can access that specific .zip file, as below:</p>
@@ -292,9 +287,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <pre><code>[1] "https://www.nomisweb.co.uk/output/census/2021/census2021-ts061.zip"</code></pre>
 </div>
 </div>
-<p>The specific URL above relates to table <a href="https://www.ons.gov.uk/employmentandlabourmarket/peopleinwork/employmentandemployeetypes/bulletins/traveltoworkenglandandwales/census2021">TS061 - “Method of Travel to Work”</a>, which is the same dataset we were using in yesterday’s Data Visualisation workshop.</p>
+<p>The specific URL above relates to table <a href="https://www.ons.gov.uk/employmentandlabourmarket/peopleinwork/employmentandemployeetypes/bulletins/traveltoworkenglandandwales/census2021">TS061 - “Method of Travel to Work”</a>, which is the same dataset we were using in the Data Visualisation workshop.</p>
 <p>Now I’m going to show you how to download the .zip file, and read in the file of data we used yesterday. This is a really basic example of using an API, which shows how you can download data from NOMIS into your environment, without having to physically go and download it, save it to a folder, unzip it and read it into memory.</p>
-<p>First, let’s download the .zip file - this line of code downloads the .zip file to your local machine, which you will be able to find in your working directory - go and take a look!</p>
+<p>First, let’s download the .zip file - this line of code downloads the .zip file to your local machine. It creates a new file in your working directory called ‘temp.zip’ - go and take a look!</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Download the .zip file, using the url set above</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">download.file</span>(url, <span class="st">"temp.zip"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -322,13 +317,54 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Read in the LSOA census data</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>db <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"data/unzip/census2021-ts061-lsoa.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<section id="independent-exercise---over-to-you" class="level3" data-number="4.2.1">
-<h3 data-number="4.2.1" class="anchored" data-anchor-id="independent-exercise---over-to-you"><span class="header-section-number">4.2.1</span> Independent exercise - Over to you!</h3>
+<section id="independent-exercise---over-to-you-15---20-mins" class="level3" data-number="4.2.1">
+<h3 data-number="4.2.1" class="anchored" data-anchor-id="independent-exercise---over-to-you-15---20-mins"><span class="header-section-number">4.2.1</span> Independent exercise - Over to you! (15 - 20 mins)</h3>
 <ol type="1">
 <li>As a recap, see if you can reproduce one of the visualisations we produced yesterday using the data we have just scraped from the API.</li>
-<li>Test downloading two more datasets from NOMIS, by swapping in different table names into the URL.</li>
+<li>Test downloading two more datasets from NOMIS, by swapping in new URLs, and reading in one of the files from the folder you download.</li>
 <li>(<em>optional</em>) Produce an interesting visualisation from that new dataset.</li>
 </ol>
+<p><strong>Solution 2</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Set the new URL</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>url2 <span class="ot">&lt;-</span> <span class="st">"https://www.nomisweb.co.uk/output/census/2021/census2021-ts066.zip"</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="do">## Download the files</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="fu">download.file</span>(url2, <span class="st">"temp2.zip"</span>)</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="do">## Unzip the files</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>outDir2 <span class="ot">&lt;-</span> <span class="st">"data/unzip2"</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="do">## Unzip the folder to the data/unzip folder</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="fu">unzip</span>(<span class="st">"temp2.zip"</span>, <span class="at">exdir =</span> outDir2)</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a><span class="do">## Read in the LSOA census data</span></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>db2 <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"data/unzip2/census2021-ts066-lsoa.csv"</span>)</span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a><span class="do">## Select some columns to work with, and calculate % student</span></span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>db2_clean <span class="ot">&lt;-</span> db2 <span class="sc">%&gt;%</span></span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(geography.code, Economic.activity.status..Total..All.usual.residents.aged.<span class="fl">16.</span>years.and.over, Economic.activity.status..Economically.inactive..Student) <span class="sc">%&gt;%</span></span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">setNames</span>(<span class="fu">c</span>(<span class="st">"LSOA21CD"</span>, <span class="st">"total"</span>, <span class="st">"student"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">student =</span> (student <span class="sc">/</span> total) <span class="sc">*</span> <span class="dv">100</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><strong>Solution 3</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Produce a histogram</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> db2_clean, <span class="fu">aes</span>(<span class="at">x =</span> student)) <span class="sc">+</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="at">fill =</span> <span class="st">"orange"</span>) <span class="sc">+</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Population who are students (%)"</span>, <span class="at">y =</span> <span class="st">"Number of LSOAs"</span>,</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">caption =</span> <span class="st">"Data: UK Census (2021) - 'Economic Activity Status' (ts066)"</span>) <span class="sc">+</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="04_dashboards-api_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>So what have we achieved?</p>
+<ol type="1">
+<li>You can now programmatically download datasets from the NOMIS bulk census page, without needing to download the files.</li>
+<li>You can produce visualisations using these different datasets.</li>
+<li>You are in a position to automate download and visualisation of census data from NOMIS.</li>
+</ol>
+<p>However, there is one easier way of getting the data from NOMIS, and this involves use of the NOMIS API.</p>
 </section>
 </section>
 <section id="using-the-nomis-api" class="level2" data-number="4.3">
@@ -336,16 +372,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>One of the things that you see more commonly in practice is the construction of specific R packages used to access APIs, with supporting documentation and specific functions that make it easier to use the API.</p>
 <p>One such example is <a href="https://docs.evanodell.com/nomisr/articles/introduction.html">nomisr</a>, which is an R package that was built to enable users to query data from NOMIS. It is free to access and contains up-to-date official statistics including data from the latest Census, Labour Force Survey and DWP benefit statistics.</p>
 <p>In the section that follows, I’m going to be showing you how to use the nomisr package to download datasets.</p>
-<p>Vast amounts of data are available through NOMIS, so you need to use some of the different functions within nomisr to identify the specific datasets you want to use.</p>
-<p>An example is presented below which searches for datasets within NOMIS that are specifically about ‘Travel’:</p>
+<p>Vast amounts of data are available through NOMIS, so you need to use some of the different functions within nomisr to identify the specific datasets you want to use. An example is presented below which searches for datasets within NOMIS that are specifically about ‘Travel’:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Search for data on Labour Force</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>search <span class="ot">&lt;-</span> <span class="fu">nomis_search</span>(<span class="st">"*Travel*"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Search for data on Labour Force</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>search <span class="ot">&lt;-</span> <span class="fu">nomis_search</span>(<span class="st">"*Travel*"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>This returns a dataframe (which you should see in your environment) that describes all of the different NOMIS held datasets where ‘Travel’ is mentioned. The column perhaps of most interest is the short name for the different datasets, which you can inspect below:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Have a look at the first six datasets </span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(search<span class="sc">$</span>name.value)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Have a look at the first six datasets </span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(search<span class="sc">$</span>name.value)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "2001 census - UK travel flows (local authority)"            
 [2] "2001 census - Scottish travel flows (local authority)"      
@@ -358,12 +393,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>If you open up the dataframe in your environment and scroll down you should see one row has the value - TS061 - Method used to travel to work - which is the one we’ve been using a lot in this practical.</p>
 <p>We can filter to this row very easily using the filter() command that we introduced yesterday:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Filter to row of interest</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>search_sub <span class="ot">&lt;-</span> search <span class="sc">%&gt;%</span></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(name.value <span class="sc">==</span> <span class="st">"TS061 - Method used to travel to work"</span>)</span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="do">## Have a look at the result</span></span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>search_sub</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Filter to row of interest</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>search_sub <span class="ot">&lt;-</span> search <span class="sc">%&gt;%</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(name.value <span class="sc">==</span> <span class="st">"TS061 - Method used to travel to work"</span>)</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="do">## Have a look at the result</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>search_sub</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 12
   agencyid id      uri   version annot…¹ compo…² compo…³ compo…⁴ compo…⁵ compo…⁶
@@ -375,10 +410,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 #   ⁵​components.timedimension.codelist, ⁶​components.timedimension.conceptref</code></pre>
 </div>
 </div>
+<p>Notice how the table ID is <code>NM_2078_1</code>.</p>
 <p>We can get some metadata for this dataset very easily using the nomis_get_metadata() command. First, let’s see what measures are available:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Supply the ID of the row we're interested in, and the second parameters specifies we'd like to know more about the measures</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">nomis_get_metadata</span>(search_sub<span class="sc">$</span>id, <span class="st">"measures"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Supply the ID of the row we're interested in, and the second parameters specifies we'd like to know more about the measures</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">nomis_get_metadata</span>(search_sub<span class="sc">$</span>id, <span class="st">"measures"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2 × 3
   id    label.en description.en
@@ -387,10 +423,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 2 20301 percent  percent       </code></pre>
 </div>
 </div>
-<p>So for TS061, we can get both raw counts (‘value’) and percent. Let’s now see what geographies are available:</p>
+<p>So for TS061, we can get both raw counts (‘value’) and percent. Notice how the ID for counts is <code>20100</code> and the ID for percent is <code>20301</code>. Let’s now see what geographies are available:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Supply the ID of the row we're interested in, and the second parameter specifies that we want to know more about geographies</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">nomis_get_metadata</span>(search_sub<span class="sc">$</span>id, <span class="st">"geography"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Supply the ID of the row we're interested in, and the second parameter specifies that we want to know more about geographies</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">nomis_get_metadata</span>(search_sub<span class="sc">$</span>id, <span class="st">"geography"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 3 × 4
   id         parentCode label.en          description.en   
@@ -402,8 +438,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <p>Ok, so this is telling us the different geographic levels we can download the data for. However, if we add an additional parameter to this, we can also see the specific geographic units that this data is available at:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Add in an additional parameter</span></span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">nomis_get_metadata</span>(search_sub<span class="sc">$</span>id, <span class="st">"geography"</span>, <span class="st">"TYPE"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Add in an additional parameter</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">nomis_get_metadata</span>(search_sub<span class="sc">$</span>id, <span class="st">"geography"</span>, <span class="st">"TYPE"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 12 × 3
    id      label.en                                                 descriptio…¹
@@ -423,11 +459,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 # … with abbreviated variable name ¹​description.en</code></pre>
 </div>
 </div>
-<p>Those steps basically give us everything we need to download the dataset directly from the NOMIS API using the package, instead of downloading the .zip files directly.</p>
-<p>Let’s download the file - it could take a while! If you don’t understand any of the specific inputs to this line of code, feel free to shout Patrick to talk it through.</p>
+<p>So there are a variety of different geographic levels at which we can download the dataset, including LSOA - see <code>2021 super output areas - lower layer</code>. Notice how the ID for LSOAs is <code>TYPE151</code>.</p>
+<p>Those steps we have just performed basically give us everything we need to download the dataset directly from the NOMIS API using the package, instead of downloading the .zip files directly. Let’s download the file - it could take a while! If you don’t understand any of the specific inputs to this line of code, feel free to shout Patrick to talk it through.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Download the file</span></span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>db_v2 <span class="ot">&lt;-</span> <span class="fu">nomis_get_data</span>(<span class="at">id =</span> <span class="st">"NM_2078_1"</span>, <span class="at">time =</span> <span class="st">"latest"</span>, <span class="at">geography =</span> <span class="fu">c</span>(<span class="st">"TYPE151"</span>), <span class="at">measures =</span> <span class="st">"20301"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Download the file</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>db_v2 <span class="ot">&lt;-</span> <span class="fu">nomis_get_data</span>(<span class="at">id =</span> <span class="st">"NM_2078_1"</span>, <span class="at">time =</span> <span class="st">"latest"</span>, <span class="at">geography =</span> <span class="fu">c</span>(<span class="st">"TYPE151"</span>), <span class="at">measures =</span> <span class="st">"20301"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Retrieving additional pages 1 of 17</code></pre>
 </div>
@@ -483,12 +519,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>The format the data is presented in is not the most intuitive, so those reshaping skills we acquired yesterday are going to come in handy here again!</p>
 <p>Firstly, let’s get the columns we need for our analysis - LSOA codes, the different modes of transport and the actual reported values.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Select columns of interest</span></span>
-<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>db_clean <span class="ot">&lt;-</span> db_v2 <span class="sc">%&gt;%</span></span>
-<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(GEOGRAPHY_CODE, C2021_TTWMETH_12_NAME, OBS_VALUE) </span>
-<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a><span class="do">## Inspect</span></span>
-<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(db_clean)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Select columns of interest</span></span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>db_clean <span class="ot">&lt;-</span> db_v2 <span class="sc">%&gt;%</span></span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(GEOGRAPHY_CODE, C2021_TTWMETH_12_NAME, OBS_VALUE) </span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a><span class="do">## Inspect</span></span>
+<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(db_clean)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 6 × 3
   GEOGRAPHY_CODE C2021_TTWMETH_12_NAME                                   OBS_V…¹
@@ -502,14 +538,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 # … with abbreviated variable name ¹​OBS_VALUE</code></pre>
 </div>
 </div>
-<p>So as you can see from the table, it’s actually in a long format, whereas we might want it to be in a wide format, where each column is the % of people using each transport mode. Let’s use the pivot_wider() command to change this:</p>
+<p>So as you can see from the table, it’s actually in a long format, whereas we might want it to be in a wide format, where each column is the % of people using each transport mode. Let’s use the <code>pivot_wider()</code> command to change this:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Go from long to wide</span></span>
-<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>db_clean <span class="ot">&lt;-</span> db_clean <span class="sc">%&gt;%</span></span>
-<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> C2021_TTWMETH_12_NAME, <span class="at">values_from =</span> OBS_VALUE)</span>
-<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a><span class="do">## Inspect</span></span>
-<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(db_clean)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Go from long to wide</span></span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>db_clean <span class="ot">&lt;-</span> db_clean <span class="sc">%&gt;%</span></span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> C2021_TTWMETH_12_NAME, <span class="at">values_from =</span> OBS_VALUE)</span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a><span class="do">## Inspect</span></span>
+<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(db_clean)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 6 × 13
   GEOGRAPH…¹ Total…² Work …³ Under…⁴ Train Bus, …⁵  Taxi Motor…⁶ Drivi…⁷ Passe…⁸
@@ -532,35 +568,36 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Great, that’s worked! You’ll also notice the number of rows of db_clean matches that of db (which was the file we unzipped at the start of the practical).</p>
 <p>Some final data cleaning steps:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Tidy up the dataset</span></span>
-<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>db_final <span class="ot">&lt;-</span> db_clean <span class="sc">%&gt;%</span></span>
-<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">setNames</span>(<span class="fu">c</span>(<span class="st">"LSOA21CD"</span>, <span class="st">"total"</span>, <span class="st">"work_from_home"</span>, <span class="st">"underground_metro"</span>, <span class="st">"train"</span>, <span class="st">"bus_minibus_coach"</span>, </span>
-<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>             <span class="st">"taxi"</span>, <span class="st">"motorcycle"</span>, <span class="st">"car_driving"</span>, <span class="st">"car_passenger"</span>, <span class="st">"bicycle"</span>, <span class="st">"foot"</span>, <span class="st">"other"</span>)) <span class="do">## set new names</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Tidy up the dataset</span></span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>db_final <span class="ot">&lt;-</span> db_clean <span class="sc">%&gt;%</span></span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">setNames</span>(<span class="fu">c</span>(<span class="st">"LSOA21CD"</span>, <span class="st">"total"</span>, <span class="st">"work_from_home"</span>, <span class="st">"underground_metro"</span>, <span class="st">"train"</span>, <span class="st">"bus_minibus_coach"</span>, </span>
+<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a>             <span class="st">"taxi"</span>, <span class="st">"motorcycle"</span>, <span class="st">"car_driving"</span>, <span class="st">"car_passenger"</span>, <span class="st">"bicycle"</span>, <span class="st">"foot"</span>, <span class="st">"other"</span>)) <span class="do">## set new names</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>And then we can easily produce one of the visualisations from yesterday:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Reproduce the scatter plot from yesterday's class</span></span>
-<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> db_final, <span class="fu">aes</span>(<span class="at">x =</span> work_from_home, <span class="at">y =</span> car_driving)) <span class="sc">+</span></span>
-<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.3</span>, <span class="at">size =</span> <span class="fl">0.35</span>) <span class="sc">+</span></span>
-<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>) <span class="sc">+</span></span>
-<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlim</span>(<span class="dv">0</span>, <span class="dv">100</span>) <span class="sc">+</span></span>
-<span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylim</span>(<span class="dv">0</span>, <span class="dv">100</span>) <span class="sc">+</span></span>
-<span id="cb42-7"><a href="#cb42-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Population who work from home (%)"</span>, <span class="at">y =</span> <span class="st">"Population who drive to work (%)"</span>,</span>
-<span id="cb42-8"><a href="#cb42-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">caption =</span> <span class="st">"Data: UK Census (2021) - 'Method of travel to work' (ts061)"</span>) <span class="sc">+</span></span>
-<span id="cb42-9"><a href="#cb42-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Reproduce the scatter plot from yesterday's class</span></span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> db_final, <span class="fu">aes</span>(<span class="at">x =</span> work_from_home, <span class="at">y =</span> car_driving)) <span class="sc">+</span></span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.3</span>, <span class="at">size =</span> <span class="fl">0.35</span>) <span class="sc">+</span></span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>) <span class="sc">+</span></span>
+<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlim</span>(<span class="dv">0</span>, <span class="dv">100</span>) <span class="sc">+</span></span>
+<span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylim</span>(<span class="dv">0</span>, <span class="dv">100</span>) <span class="sc">+</span></span>
+<span id="cb44-7"><a href="#cb44-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Population who work from home (%)"</span>, <span class="at">y =</span> <span class="st">"Population who drive to work (%)"</span>,</span>
+<span id="cb44-8"><a href="#cb44-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">caption =</span> <span class="st">"Data: UK Census (2021) - 'Method of travel to work' (ts061)"</span>) <span class="sc">+</span></span>
+<span id="cb44-9"><a href="#cb44-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>`geom_smooth()` using formula = 'y ~ x'</code></pre>
 </div>
 <div class="cell-output-display">
-<p><img src="04_dashboards-api_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid" width="672"></p>
+<p><img src="04_dashboards-api_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<section id="independent-exercise---over-to-you-1" class="level3" data-number="4.3.1">
-<h3 data-number="4.3.1" class="anchored" data-anchor-id="independent-exercise---over-to-you-1"><span class="header-section-number">4.3.1</span> Independent exercise - Over to you!</h3>
+<p>Nice! You have now learned how to programmatically use the API to scrape data from NOMIS, bypassing the need to download and unzip the files directly. Now, some independent tasks to check you can reproduce the steps.</p>
+<section id="independent-exercise---over-to-you" class="level3" data-number="4.3.1">
+<h3 data-number="4.3.1" class="anchored" data-anchor-id="independent-exercise---over-to-you"><span class="header-section-number">4.3.1</span> Independent exercise - Over to you!</h3>
 <ol type="1">
 <li>Experiment with downloading a different dataset using the nomisr package, and clean it.</li>
 <li>Produce an interesting visualisation using your chosen dataset.</li>
-<li>(<em>optional</em>) See if you can attach the LAD names to your dataset, and produce a visualisation that examines LAD differences in your chosen dataset - recommend you choose a dataset at either LSOA or MSOA geography to use yesterday’s lookup table.</li>
+<li>(<em>optional</em>) See if you can attach the LAD names to your dataset, and produce a visualisation that examines LAD differences in your chosen dataset - recommend you choose a dataset at either LSOA or MSOA geography to use yesterday’s lookup table. If you are unsure of how to do this, you will need to go back to <code>Day 2 - Data Visualisation</code>.</li>
 </ol>
 </section>
 </section>
@@ -568,7 +605,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2 data-number="4.4" class="anchored" data-anchor-id="building-dashboards-in-r"><span class="header-section-number">4.4</span> Building Dashboards in R</h2>
 <p>Dashboards are often a great way to share results and analyses with others. There are a number of ways you can build dashboards in R, including:</p>
 <ol type="1">
-<li>Using markdown (flexdashboard R package)</li>
+<li>Using markdown (<code>flexdashboard</code> R package)</li>
 <li>Using R shiny.</li>
 </ol>
 <p>The former offers you to create a dashboard with panels and pages very easily, and has significant advantages over R Shiny:</p>
@@ -580,15 +617,152 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section id="getting-started" class="level3" data-number="4.4.1">
 <h3 data-number="4.4.1" class="anchored" data-anchor-id="getting-started"><span class="header-section-number">4.4.1</span> Getting started</h3>
 <p>To build a dashboard using R markdown, we will need to use an alternate type of computational workbook - thus far we have been working with Quarto files (.qmd), but now we need to switch to the format that supports “Flex Dashboards”.</p>
-<p>Go to File &gt; New File &gt; R Markdown &gt; From Template &gt; Flex Dashboard.</p>
-<p>[IMAGE]</p>
-<p><strong>IMPORTANT</strong> For instruction purposes, I am going to document the steps in this file, but you need to be working on the new .Rmd file that we have just created, not inside this Quarto document. Patrick will demo this for you.</p>
-<p>Ok, so go to your .Rmd file, and save it as something you can remember - e.g., dashboard.Rmd. Inside the file you will notice a couple of different things:</p>
+<p>However, <code>flexdashboard</code> runs into problems when linked to an existing R project, especially one which is hooked up to Quarto.</p>
+<p><strong>Important</strong> So for this part of the project please create a new directory where you want to build your dashboard. For example, I’ve created a new folder called ‘Dashboard’, which is where I will be building my dashboard. Also, make sure to copy some of the datasets we have been using into this new directory:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figs/04/directory.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">New Directory</figcaption><p></p>
+</figure>
+</div>
+<p>The final step is to create a new file which will be used to build your dashboard. In R, Go to <strong>File</strong> &gt; <strong>New File</strong> &gt; <strong>R Markdown</strong> &gt; <strong>From Template</strong> &gt; <strong>Flex Dashboard</strong> (see below).</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figs/04/file.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">New File</figcaption><p></p>
+</figure>
+</div>
+<p>The file should open up automatically, and should look the one below:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figs/04/dashboard-raw.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">Blank Dashboard Template</figcaption><p></p>
+</figure>
+</div>
+<p>Now save it <strong>inside your new folder</strong> as something you can remember - e.g., dashboard.Rmd. It is vital that this new .Rmd is saved within your new folder, which should now look like this:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figs/04/complete.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">Full Directory</figcaption><p></p>
+</figure>
+</div>
+<p>When you open up the .Rmd file, you should be able to see the ‘Knit’ button as below. If you instead see the ‘Render’ button, you’ve not saved the .rmd in your new directory. Speak to Patrick if you run into problems here.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figs/04/knit.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">Knit Button</figcaption><p></p>
+</figure>
+</div>
+</section>
+<section id="introduction-to-flex-dashboard" class="level3" data-number="4.4.2">
+<h3 data-number="4.4.2" class="anchored" data-anchor-id="introduction-to-flex-dashboard"><span class="header-section-number">4.4.2</span> Introduction to Flex Dashboard</h3>
+<p>For the remainder of the practical, you need to be working in your new .Rmd file. This is where you will build and deploy your dashboard, so please make sure you are working in this file - ‘dashboard.Rmd’.</p>
+<p>Inside the file you will notice a couple of different things:</p>
 <ol type="1">
 <li>Code blocks - you will see code blocks like those you have been running in this document, which can be used to run lines of code easily.</li>
 <li>YAML header - at the top of the new file is a YAML header, which is where you can set up the basic metadata for the dashboard.</li>
 </ol>
 <p>Have a go at changing your YAML header to the following:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figs/04/yaml.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">YAML</figcaption><p></p>
+</figure>
+</div>
+<p>These parameters are doing the following:</p>
+<ul>
+<li>title: sets a title to appear at the top of the dashboard.</li>
+<li>orientation: determines whether charts should be aligned in rows or columns</li>
+<li>vertical_layout: sets the dashboard to fill available browser height.</li>
+</ul>
+<p>Press ‘Knit’ and see what happens…</p>
+<p>R should open up a new window that looks like this:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figs/04/first.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">First Dashboard</figcaption><p></p>
+</figure>
+</div>
+<p>So you can see that the dashboard has three panes set up to host different types of visualisation. In the .Rmd file you’ll notice that each <code>##</code> denotes the start of a new column, and each <code>###</code> denotes a new pane for visualisation.</p>
+<p>Let’s change the layout slightly, to create a grid of four equally sized panes. To do this you need to:</p>
+<ol type="1">
+<li>Change the data-width parameter to be equal for both columns</li>
+<li>Add a second pane under column one</li>
+</ol>
+<p>Here is what the code looks like:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figs/04/resize-code.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">Code</figcaption><p></p>
+</figure>
+</div>
+<p>Now press ‘Knit’ again, and see what has changed:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figs/04/resize-out.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">Resized</figcaption><p></p>
+</figure>
+</div>
+<p>Cool! So the dashboard layout is set up and ready to go!</p>
+</section>
+<section id="independent-exercise---over-to-you-1" class="level3" data-number="4.4.3">
+<h3 data-number="4.4.3" class="anchored" data-anchor-id="independent-exercise---over-to-you-1"><span class="header-section-number">4.4.3</span> Independent exercise - Over to you!</h3>
+<ol type="1">
+<li>Swap the orientation to be columns</li>
+<li>See if you can set up the dashboard to be structured as 1 large panel on the left, and three on the right.</li>
+<li>(<em>optional</em>) Change the section headers for each pane to list some potential visualisations you might put in each, based on yesterday’s class.</li>
+</ol>
+<p>SOLUTION:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figs/04/solution1.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">Solution</figcaption><p></p>
+</figure>
+</div>
+</section>
+<section id="embedding-visualisations" class="level3" data-number="4.4.4">
+<h3 data-number="4.4.4" class="anchored" data-anchor-id="embedding-visualisations"><span class="header-section-number">4.4.4</span> Embedding visualisations</h3>
+<p>When building a dashboard, a key component will be adding in a number of visualisations to enhance the information being conveyed by the dashboard. As you have seen so far, <code>flexdashboard</code> creates panes to host plots and visualisations on.</p>
+<p>However, the visualisations need to be produced within the .Rmd file before they can be displayed on the dashboard itself. This is where you can use code chunks within the .Rmd file to re-run some of the analyses we did yesterday to produce visuals for the dashboard.</p>
+<p>The code chunks need to be placed before the dashboard structural parameters - i.e.&nbsp;before the ## Column commands in the script. Have a look at the example below where we read in and clean the census data we were using on Day 2:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figs/04/code-example.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">How to insert code</figcaption><p></p>
+</figure>
+</div>
+<p>Then, once you have the read the data in you can produce one of the visualisations we made yesterday - such as the scatter plot we made yesterday:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figs/04/code-example2.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">Make a plot</figcaption><p></p>
+</figure>
+</div>
+<p>Now the final step is to think about embedding this plot so it can be displayed on the plot. To do this, all you need to do is call the plot in one of the code blocks which are set up to host visualisations, see below:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figs/04/code-example3.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">Embed a plot</figcaption><p></p>
+</figure>
+</div>
+<p>Now hit ‘Knit’ and you should see this plot on the dashboard:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figs/04/dashboard-p1.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">First stage</figcaption><p></p>
+</figure>
+</div>
+</section>
+<section id="independent-exericse---over-to-you-30---45-mins" class="level3" data-number="4.4.5">
+<h3 data-number="4.4.5" class="anchored" data-anchor-id="independent-exericse---over-to-you-30---45-mins"><span class="header-section-number">4.4.5</span> Independent exericse - Over to you!! (30 - 45 mins)</h3>
+<p>Have a go at embedding some more visualisations on the dashboard. To do this you will need to reproduce lots of the analysis you did on Day 2.</p>
+<p>Below I’ve included something that I put together, which is something you could aim to try and generate…</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figs/04/dashboard-final.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">Transport Dashboard</figcaption><p></p>
+</figure>
+</div>
 </section>
 </section>
 <section id="other-useful-reporting-techniques" class="level2" data-number="4.5">
@@ -602,12 +776,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section id="routine-reporting" class="level3" data-number="4.5.2">
 <h3 data-number="4.5.2" class="anchored" data-anchor-id="routine-reporting"><span class="header-section-number">4.5.2</span> Routine Reporting</h3>
 <p>The Epidemiologist Handbook also has a really nice section on how to use R to run reports routinely, using the reportfactory R package. Have a a look ath the <a href="https://epirhandbook.com/en/organizing-routine-reports.html">Organising routing reports</a> guide if you are interested in learning more about this!</p>
-</section>
-</section>
-<section id="additional-resources" class="level2" data-number="4.6">
-<h2 data-number="4.6" class="anchored" data-anchor-id="additional-resources"><span class="header-section-number">4.6</span> Additional Resources</h2>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
