@@ -207,6 +207,7 @@ For example, take the URL we set above:
 ```{r}
 url
 ```
+
 If we wrote a function that could enable specification of a different table number, we could build a pipeline where you only have to change a couple of characters to return a cleaned dataset for your reports.
 
 For example, the other URL I provided in my solution above:
@@ -214,6 +215,7 @@ For example, the other URL I provided in my solution above:
 ```{r}
 url2
 ```
+
 You'll notice the only difference with this URL is the `ts066` string at the end of the URL. Let's start building a function that can swap these different characters in and out:
 
 ```{r}
@@ -230,11 +232,13 @@ Let's test this:
 ```{r}
 downloadNOMIS("ts061")
 ```
+
 And then with a different table number
 
 ```{r}
 downloadNOMIS("ts066")
 ```
+
 Ok, so now we need to add to the function, to get R to download from the URL:
 
 ```{r}
@@ -254,7 +258,8 @@ Test it:
 ```{r}
 downloadNOMIS("ts066")
 ```
-Now if you go into your working directory, you should have a .zip folder called `table`. 
+
+Now if you go into your working directory, you should have a .zip folder called `table`.
 
 Final steps: unzipping and checking all the files are there:
 
@@ -280,11 +285,13 @@ Now run the command for a table of your choosing:
 ```{r}
 downloadNOMIS("ts004")
 ```
+
 You can check this has worked by looking at the files available in the `tableUZ` folder, set up in the function above:
 
 ```{r}
 list.files("data/tableUZ")
 ```
+
 Awesome! You have created a function that enables you to have access to tables of data from NOMIS very easily. Finally, you might be interested in asking the function to read in a specific file - you can do this easily from NOMIS as the file naming protocols are very organised.
 
 ```{r}
@@ -325,6 +332,7 @@ For example, take a list like this:
 ls <- c("ts001", "ts002", "ts003")
 ls
 ```
+
 We can apply the `downloadNOMIS` function to these three tables, to read in the regional-level tables. The way to do this is to use the `lapply` command, which takes as arguments 1) a list and 2) a function to apply over the list.
 
 In our case this would be:
@@ -333,11 +341,13 @@ In our case this would be:
 ## Download three tables from NOMIS
 tables <- lapply(ls, downloadNOMIS)
 ```
+
 Once this has finished running, you are left with a list of tables, see:
 
 ```{r}
 str(tables)
 ```
+
 You can select one out individually:
 
 ```{r}
@@ -346,7 +356,7 @@ table1 <- tables[[1]]
 head(table1)
 ```
 
-Or because they all have the `geography.code`, `geography` and `date` column, you can just attach them into one big table. This relies on the use of the `purrr` package, which is full of useful tools for working with lists. 
+Or because they all have the `geography.code`, `geography` and `date` column, you can just attach them into one big table. This relies on the use of the `purrr` package, which is full of useful tools for working with lists.
 
 ```{r}
 ## Bind together
@@ -361,11 +371,11 @@ colnames(test)
 
 One of the things that you see more commonly in practice is the construction of specific R packages used to access APIs, with supporting documentation and specific functions that make it easier to use the API.
 
-One such example is [nomisr](https://docs.evanodell.com/nomisr/articles/introduction.html), which is an R package that was built to enable users to query data from NOMIS. It is free to access and contains up-to-date official statistics including data from the latest Census, Labour Force Survey and DWP benefit statistics.
+One such example is [`nomisr`](https://docs.evanodell.com/nomisr/articles/introduction.html), which is an R package that was built to enable users to query data from NOMIS. It is free to access and contains up-to-date official statistics including data from the latest Census, Labour Force Survey and DWP benefit statistics.
 
 In the section that follows, I'm going to be showing you how to use the nomisr package to download datasets.
 
-Vast amounts of data are available through NOMIS, so you need to use some of the different functions within nomisr to identify the specific datasets you want to use. An example is presented below which searches for datasets within NOMIS that are specifically about 'Travel':
+Vast amounts of data are available through NOMIS, so you need to use some of the different functions within `nomisr` to identify the specific datasets you want to use. An example is presented below which searches for datasets within NOMIS that are specifically about 'Travel':
 
 ```{r}
 ## Search for data on Labour Force
@@ -379,9 +389,9 @@ This returns a dataframe (which you should see in your environment) that describ
 head(search$name.value)
 ```
 
-If you open up the dataframe in your environment and scroll down you should see one row has the value - TS061 - Method used to travel to work - which is the one we've been using a lot in this practical.
+If you open up the dataframe in your environment and scroll down you should see one row has the value - `TS061 - Method used to travel to work` - which is the one we've been using a lot in this practical.
 
-We can filter to this row very easily using the filter() command that we introduced yesterday:
+We can filter to this row very easily using the `filter()` command that we introduced yesterday:
 
 ```{r}
 ## Filter to row of interest
@@ -392,9 +402,7 @@ search_sub <- search %>%
 search_sub
 ```
 
-Notice how the table ID is `NM_2078_1`.
-
-We can get some metadata for this dataset very easily using the nomis_get_metadata() command. First, let's see what measures are available:
+Notice how the table ID is `NM_2078_1`. We can get some metadata for this dataset very easily using the nomis_get_metadata() command. First, let's see what measures are available:
 
 ```{r}
 ## Supply the ID of the row we're interested in, and the second parameters specifies we'd like to know more about the measures
@@ -423,7 +431,6 @@ Those steps we have just performed basically give us everything we need to downl
 ## Download the file
 db_v2 <- nomis_get_data(id = "NM_2078_1", time = "latest", geography = c("TYPE151"), measures = "20301")
 ```
-
 The format the data is presented in is not the most intuitive, so those reshaping skills we acquired yesterday are going to come in handy here again!
 
 Firstly, let's get the columns we need for our analysis - LSOA codes, the different modes of transport and the actual reported values.
@@ -477,7 +484,7 @@ Nice! You have now learned how to programmatically use the API to scrape data fr
 
 ### Independent exercise - Over to you!
 
-1.  Experiment with downloading a different dataset using the nomisr package, and clean it.
+1.  Experiment with downloading a different dataset using the `nomisr` package, and clean it.
 2.  Produce an interesting visualisation using your chosen dataset.
 3.  (*optional*) See if you can attach the LAD names to your dataset, and produce a visualisation that examines LAD differences in your chosen dataset - recommend you choose a dataset at either LSOA or MSOA geography to use yesterday's lookup table. If you are unsure of how to do this, you will need to go back to `Day 2 - Data Visualisation`.
 
