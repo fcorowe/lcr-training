@@ -123,7 +123,7 @@ So what have we achieved?
 
 But what if you want to automate this download in a much quicker manner. The NOMIS API is a good way of doing this (and we'll be discussing this shortly), but the other way you can do this is through the use of functions.
 
-Functions are "self contained modules of code that accomplish a specific task". They normally take data in soem form, perform a number of modifications to it, and then return some form of result. 
+Functions are "self contained modules of code that accomplish a specific task". They normally take data in soem form, perform a number of modifications to it, and then return some form of result.
 
 The basic syntax of a function is as follows:
 
@@ -136,9 +136,9 @@ function1 <- function(x) {
 
 There are three important things to notice here:
 
-1. Function name (e.g., `function1`) - enables you to call the function at a later point.
-2. Object (e.g., `function(x)`) - is the input data or parameter that you are going to be using.
-3. Steps (e.g., `{}`) - anything within the curly brackets will be a series of steps that are applied.
+1.  Function name (e.g., `function1`) - enables you to call the function at a later point.
+2.  Object (e.g., `function(x)`) - is the input data or parameter that you are going to be using.
+3.  Steps (e.g., `{}`) - anything within the curly brackets will be a series of steps that are applied.
 
 So a basic example is we can ask the function to return the first five rows of x:
 
@@ -155,18 +155,207 @@ Now you need to run the function on an object - let's do it on our census datase
 ## Apply the function
 firstfive(db)
 ```
+
 So, that's a *really* basic example of how to use a function.
 
 Let me show you how functions can be used to clean datasets programmatically:
 
 ```{r}
-
+## Function cleans the raw census dataset
+cleandb <- function(x) {
+  
+  ## Select columns
+  out <- x %>%
+    select(geography.code, 
+           Method.of.travel.to.workplace..Total..All.usual.residents.aged.16.years.and.over.in.employment.the.week.before.the.census,
+           Method.of.travel.to.workplace..Train) %>%
+    setNames(c("LSOA21CD", "total", "train")) %>%
+    mutate(pctTrain = (train / total) * 100)
+  
+  ## Return the new dataframe
+  return(out)
+  
+}
 ```
 
+Now that the function has been specified, you can pass your dataset through it:
 
+```{r}
+## Pass census data through the new function
+cleaned <- cleandb(db)
 
+## Look at it
+head(cleaned)
+```
 
-However, there is one easier way of getting the data from NOMIS, and this involves use of the NOMIS API.
+There are lots of reasons why this approach is useful:
+
+1.  Can provide a standard set of code chunks to clean data from NOMIS, and other sources
+2.  Can be looped across multiple different datasets
+3.  Can be customised to perform different steps of cleaning that you need for your use case.
+
+However, perhaps the most useful thing functions can do, is be used to apply an API query and return a cleaned dataset for your use.
+
+Let's have a look at an example: [`tidylodes`](https://github.com/patrickballantyne/tidylodes).
+
+![tidylodes](figs/04/tidylodes.png)
+
+We can implement some of these techniques and ideas to automate scraping of data from NOMIS.
+
+For example, take the URL we set above:
+
+```{r}
+url
+```
+If we wrote a function that could enable specification of a different table number, we could build a pipeline where you only have to change a couple of characters to return a cleaned dataset for your reports.
+
+For example, the other URL I provided in my solution above:
+
+```{r}
+url2
+```
+You'll notice the only difference with this URL is the `ts066` string at the end of the URL. Let's start building a function that can swap these different characters in and out:
+
+```{r}
+downloadNOMIS <- function(x = "ts061") {
+  
+  ## Create the URL, based on the character supplied in x
+  url <- paste0("https://www.nomisweb.co.uk/output/census/2021/census2021-", x, ".zip")
+  return(url)
+}
+```
+
+Let's test this:
+
+```{r}
+downloadNOMIS("ts061")
+```
+And then with a different table number
+
+```{r}
+downloadNOMIS("ts066")
+```
+Ok, so now we need to add to the function, to get R to download from the URL:
+
+```{r}
+downloadNOMIS <- function(x = "ts061") {
+  
+  ## Create the URL, based on the character supplied in x
+  url <- paste0("https://www.nomisweb.co.uk/output/census/2021/census2021-", x, ".zip")
+  
+  ## Download
+  download.file(url, "table.zip")
+  
+}
+```
+
+Test it:
+
+```{r}
+downloadNOMIS("ts066")
+```
+Now if you go into your working directory, you should have a .zip folder called `table`. 
+
+Final steps: unzipping and checking all the files are there:
+
+```{r}
+downloadNOMIS <- function(x = "ts061") {
+  
+  ## Create the URL, based on the character supplied in x
+  url <- paste0("https://www.nomisweb.co.uk/output/census/2021/census2021-", x, ".zip")
+  
+  ## Download
+  download.file(url, "table.zip")
+  
+  ## Unzip the files
+  outDir2 <- "data/tableUZ"
+  ## Unzip the folder to the data/unzip folder
+  unzip("table.zip", exdir = outDir2)
+
+}
+```
+
+Now run the command for a table of your choosing:
+
+```{r}
+downloadNOMIS("ts004")
+```
+You can check this has worked by looking at the files available in the `tableUZ` folder, set up in the function above:
+
+```{r}
+list.files("data/tableUZ")
+```
+Awesome! You have created a function that enables you to have access to tables of data from NOMIS very easily. Finally, you might be interested in asking the function to read in a specific file - you can do this easily from NOMIS as the file naming protocols are very organised.
+
+```{r}
+downloadNOMIS <- function(x = "ts061") {
+  
+  ## Create the URL, based on the character supplied in x
+  url <- paste0("https://www.nomisweb.co.uk/output/census/2021/census2021-", x, ".zip")
+  
+  ## Download
+  download.file(url, "table.zip")
+  
+  ## Unzip the files
+  outDir2 <- "data/tableUZ"
+  ## Unzip the folder to the data/unzip folder
+  unzip("table.zip", exdir = outDir2)
+  
+  ## Read in the regional level data
+  db <- read.csv(paste0("data/tableUZ/census2021-", x, "-rgn.csv"))
+  return(db)
+}
+```
+
+Test it
+
+```{r}
+## Download and read in
+t <- downloadNOMIS("ts003")
+
+## Inspect
+head(t)
+```
+
+The final thing I want to show you before we move off of functions is how to apply functions sequentially. Functions can be applied to lists really easily using the `lapply()` command. This means you could supply multiple names of tables that you want, and get R to download, read and clean them for you using the techniques I have just shown you.
+
+For example, take a list like this:
+
+```{r}
+ls <- c("ts001", "ts002", "ts003")
+ls
+```
+We can apply the `downloadNOMIS` function to these three tables, to read in the regional-level tables. The way to do this is to use the `lapply` command, which takes as arguments 1) a list and 2) a function to apply over the list.
+
+In our case this would be:
+
+```{r}
+## Download three tables from NOMIS
+tables <- lapply(ls, downloadNOMIS)
+```
+Once this has finished running, you are left with a list of tables, see:
+
+```{r}
+str(tables)
+```
+You can select one out individually:
+
+```{r}
+## Select the first table
+table1 <- tables[[1]]
+head(table1)
+```
+
+Or because they all have the `geography.code`, `geography` and `date` column, you can just attach them into one big table. This relies on the use of the `purrr` package, which is full of useful tools for working with lists. 
+
+```{r}
+## Bind together
+test <- tables %>%
+  reduce(left_join, by = c("date", "geography", "geography.code"))
+
+## Have a look
+colnames(test)
+```
 
 ## Using the NOMIS API
 
