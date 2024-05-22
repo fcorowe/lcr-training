@@ -29,18 +29,16 @@ Now you should go to the ['Census 2021 Bulk Data Download'](https://www.nomisweb
 
 ![NOMIS](figs/04/nomis.png)
 
-There are lots of files on the web page - e.g. census2021-ts001.zip, census2021-ts007a.zip.
+There are lots of files on the web page - e.g. `census2021-ts001.zip`, `census2021-ts007a.zip`.
 
-You can click on these files individually, download them to your PC, unzip them and read them into R. Alternatively, we can programmatically download the data directly from the webpage.
-
-If you 'right click' on one of the .zip files and press 'copy link', you will have a URL which can access that specific .zip file, as below:
+You can click on these files individually, download them to your PC, unzip them and read them into R. Alternatively, we can programmatically download the data directly from the webpage. If you 'right click' on one of the .zip files and press 'copy link', you will have a URL which can access that specific .zip file, as below:
 
 ```{r}
 url <- "https://www.nomisweb.co.uk/output/census/2021/census2021-ts061.zip"
 url
 ```
 
-The specific URL above relates to table [TS061 - "Method of Travel to Work"](https://www.ons.gov.uk/employmentandlabourmarket/peopleinwork/employmentandemployeetypes/bulletins/traveltoworkenglandandwales/census2021), which is the same dataset we were using in the Data Visualisation workshop.
+The specific URL above relates to table [TS061 - "Method of Travel to Work"](https://www.ons.gov.uk/employmentandlabourmarket/peopleinwork/employmentandemployeetypes/bulletins/traveltoworkenglandandwales/census2021), which is the same dataset we have been using throughout this course.
 
 Now I'm going to show you how to download the .zip file, and read in the file of data we used yesterday. This is a really basic example of using an API, which shows how you can download data from NOMIS into your environment, without having to physically go and download it, save it to a folder, unzip it and read it into memory.
 
@@ -120,6 +118,53 @@ So what have we achieved?
 1.  You can now programmatically download datasets from the NOMIS bulk census page, without needing to download the files.
 2.  You can produce visualisations using these different datasets.
 3.  You are in a position to automate download and visualisation of census data from NOMIS.
+
+### Advanced Bulk Downloading
+
+But what if you want to automate this download in a much quicker manner. The NOMIS API is a good way of doing this (and we'll be discussing this shortly), but the other way you can do this is through the use of functions.
+
+Functions are "self contained modules of code that accomplish a specific task". They normally take data in soem form, perform a number of modifications to it, and then return some form of result. 
+
+The basic syntax of a function is as follows:
+
+```{r}
+## Specify a new function
+function1 <- function(x) {
+  
+}
+```
+
+There are three important things to notice here:
+
+1. Function name (e.g., `function1`) - enables you to call the function at a later point.
+2. Object (e.g., `function(x)`) - is the input data or parameter that you are going to be using.
+3. Steps (e.g., `{}`) - anything within the curly brackets will be a series of steps that are applied.
+
+So a basic example is we can ask the function to return the first five rows of x:
+
+```{r}
+## Specify a new function - first five
+firstfive <- function(x) {
+  head(x)
+}
+```
+
+Now you need to run the function on an object - let's do it on our census dataset:
+
+```{r}
+## Apply the function
+firstfive(db)
+```
+So, that's a *really* basic example of how to use a function.
+
+Let me show you how functions can be used to clean datasets programmatically:
+
+```{r}
+
+```
+
+
+
 
 However, there is one easier way of getting the data from NOMIS, and this involves use of the NOMIS API.
 
