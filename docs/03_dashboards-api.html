@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>dashboards-api</title>
+<title>R training: Liverpool City Region - 3&nbsp; Dashboards and APIs</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -86,32 +86,178 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </style>
 
 
-<script src="03_dashboards-api_files/libs/clipboard/clipboard.min.js"></script>
-<script src="03_dashboards-api_files/libs/quarto-html/quarto.js"></script>
-<script src="03_dashboards-api_files/libs/quarto-html/popper.min.js"></script>
-<script src="03_dashboards-api_files/libs/quarto-html/tippy.umd.min.js"></script>
-<script src="03_dashboards-api_files/libs/quarto-html/anchor.min.js"></script>
-<link href="03_dashboards-api_files/libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="03_dashboards-api_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="03_dashboards-api_files/libs/bootstrap/bootstrap.min.js"></script>
-<link href="03_dashboards-api_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="03_dashboards-api_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./04_data-modeling.html" rel="next">
+<link href="./02_data-visualisation.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
 
 
+<link rel="stylesheet" href="styles.css">
 </head>
 
-<body class="fullcontent">
+<body class="nav-sidebar floating">
 
-<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
-
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Dashboards and APIs</span></h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">R training: Liverpool City Region</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/fcorowe/lcr-training" title="Source Code" class="sidebar-tool px-1"><i class="bi bi-github"></i></a>
+</div>
+    </div>
+      </div>
+      <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">Welcome</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./00_overview.html" class="sidebar-item-text sidebar-link">Overview</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./01_fundamentals.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">R Fundamentals</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02_data-visualisation.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Data Visualisation</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03_dashboards-api.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Dashboards and APIs</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./04_data-modeling.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Data modeling</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./05_data-description.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Data</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">References</a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar"><div class="quarto-margin-header"><div class="margin-header-item">
+<p><img src="./cover.png" class="img-fluid"></p>
+</div></div>
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#learning-objectives" id="toc-learning-objectives" class="nav-link active" data-scroll-target="#learning-objectives"><span class="toc-section-number">3.1</span>  Learning Objectives</a></li>
+  <li><a href="#introduction-to-apis" id="toc-introduction-to-apis" class="nav-link" data-scroll-target="#introduction-to-apis"><span class="toc-section-number">3.2</span>  Introduction to APIs</a>
+  <ul class="collapse">
+  <li><a href="#independent-exercise---over-to-you-15---20-mins" id="toc-independent-exercise---over-to-you-15---20-mins" class="nav-link" data-scroll-target="#independent-exercise---over-to-you-15---20-mins"><span class="toc-section-number">3.2.1</span>  Independent exercise - Over to you! (15 - 20 mins)</a></li>
+  <li><a href="#advanced-bulk-downloading" id="toc-advanced-bulk-downloading" class="nav-link" data-scroll-target="#advanced-bulk-downloading"><span class="toc-section-number">3.2.2</span>  Advanced Bulk Downloading</a></li>
+  </ul></li>
+  <li><a href="#using-the-nomis-api" id="toc-using-the-nomis-api" class="nav-link" data-scroll-target="#using-the-nomis-api"><span class="toc-section-number">3.3</span>  Using the NOMIS API</a>
+  <ul class="collapse">
+  <li><a href="#independent-exercise---over-to-you" id="toc-independent-exercise---over-to-you" class="nav-link" data-scroll-target="#independent-exercise---over-to-you"><span class="toc-section-number">3.3.1</span>  Independent exercise - Over to you!</a></li>
+  </ul></li>
+  <li><a href="#building-dashboards-in-r" id="toc-building-dashboards-in-r" class="nav-link" data-scroll-target="#building-dashboards-in-r"><span class="toc-section-number">3.4</span>  Building Dashboards in R</a>
+  <ul class="collapse">
+  <li><a href="#getting-started" id="toc-getting-started" class="nav-link" data-scroll-target="#getting-started"><span class="toc-section-number">3.4.1</span>  Getting started</a></li>
+  <li><a href="#introduction-to-flex-dashboard" id="toc-introduction-to-flex-dashboard" class="nav-link" data-scroll-target="#introduction-to-flex-dashboard"><span class="toc-section-number">3.4.2</span>  Introduction to Flex Dashboard</a></li>
+  <li><a href="#independent-exercise---over-to-you-1" id="toc-independent-exercise---over-to-you-1" class="nav-link" data-scroll-target="#independent-exercise---over-to-you-1"><span class="toc-section-number">3.4.3</span>  Independent exercise - Over to you!</a></li>
+  <li><a href="#embedding-visualisations" id="toc-embedding-visualisations" class="nav-link" data-scroll-target="#embedding-visualisations"><span class="toc-section-number">3.4.4</span>  Embedding visualisations</a></li>
+  <li><a href="#independent-exercise---over-to-you-30---45-mins" id="toc-independent-exercise---over-to-you-30---45-mins" class="nav-link" data-scroll-target="#independent-exercise---over-to-you-30---45-mins"><span class="toc-section-number">3.4.5</span>  Independent exercise - Over to you!! (30 - 45 mins)</a></li>
+  </ul></li>
+  <li><a href="#other-useful-reporting-techniques" id="toc-other-useful-reporting-techniques" class="nav-link" data-scroll-target="#other-useful-reporting-techniques"><span class="toc-section-number">3.5</span>  Other Useful Reporting Techniques</a>
+  <ul class="collapse">
+  <li><a href="#constructing-reports" id="toc-constructing-reports" class="nav-link" data-scroll-target="#constructing-reports"><span class="toc-section-number">3.5.1</span>  Constructing Reports</a></li>
+  <li><a href="#routine-reporting" id="toc-routine-reporting" class="nav-link" data-scroll-target="#routine-reporting"><span class="toc-section-number">3.5.2</span>  Routine Reporting</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
 <main class="content" id="quarto-document-content">
 
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title d-none d-lg-block"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Dashboards and APIs</span></h1>
+</div>
 
 
-<section id="dashboards-and-apis" class="level1">
-<h1>Dashboards and APIs</h1>
-<section id="learning-objectives" class="level2">
-<h2 class="anchored" data-anchor-id="learning-objectives">Learning Objectives</h2>
+
+<div class="quarto-title-meta">
+
+    
+    
+  </div>
+  
+
+</header>
+
+<section id="learning-objectives" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="learning-objectives"><span class="header-section-number">3.1</span> Learning Objectives</h2>
 <p>By the end of today’s session you should be able to:</p>
 <ol type="1">
 <li>Understand the basic principles of APIs</li>
@@ -120,8 +266,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>Build a basic dashboard using flexdashboard</li>
 </ol>
 </section>
-<section id="introduction-to-apis" class="level2">
-<h2 class="anchored" data-anchor-id="introduction-to-apis">Introduction to APIs</h2>
+<section id="introduction-to-apis" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="introduction-to-apis"><span class="header-section-number">3.2</span> Introduction to APIs</h2>
 <p>Web services make their data easily accessible to computer programs like R through use of an Application Programming Interface (API). Today’s practical will teach you how to access data from APIs, and load them into your R environment for analysis.</p>
 <p>To download data from an API you need to send a HTTP request to a server, which tells the server to return the specific parcel of data that matches the criteria in the HTTP request.</p>
 <p>For example, on NOMIS there is a page called <a href="https://www.nomisweb.co.uk/sources/census_2021_bulk">‘Census 2021 Bulk Data Download’</a>, which contains .zip files for different tables of data available from the latest census.</p>
@@ -171,8 +317,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Read in the LSOA census data</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>db <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"data/unzip/census2021-ts061-lsoa.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<section id="independent-exercise---over-to-you-15---20-mins" class="level3">
-<h3 class="anchored" data-anchor-id="independent-exercise---over-to-you-15---20-mins">Independent exercise - Over to you! (15 - 20 mins)</h3>
+<section id="independent-exercise---over-to-you-15---20-mins" class="level3" data-number="3.2.1">
+<h3 data-number="3.2.1" class="anchored" data-anchor-id="independent-exercise---over-to-you-15---20-mins"><span class="header-section-number">3.2.1</span> Independent exercise - Over to you! (15 - 20 mins)</h3>
 <ol type="1">
 <li>As a recap, see if you can reproduce one of the visualisations we produced yesterday using the data we have just scraped from the API.</li>
 <li>Test downloading two more datasets from NOMIS, by swapping in new URLs, and reading in one of the files from the folder you download.</li>
@@ -219,8 +365,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>You are in a position to automate download and visualisation of census data from NOMIS.</li>
 </ol>
 </section>
-<section id="advanced-bulk-downloading" class="level3">
-<h3 class="anchored" data-anchor-id="advanced-bulk-downloading">Advanced Bulk Downloading</h3>
+<section id="advanced-bulk-downloading" class="level3" data-number="3.2.2">
+<h3 data-number="3.2.2" class="anchored" data-anchor-id="advanced-bulk-downloading"><span class="header-section-number">3.2.2</span> Advanced Bulk Downloading</h3>
 <p>But what if you want to automate this download in a much quicker manner. The NOMIS API is a good way of doing this (and we’ll be discussing this shortly), but the other way you can do this is through the use of functions.</p>
 <p>Functions are “self contained modules of code that accomplish a specific task”. They normally take data in soem form, perform a number of modifications to it, and then return some form of result.</p>
 <p>The basic syntax of a function is as follows:</p>
@@ -337,25 +483,528 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>So, that’s a <em>really</em> basic example of how to use a function.</p>
 <p>Let me show you how functions can be used to clean datasets programmatically:</p>
 <div class="cell">
-
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Function cleans the raw census dataset</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>cleandb <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  <span class="do">## Select columns</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>  out <span class="ot">&lt;-</span> x <span class="sc">%&gt;%</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(geography.code, </span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>           Method.of.travel.to.workplace..Total..All.usual.residents.aged.<span class="fl">16.</span>years.and.over.in.employment.the.week.before.the.census,</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>           Method.of.travel.to.workplace..Train) <span class="sc">%&gt;%</span></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">setNames</span>(<span class="fu">c</span>(<span class="st">"LSOA21CD"</span>, <span class="st">"total"</span>, <span class="st">"train"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">pctTrain =</span> (train <span class="sc">/</span> total) <span class="sc">*</span> <span class="dv">100</span>)</span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>  <span class="do">## Return the new dataframe</span></span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(out)</span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>However, there is one easier way of getting the data from NOMIS, and this involves use of the NOMIS API.</p>
-</section>
-</section>
-<section id="using-the-nomis-api" class="level2">
-<h2 class="anchored" data-anchor-id="using-the-nomis-api">Using the NOMIS API</h2>
-<p>One of the things that you see more commonly in practice is the construction of specific R packages used to access APIs, with supporting documentation and specific functions that make it easier to use the API.</p>
-<p>One such example is <a href="https://docs.evanodell.com/nomisr/articles/introduction.html">nomisr</a>, which is an R package that was built to enable users to query data from NOMIS. It is free to access and contains up-to-date official statistics including data from the latest Census, Labour Force Survey and DWP benefit statistics.</p>
-<p>In the section that follows, I’m going to be showing you how to use the nomisr package to download datasets.</p>
-<p>Vast amounts of data are available through NOMIS, so you need to use some of the different functions within nomisr to identify the specific datasets you want to use. An example is presented below which searches for datasets within NOMIS that are specifically about ‘Travel’:</p>
+<p>Now that the function has been specified, you can pass your dataset through it:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Search for data on Labour Force</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>search <span class="ot">&lt;-</span> <span class="fu">nomis_search</span>(<span class="st">"*Travel*"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Pass census data through the new function</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>cleaned <span class="ot">&lt;-</span> <span class="fu">cleandb</span>(db)</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="do">## Look at it</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(cleaned)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   LSOA21CD total train  pctTrain
+1 E01000001   866    17  1.963048
+2 E01000002   881    10  1.135074
+3 E01000003  1000    21  2.100000
+4 E01000005   496    25  5.040323
+5 E01000006   888   104 11.711712
+6 E01000007  1385   177 12.779783</code></pre>
+</div>
+</div>
+<p>There are lots of reasons why this approach is useful:</p>
+<ol type="1">
+<li>Can provide a standard set of code chunks to clean data from NOMIS, and other sources</li>
+<li>Can be looped across multiple different datasets</li>
+<li>Can be customised to perform different steps of cleaning that you need for your use case.</li>
+</ol>
+<p>However, perhaps the most useful thing functions can do, is be used to apply an API query and return a cleaned dataset for your use.</p>
+<p>Let’s have a look at an example: <a href="https://github.com/patrickballantyne/tidylodes"><code>tidylodes</code></a>.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figs/04/tidylodes.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">tidylodes</figcaption><p></p>
+</figure>
+</div>
+<p>We can implement some of these techniques and ideas to automate scraping of data from NOMIS.</p>
+<p>For example, take the URL we set above:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>url</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "https://www.nomisweb.co.uk/output/census/2021/census2021-ts061.zip"</code></pre>
+</div>
+</div>
+<p>If we wrote a function that could enable specification of a different table number, we could build a pipeline where you only have to change a couple of characters to return a cleaned dataset for your reports.</p>
+<p>For example, the other URL I provided in my solution above:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>url2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "https://www.nomisweb.co.uk/output/census/2021/census2021-ts066.zip"</code></pre>
+</div>
+</div>
+<p>You’ll notice the only difference with this URL is the <code>ts066</code> string at the end of the URL. Let’s start building a function that can swap these different characters in and out:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>downloadNOMIS <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">x =</span> <span class="st">"ts061"</span>) {</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="do">## Create the URL, based on the character supplied in x</span></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>  url <span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="st">"https://www.nomisweb.co.uk/output/census/2021/census2021-"</span>, x, <span class="st">".zip"</span>)</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(url)</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Let’s test this:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">downloadNOMIS</span>(<span class="st">"ts061"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "https://www.nomisweb.co.uk/output/census/2021/census2021-ts061.zip"</code></pre>
+</div>
+</div>
+<p>And then with a different table number</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">downloadNOMIS</span>(<span class="st">"ts066"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "https://www.nomisweb.co.uk/output/census/2021/census2021-ts066.zip"</code></pre>
+</div>
+</div>
+<p>Ok, so now we need to add to the function, to get R to download from the URL:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>downloadNOMIS <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">x =</span> <span class="st">"ts061"</span>) {</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>  <span class="do">## Create the URL, based on the character supplied in x</span></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>  url <span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="st">"https://www.nomisweb.co.uk/output/census/2021/census2021-"</span>, x, <span class="st">".zip"</span>)</span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>  <span class="do">## Download</span></span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">download.file</span>(url, <span class="st">"table.zip"</span>)</span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Test it:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">downloadNOMIS</span>(<span class="st">"ts066"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Now if you go into your working directory, you should have a .zip folder called <code>table</code>.</p>
+<p>Final steps: unzipping and checking all the files are there:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>downloadNOMIS <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">x =</span> <span class="st">"ts061"</span>) {</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>  <span class="do">## Create the URL, based on the character supplied in x</span></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>  url <span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="st">"https://www.nomisweb.co.uk/output/census/2021/census2021-"</span>, x, <span class="st">".zip"</span>)</span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>  <span class="do">## Download</span></span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">download.file</span>(url, <span class="st">"table.zip"</span>)</span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>  <span class="do">## Unzip the files</span></span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a>  outDir2 <span class="ot">&lt;-</span> <span class="st">"data/tableUZ"</span></span>
+<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a>  <span class="do">## Unzip the folder to the data/unzip folder</span></span>
+<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unzip</span>(<span class="st">"table.zip"</span>, <span class="at">exdir =</span> outDir2)</span>
+<span id="cb28-13"><a href="#cb28-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-14"><a href="#cb28-14" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Now run the command for a table of your choosing:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">downloadNOMIS</span>(<span class="st">"ts004"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>You can check this has worked by looking at the files available in the <code>tableUZ</code> folder, set up in the function above:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">list.files</span>(<span class="st">"data/tableUZ"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "census2021-ts001-ctry.csv"  "census2021-ts001-lsoa.csv" 
+ [3] "census2021-ts001-ltla.csv"  "census2021-ts001-msoa.csv" 
+ [5] "census2021-ts001-oa.csv"    "census2021-ts001-rgn.csv"  
+ [7] "census2021-ts001-utla.csv"  "census2021-ts002-ctry.csv" 
+ [9] "census2021-ts002-lsoa..csv" "census2021-ts002-ltla.csv" 
+[11] "census2021-ts002-msoa..csv" "census2021-ts002-oa.csv"   
+[13] "census2021-ts002-rgn.csv"   "census2021-ts002-utla.csv" 
+[15] "census2021-ts003-ctry.csv"  "census2021-ts003-lsoa.csv" 
+[17] "census2021-ts003-ltla.csv"  "census2021-ts003-msoa.csv" 
+[19] "census2021-ts003-oa.csv"    "census2021-ts003-rgn.csv"  
+[21] "census2021-ts003-utla.csv"  "census2021-ts004-ctry.csv" 
+[23] "census2021-ts004-llta.csv"  "census2021-ts004-lsoa.csv" 
+[25] "census2021-ts004-msoa.csv"  "census2021-ts004-oa.csv"   
+[27] "census2021-ts004-rgn.csv"   "census2021-ts004-ulta.csv" 
+[29] "metadata"                  </code></pre>
+</div>
+</div>
+<p>Awesome! You have created a function that enables you to have access to tables of data from NOMIS very easily. Finally, you might be interested in asking the function to read in a specific file - you can do this easily from NOMIS as the file naming protocols are very organised.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>downloadNOMIS <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">x =</span> <span class="st">"ts061"</span>) {</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>  <span class="do">## Create the URL, based on the character supplied in x</span></span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>  url <span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="st">"https://www.nomisweb.co.uk/output/census/2021/census2021-"</span>, x, <span class="st">".zip"</span>)</span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>  <span class="do">## Download</span></span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">download.file</span>(url, <span class="st">"table.zip"</span>)</span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a>  <span class="do">## Unzip the files</span></span>
+<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a>  outDir2 <span class="ot">&lt;-</span> <span class="st">"data/tableUZ"</span></span>
+<span id="cb32-11"><a href="#cb32-11" aria-hidden="true" tabindex="-1"></a>  <span class="do">## Unzip the folder to the data/unzip folder</span></span>
+<span id="cb32-12"><a href="#cb32-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unzip</span>(<span class="st">"table.zip"</span>, <span class="at">exdir =</span> outDir2)</span>
+<span id="cb32-13"><a href="#cb32-13" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb32-14"><a href="#cb32-14" aria-hidden="true" tabindex="-1"></a>  <span class="do">## Read in the regional level data</span></span>
+<span id="cb32-15"><a href="#cb32-15" aria-hidden="true" tabindex="-1"></a>  db <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="fu">paste0</span>(<span class="st">"data/tableUZ/census2021-"</span>, x, <span class="st">"-rgn.csv"</span>))</span>
+<span id="cb32-16"><a href="#cb32-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(db)</span>
+<span id="cb32-17"><a href="#cb32-17" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Test it</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Download and read in</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>t <span class="ot">&lt;-</span> <span class="fu">downloadNOMIS</span>(<span class="st">"ts003"</span>)</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a><span class="do">## Inspect</span></span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(t)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  date                geography geography.code
+1 2021               North East      E12000001
+2 2021               North West      E12000002
+3 2021 Yorkshire and The Humber      E12000003
+4 2021            East Midlands      E12000004
+5 2021            West Midlands      E12000005
+6 2021                     East      E12000006
+  Household.composition..Total..measures..Value
+1                                       1175683
+2                                       3153406
+3                                       2330657
+4                                       2037334
+5                                       2429493
+6                                       2628778
+  Household.composition..One.person.household..measures..Value
+1                                                       395924
+2                                                      1014913
+3                                                       733558
+4                                                       597177
+5                                                       725807
+6                                                       759808
+  Household.composition..One.person.household..Aged.66.years.and.over..measures..Value
+1                                                                               167832
+2                                                                               420823
+3                                                                               309721
+4                                                                               264630
+5                                                                               318108
+6                                                                               347326
+  Household.composition..One.person.household..Other..measures..Value
+1                                                              228092
+2                                                              594090
+3                                                              423837
+4                                                              332547
+5                                                              407699
+6                                                              412482
+  Household.composition..Single.family.household..measures..Value
+1                                                          731124
+2                                                         1961888
+3                                                         1471340
+4                                                         1317959
+5                                                         1549864
+6                                                         1714480
+  Household.composition..Single.family.household..All.aged.66.years.and.over..measures..Value
+1                                                                                      112397
+2                                                                                      278671
+3                                                                                      221778
+4                                                                                      209388
+5                                                                                      231216
+6                                                                                      272511
+  Household.composition..Single.family.household..Married.or.civil.partnership.couple..measures..Value
+1                                                                                               331330
+2                                                                                               904487
+3                                                                                               687238
+4                                                                                               632498
+5                                                                                               741413
+6                                                                                               848252
+  Household.composition..Single.family.household..Married.or.civil.partnership.couple..No.children..measures..Value
+1                                                                                                            129507
+2                                                                                                            312295
+3                                                                                                            259341
+4                                                                                                            236710
+5                                                                                                            248508
+6                                                                                                            287375
+  Household.composition..Single.family.household..Married.or.civil.partnership.couple..Dependent.children..measures..Value
+1                                                                                                                   135625
+2                                                                                                                   412594
+3                                                                                                                   305595
+4                                                                                                                   280529
+5                                                                                                                   345254
+6                                                                                                                   406526
+  Household.composition..Single.family.household..Married.or.civil.partnership.couple..All.children.non.dependent..measures..Value
+1                                                                                                                            66198
+2                                                                                                                           179598
+3                                                                                                                           122302
+4                                                                                                                           115259
+5                                                                                                                           147651
+6                                                                                                                           154351
+  Household.composition..Single.family.household..Cohabiting.couple.family..measures..Value
+1                                                                                    137302
+2                                                                                    373006
+3                                                                                    291532
+4                                                                                    253787
+5                                                                                    272420
+6                                                                                    309554
+  Household.composition..Single.family.household..Cohabiting.couple.family..No.children..measures..Value
+1                                                                                                  70052
+2                                                                                                 192405
+3                                                                                                 153710
+4                                                                                                 134608
+5                                                                                                 137757
+6                                                                                                 164306
+  Household.composition..Single.family.household..Cohabiting.couple.family..With.dependent.children..measures..Value
+1                                                                                                              57542
+2                                                                                                             155174
+3                                                                                                             119334
+4                                                                                                             103354
+5                                                                                                             115766
+6                                                                                                             125253
+  Household.composition..Single.family.household..Cohabiting.couple.family..All.children.non.dependent..measures..Value
+1                                                                                                                  9708
+2                                                                                                                 25427
+3                                                                                                                 18488
+4                                                                                                                 15825
+5                                                                                                                 18897
+6                                                                                                                 19995
+  Household.composition..Single.family.household..Lone.parent.family..measures..Value
+1                                                                              143417
+2                                                                              382496
+3                                                                              256459
+4                                                                              209278
+5                                                                              287205
+6                                                                              268439
+  Household.composition..Single.family.household..Lone.parent.family..With.dependent.children..measures..Value
+1                                                                                                        94314
+2                                                                                                       241480
+3                                                                                                       168688
+4                                                                                                       132437
+5                                                                                                       180039
+6                                                                                                       166653
+  Household.composition..Single.family.household..Lone.parent.family..All.children.non.dependent..measures..Value
+1                                                                                                           49103
+2                                                                                                          141016
+3                                                                                                           87771
+4                                                                                                           76841
+5                                                                                                          107166
+6                                                                                                          101786
+  Household.composition..Single.family.household..Other.single.family.household..measures..Value
+1                                                                                           6678
+2                                                                                          23228
+3                                                                                          14333
+4                                                                                          13008
+5                                                                                          17610
+6                                                                                          15724
+  Household.composition..Single.family.household..Other.single.family.household..Other.family.composition..measures..Value
+1                                                                                                                     6678
+2                                                                                                                    23228
+3                                                                                                                    14333
+4                                                                                                                    13008
+5                                                                                                                    17610
+6                                                                                                                    15724
+  Household.composition..Other.household.types..measures..Value
+1                                                         48635
+2                                                        176605
+3                                                        125759
+4                                                        122198
+5                                                        153822
+6                                                        154490
+  Household.composition..Other.household.types..With.dependent.children..measures..Value
+1                                                                                  18689
+2                                                                                  73084
+3                                                                                  51557
+4                                                                                  49543
+5                                                                                  72712
+6                                                                                  63676
+  Household.composition..Other.household.types..Other..including.all.full.time.students.and.all.aged.66.years.and.over..measures..Value
+1                                                                                                                                 29946
+2                                                                                                                                103521
+3                                                                                                                                 74202
+4                                                                                                                                 72655
+5                                                                                                                                 81110
+6                                                                                                                                 90814</code></pre>
+</div>
+</div>
+<p>The final thing I want to show you before we move off of functions is how to apply functions sequentially. Functions can be applied to lists really easily using the <code>lapply()</code> command. This means you could supply multiple names of tables that you want, and get R to download, read and clean them for you using the techniques I have just shown you.</p>
+<p>For example, take a list like this:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>ls <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"ts001"</span>, <span class="st">"ts002"</span>, <span class="st">"ts003"</span>)</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>ls</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "ts001" "ts002" "ts003"</code></pre>
+</div>
+</div>
+<p>We can apply the <code>downloadNOMIS</code> function to these three tables, to read in the regional-level tables. The way to do this is to use the <code>lapply</code> command, which takes as arguments 1) a list and 2) a function to apply over the list.</p>
+<p>In our case this would be:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Download three tables from NOMIS</span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>tables <span class="ot">&lt;-</span> <span class="fu">lapply</span>(ls, downloadNOMIS)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Once this has finished running, you are left with a list of tables, see:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(tables)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>List of 3
+ $ :'data.frame':   10 obs. of  6 variables:
+  ..$ date                                                              : int [1:10] 2021 2021 2021 2021 2021 2021 2021 2021 2021 2021
+  ..$ geography                                                         : chr [1:10] "North East" "North West" "Yorkshire and The Humber" "East Midlands" ...
+  ..$ geography.code                                                    : chr [1:10] "E12000001" "E12000002" "E12000003" "E12000004" ...
+  ..$ Residence.type..Total..measures..Value                            : int [1:10] 2647013 7417397 5480774 4880054 5950757 6335074 8799728 9278065 5701186 3107494
+  ..$ Residence.type..Lives.in.a.household..measures..Value             : int [1:10] 2594828 7290560 5376740 4778018 5854512 6238659 8699834 9088552 5582599 3051549
+  ..$ Residence.type..Lives.in.a.communal.establishment..measures..Value: int [1:10] 52185 126837 104034 102036 96245 96415 99894 189513 118587 55945
+ $ :'data.frame':   10 obs. of  21 variables:
+  ..$ date                                                                                                                                                                                       : int [1:10] 2021 2021 2021 2021 2021 2021 2021 2021 2021 2021
+  ..$ geography                                                                                                                                                                                  : chr [1:10] "North East" "North West" "Yorkshire and The Humber" "East Midlands" ...
+  ..$ geography.code                                                                                                                                                                             : chr [1:10] "E12000001" "E12000002" "E12000003" "E12000004" ...
+  ..$ Marital.and.civil.partnership.status..Total..measures..Value                                                                                                                               : int [1:10] 2178960 6025636 4460298 3998045 4801329 5148282 7103985 7554580 4735840 2559415
+  ..$ Marital.and.civil.partnership.status..Never.married.and.never.registered.a.civil.partnership..measures..Value                                                                              : int [1:10] 829791 2372877 1679861 1442049 1781208 1791650 3282327 2628945 1641415 951656
+  ..$ Marital.and.civil.partnership.status..Married.or.in.a.registered.civil.partnership..measures..Value                                                                                        : int [1:10] 937083 2575107 1971162 1832929 2172973 2429227 2843230 3596697 2203234 1121459
+  ..$ Marital.and.civil.partnership.status..Married.or.in.a.registered.civil.partnership..Married..measures..Value                                                                               : int [1:10] 933521 2565016 1962879 1825699 2164831 2419645 2819968 3579942 2192574 1116418
+  ..$ Marital.and.civil.partnership.status..Married.or.in.a.registered.civil.partnership..Married..Opposite.sex..measures..Value                                                                 : int [1:10] 928213 2548818 1951385 1815824 2153949 2407966 2793106 3557428 2179876 1109656
+  ..$ Marital.and.civil.partnership.status..Married.or.in.a.registered.civil.partnership..Married..Same.sex..measures..Value                                                                     : int [1:10] 5308 16198 11494 9875 10882 11679 26862 22514 12698 6762
+  ..$ Marital.and.civil.partnership.status..Married.or.in.a.registered.civil.partnership..In.a.registered.civil.partnership..measures..Value                                                     : int [1:10] 3562 10091 8283 7230 8142 9582 23262 16755 10660 5041
+  ..$ Marital.and.civil.partnership.status..Married.or.in.a.registered.civil.partnership..In.a.registered.civil.partnership..Opposite.sex..measures..Value                                       : int [1:10] 1312 3408 2975 2704 3304 3470 7946 5419 3528 1730
+  ..$ Marital.and.civil.partnership.status..Married.or.in.a.registered.civil.partnership..In.a.registered.civil.partnership..Same.sex..measures..Value                                           : int [1:10] 2250 6683 5308 4526 4838 6112 15316 11336 7132 3311
+  ..$ Marital.and.civil.partnership.status..Separated..but.still.legally.married.or.still.legally.in.a.civil.partnership..measures..Value                                                        : int [1:10] 54358 136428 102350 88980 110711 113455 165884 161395 99960 52468
+  ..$ Marital.and.civil.partnership.status..Separated..but.still.legally.married.or.still.legally.in.a.civil.partnership..Separated..but.still.married..measures..Value                          : int [1:10] 54029 135494 101660 88398 110090 112791 164083 160211 99224 52074
+  ..$ Marital.and.civil.partnership.status..Separated..but.still.legally.married.or.still.legally.in.a.civil.partnership..Separated..but.still.in.a.registered.civil.partnership..measures..Value: int [1:10] 329 934 690 582 621 664 1801 1184 736 394
+  ..$ Marital.and.civil.partnership.status..Divorced.or.civil.partnership.dissolved..measures..Value                                                                                             : int [1:10] 206974 550417 420235 378618 424612 490720 516854 705127 478079 252707
+  ..$ Marital.and.civil.partnership.status..Divorced.or.civil.partnership.dissolved..Divorced..measures..Value                                                                                   : int [1:10] 206505 549121 419338 377750 423752 489726 514117 703179 476871 252159
+  ..$ Marital.and.civil.partnership.status..Divorced.or.civil.partnership.dissolved..Formerly.in.a.civil.partnership.now.legally.dissolved..measures..Value                                      : int [1:10] 469 1296 897 868 860 994 2737 1948 1208 548
+  ..$ Marital.and.civil.partnership.status..Widowed.or.surviving.civil.partnership.partner..measures..Value                                                                                      : int [1:10] 150754 390807 286690 255469 311825 323230 295690 462416 313152 181125
+  ..$ Marital.and.civil.partnership.status..Widowed.or.surviving.civil.partnership.partner..Widowed..measures..Value                                                                             : int [1:10] 150610 390312 286369 255208 311517 322831 294837 461641 312673 180925
+  ..$ Marital.and.civil.partnership.status..Widowed.or.surviving.civil.partnership.partner..Surviving.partner.from.civil.partnership..measures..Value                                            : int [1:10] 144 495 321 261 308 399 853 775 479 200
+ $ :'data.frame':   10 obs. of  25 variables:
+  ..$ date                                                                                                                                 : int [1:10] 2021 2021 2021 2021 2021 2021 2021 2021 2021 2021
+  ..$ geography                                                                                                                            : chr [1:10] "North East" "North West" "Yorkshire and The Humber" "East Midlands" ...
+  ..$ geography.code                                                                                                                       : chr [1:10] "E12000001" "E12000002" "E12000003" "E12000004" ...
+  ..$ Household.composition..Total..measures..Value                                                                                        : int [1:10] 1175683 3153406 2330657 2037334 2429493 2628778 3423890 3807967 2448881 1347114
+  ..$ Household.composition..One.person.household..measures..Value                                                                         : int [1:10] 395924 1014913 733558 597177 725807 759808 1001983 1081739 741323 429559
+  ..$ Household.composition..One.person.household..Aged.66.years.and.over..measures..Value                                                 : int [1:10] 167832 420823 309721 264630 318108 347326 313049 503974 356329 196056
+  ..$ Household.composition..One.person.household..Other..measures..Value                                                                  : int [1:10] 228092 594090 423837 332547 407699 412482 688934 577765 384994 233503
+  ..$ Household.composition..Single.family.household..measures..Value                                                                      : int [1:10] 731124 1961888 1471340 1317959 1549864 1714480 1986263 2473698 1556311 850096
+  ..$ Household.composition..Single.family.household..All.aged.66.years.and.over..measures..Value                                          : int [1:10] 112397 278671 221778 209388 231216 272511 148209 386986 284123 138010
+  ..$ Household.composition..Single.family.household..Married.or.civil.partnership.couple..measures..Value                                 : int [1:10] 331330 904487 687238 632498 741413 848252 977165 1260379 747034 386697
+  ..$ Household.composition..Single.family.household..Married.or.civil.partnership.couple..No.children..measures..Value                    : int [1:10] 129507 312295 259341 236710 248508 287375 256539 420975 288960 145009
+  ..$ Household.composition..Single.family.household..Married.or.civil.partnership.couple..Dependent.children..measures..Value             : int [1:10] 135625 412594 305595 280529 345254 406526 541099 619300 328880 160019
+  ..$ Household.composition..Single.family.household..Married.or.civil.partnership.couple..All.children.non.dependent..measures..Value     : int [1:10] 66198 179598 122302 115259 147651 154351 179527 220104 129194 81669
+  ..$ Household.composition..Single.family.household..Cohabiting.couple.family..measures..Value                                            : int [1:10] 137302 373006 291532 253787 272420 309554 349419 433453 288505 155649
+  ..$ Household.composition..Single.family.household..Cohabiting.couple.family..No.children..measures..Value                               : int [1:10] 70052 192405 153710 134608 137757 164306 229339 240827 163957 77093
+  ..$ Household.composition..Single.family.household..Cohabiting.couple.family..With.dependent.children..measures..Value                   : int [1:10] 57542 155174 119334 103354 115766 125253 101486 166572 108519 67941
+  ..$ Household.composition..Single.family.household..Cohabiting.couple.family..All.children.non.dependent..measures..Value                : int [1:10] 9708 25427 18488 15825 18897 19995 18594 26054 16029 10615
+  ..$ Household.composition..Single.family.household..Lone.parent.family..measures..Value                                                  : int [1:10] 143417 382496 256459 209278 287205 268439 453937 369841 223832 161836
+  ..$ Household.composition..Single.family.household..Lone.parent.family..With.dependent.children..measures..Value                         : int [1:10] 94314 241480 168688 132437 180039 166653 267852 227161 138453 102274
+  ..$ Household.composition..Single.family.household..Lone.parent.family..All.children.non.dependent..measures..Value                      : int [1:10] 49103 141016 87771 76841 107166 101786 186085 142680 85379 59562
+  ..$ Household.composition..Single.family.household..Other.single.family.household..measures..Value                                       : int [1:10] 6678 23228 14333 13008 17610 15724 57533 23039 12817 7904
+  ..$ Household.composition..Single.family.household..Other.single.family.household..Other.family.composition..measures..Value             : int [1:10] 6678 23228 14333 13008 17610 15724 57533 23039 12817 7904
+  ..$ Household.composition..Other.household.types..measures..Value                                                                        : int [1:10] 48635 176605 125759 122198 153822 154490 435644 252530 151247 67459
+  ..$ Household.composition..Other.household.types..With.dependent.children..measures..Value                                               : int [1:10] 18689 73084 51557 49543 72712 63676 160669 93493 46913 26078
+  ..$ Household.composition..Other.household.types..Other..including.all.full.time.students.and.all.aged.66.years.and.over..measures..Value: int [1:10] 29946 103521 74202 72655 81110 90814 274975 159037 104334 41381</code></pre>
+</div>
+</div>
+<p>You can select one out individually:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Select the first table</span></span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>table1 <span class="ot">&lt;-</span> tables[[<span class="dv">1</span>]]</span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(table1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  date                geography geography.code
+1 2021               North East      E12000001
+2 2021               North West      E12000002
+3 2021 Yorkshire and The Humber      E12000003
+4 2021            East Midlands      E12000004
+5 2021            West Midlands      E12000005
+6 2021                     East      E12000006
+  Residence.type..Total..measures..Value
+1                                2647013
+2                                7417397
+3                                5480774
+4                                4880054
+5                                5950757
+6                                6335074
+  Residence.type..Lives.in.a.household..measures..Value
+1                                               2594828
+2                                               7290560
+3                                               5376740
+4                                               4778018
+5                                               5854512
+6                                               6238659
+  Residence.type..Lives.in.a.communal.establishment..measures..Value
+1                                                              52185
+2                                                             126837
+3                                                             104034
+4                                                             102036
+5                                                              96245
+6                                                              96415</code></pre>
+</div>
+</div>
+<p>Or because they all have the <code>geography.code</code>, <code>geography</code> and <code>date</code> column, you can just attach them into one big table. This relies on the use of the <code>purrr</code> package, which is full of useful tools for working with lists.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Bind together</span></span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>test <span class="ot">&lt;-</span> tables <span class="sc">%&gt;%</span></span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">reduce</span>(left_join, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"date"</span>, <span class="st">"geography"</span>, <span class="st">"geography.code"</span>))</span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a><span class="do">## Have a look</span></span>
+<span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(test)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "date"                                                                                                                                                                                       
+ [2] "geography"                                                                                                                                                                                  
+ [3] "geography.code"                                                                                                                                                                             
+ [4] "Residence.type..Total..measures..Value"                                                                                                                                                     
+ [5] "Residence.type..Lives.in.a.household..measures..Value"                                                                                                                                      
+ [6] "Residence.type..Lives.in.a.communal.establishment..measures..Value"                                                                                                                         
+ [7] "Marital.and.civil.partnership.status..Total..measures..Value"                                                                                                                               
+ [8] "Marital.and.civil.partnership.status..Never.married.and.never.registered.a.civil.partnership..measures..Value"                                                                              
+ [9] "Marital.and.civil.partnership.status..Married.or.in.a.registered.civil.partnership..measures..Value"                                                                                        
+[10] "Marital.and.civil.partnership.status..Married.or.in.a.registered.civil.partnership..Married..measures..Value"                                                                               
+[11] "Marital.and.civil.partnership.status..Married.or.in.a.registered.civil.partnership..Married..Opposite.sex..measures..Value"                                                                 
+[12] "Marital.and.civil.partnership.status..Married.or.in.a.registered.civil.partnership..Married..Same.sex..measures..Value"                                                                     
+[13] "Marital.and.civil.partnership.status..Married.or.in.a.registered.civil.partnership..In.a.registered.civil.partnership..measures..Value"                                                     
+[14] "Marital.and.civil.partnership.status..Married.or.in.a.registered.civil.partnership..In.a.registered.civil.partnership..Opposite.sex..measures..Value"                                       
+[15] "Marital.and.civil.partnership.status..Married.or.in.a.registered.civil.partnership..In.a.registered.civil.partnership..Same.sex..measures..Value"                                           
+[16] "Marital.and.civil.partnership.status..Separated..but.still.legally.married.or.still.legally.in.a.civil.partnership..measures..Value"                                                        
+[17] "Marital.and.civil.partnership.status..Separated..but.still.legally.married.or.still.legally.in.a.civil.partnership..Separated..but.still.married..measures..Value"                          
+[18] "Marital.and.civil.partnership.status..Separated..but.still.legally.married.or.still.legally.in.a.civil.partnership..Separated..but.still.in.a.registered.civil.partnership..measures..Value"
+[19] "Marital.and.civil.partnership.status..Divorced.or.civil.partnership.dissolved..measures..Value"                                                                                             
+[20] "Marital.and.civil.partnership.status..Divorced.or.civil.partnership.dissolved..Divorced..measures..Value"                                                                                   
+[21] "Marital.and.civil.partnership.status..Divorced.or.civil.partnership.dissolved..Formerly.in.a.civil.partnership.now.legally.dissolved..measures..Value"                                      
+[22] "Marital.and.civil.partnership.status..Widowed.or.surviving.civil.partnership.partner..measures..Value"                                                                                      
+[23] "Marital.and.civil.partnership.status..Widowed.or.surviving.civil.partnership.partner..Widowed..measures..Value"                                                                             
+[24] "Marital.and.civil.partnership.status..Widowed.or.surviving.civil.partnership.partner..Surviving.partner.from.civil.partnership..measures..Value"                                            
+[25] "Household.composition..Total..measures..Value"                                                                                                                                              
+[26] "Household.composition..One.person.household..measures..Value"                                                                                                                               
+[27] "Household.composition..One.person.household..Aged.66.years.and.over..measures..Value"                                                                                                       
+[28] "Household.composition..One.person.household..Other..measures..Value"                                                                                                                        
+[29] "Household.composition..Single.family.household..measures..Value"                                                                                                                            
+[30] "Household.composition..Single.family.household..All.aged.66.years.and.over..measures..Value"                                                                                                
+[31] "Household.composition..Single.family.household..Married.or.civil.partnership.couple..measures..Value"                                                                                       
+[32] "Household.composition..Single.family.household..Married.or.civil.partnership.couple..No.children..measures..Value"                                                                          
+[33] "Household.composition..Single.family.household..Married.or.civil.partnership.couple..Dependent.children..measures..Value"                                                                   
+[34] "Household.composition..Single.family.household..Married.or.civil.partnership.couple..All.children.non.dependent..measures..Value"                                                           
+[35] "Household.composition..Single.family.household..Cohabiting.couple.family..measures..Value"                                                                                                  
+[36] "Household.composition..Single.family.household..Cohabiting.couple.family..No.children..measures..Value"                                                                                     
+[37] "Household.composition..Single.family.household..Cohabiting.couple.family..With.dependent.children..measures..Value"                                                                         
+[38] "Household.composition..Single.family.household..Cohabiting.couple.family..All.children.non.dependent..measures..Value"                                                                      
+[39] "Household.composition..Single.family.household..Lone.parent.family..measures..Value"                                                                                                        
+[40] "Household.composition..Single.family.household..Lone.parent.family..With.dependent.children..measures..Value"                                                                               
+[41] "Household.composition..Single.family.household..Lone.parent.family..All.children.non.dependent..measures..Value"                                                                            
+[42] "Household.composition..Single.family.household..Other.single.family.household..measures..Value"                                                                                             
+[43] "Household.composition..Single.family.household..Other.single.family.household..Other.family.composition..measures..Value"                                                                   
+[44] "Household.composition..Other.household.types..measures..Value"                                                                                                                              
+[45] "Household.composition..Other.household.types..With.dependent.children..measures..Value"                                                                                                     
+[46] "Household.composition..Other.household.types..Other..including.all.full.time.students.and.all.aged.66.years.and.over..measures..Value"                                                      </code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="using-the-nomis-api" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="using-the-nomis-api"><span class="header-section-number">3.3</span> Using the NOMIS API</h2>
+<p>One of the things that you see more commonly in practice is the construction of specific R packages used to access APIs, with supporting documentation and specific functions that make it easier to use the API.</p>
+<p>One such example is <a href="https://docs.evanodell.com/nomisr/articles/introduction.html"><code>nomisr</code></a>, which is an R package that was built to enable users to query data from NOMIS. It is free to access and contains up-to-date official statistics including data from the latest Census, Labour Force Survey and DWP benefit statistics.</p>
+<p>In the section that follows, I’m going to be showing you how to use the nomisr package to download datasets.</p>
+<p>Vast amounts of data are available through NOMIS, so you need to use some of the different functions within <code>nomisr</code> to identify the specific datasets you want to use. An example is presented below which searches for datasets within NOMIS that are specifically about ‘Travel’:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Search for data on Labour Force</span></span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>search <span class="ot">&lt;-</span> <span class="fu">nomis_search</span>(<span class="st">"*Travel*"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>This returns a dataframe (which you should see in your environment) that describes all of the different NOMIS held datasets where ‘Travel’ is mentioned. The column perhaps of most interest is the short name for the different datasets, which you can inspect below:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Have a look at the first six datasets </span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(search<span class="sc">$</span>name.value)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Have a look at the first six datasets </span></span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(search<span class="sc">$</span>name.value)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "2001 census - UK travel flows (local authority)"            
 [2] "2001 census - Scottish travel flows (local authority)"      
@@ -365,15 +1014,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 [6] "WP702EW - Distance travelled to work (Workplace population)"</code></pre>
 </div>
 </div>
-<p>If you open up the dataframe in your environment and scroll down you should see one row has the value - TS061 - Method used to travel to work - which is the one we’ve been using a lot in this practical.</p>
-<p>We can filter to this row very easily using the filter() command that we introduced yesterday:</p>
+<p>If you open up the dataframe in your environment and scroll down you should see one row has the value - <code>TS061 - Method used to travel to work</code> - which is the one we’ve been using a lot in this practical.</p>
+<p>We can filter to this row very easily using the <code>filter()</code> command that we introduced yesterday:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Filter to row of interest</span></span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>search_sub <span class="ot">&lt;-</span> search <span class="sc">%&gt;%</span></span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(name.value <span class="sc">==</span> <span class="st">"TS061 - Method used to travel to work"</span>)</span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="do">## Have a look at the result</span></span>
-<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>search_sub</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Filter to row of interest</span></span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>search_sub <span class="ot">&lt;-</span> search <span class="sc">%&gt;%</span></span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(name.value <span class="sc">==</span> <span class="st">"TS061 - Method used to travel to work"</span>)</span>
+<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a><span class="do">## Have a look at the result</span></span>
+<span id="cb47-6"><a href="#cb47-6" aria-hidden="true" tabindex="-1"></a>search_sub</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 12
   agencyid id      uri   version annot…¹ compo…² compo…³ compo…⁴ compo…⁵ compo…⁶
@@ -385,11 +1034,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 #   ⁵​components.timedimension.codelist, ⁶​components.timedimension.conceptref</code></pre>
 </div>
 </div>
-<p>Notice how the table ID is <code>NM_2078_1</code>.</p>
-<p>We can get some metadata for this dataset very easily using the nomis_get_metadata() command. First, let’s see what measures are available:</p>
+<p>Notice how the table ID is <code>NM_2078_1</code>. We can get some metadata for this dataset very easily using the nomis_get_metadata() command. First, let’s see what measures are available:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Supply the ID of the row we're interested in, and the second parameters specifies we'd like to know more about the measures</span></span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">nomis_get_metadata</span>(search_sub<span class="sc">$</span>id, <span class="st">"measures"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Supply the ID of the row we're interested in, and the second parameters specifies we'd like to know more about the measures</span></span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a><span class="fu">nomis_get_metadata</span>(search_sub<span class="sc">$</span>id, <span class="st">"measures"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2 × 3
   id    label.en description.en
@@ -400,8 +1048,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <p>So for TS061, we can get both raw counts (‘value’) and percent. Notice how the ID for counts is <code>20100</code> and the ID for percent is <code>20301</code>. Let’s now see what geographies are available:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Supply the ID of the row we're interested in, and the second parameter specifies that we want to know more about geographies</span></span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="fu">nomis_get_metadata</span>(search_sub<span class="sc">$</span>id, <span class="st">"geography"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Supply the ID of the row we're interested in, and the second parameter specifies that we want to know more about geographies</span></span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a><span class="fu">nomis_get_metadata</span>(search_sub<span class="sc">$</span>id, <span class="st">"geography"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 3 × 4
   id         parentCode label.en          description.en   
@@ -413,8 +1061,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <p>Ok, so this is telling us the different geographic levels we can download the data for. However, if we add an additional parameter to this, we can also see the specific geographic units that this data is available at:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Add in an additional parameter</span></span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="fu">nomis_get_metadata</span>(search_sub<span class="sc">$</span>id, <span class="st">"geography"</span>, <span class="st">"TYPE"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Add in an additional parameter</span></span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a><span class="fu">nomis_get_metadata</span>(search_sub<span class="sc">$</span>id, <span class="st">"geography"</span>, <span class="st">"TYPE"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 12 × 3
    id      label.en                                                 descriptio…¹
@@ -437,8 +1085,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>So there are a variety of different geographic levels at which we can download the dataset, including LSOA - see <code>2021 super output areas - lower layer</code>. Notice how the ID for LSOAs is <code>TYPE151</code>.</p>
 <p>Those steps we have just performed basically give us everything we need to download the dataset directly from the NOMIS API using the package, instead of downloading the .zip files directly. Let’s download the file - it could take a while! If you don’t understand any of the specific inputs to this line of code, feel free to shout Patrick to talk it through.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Download the file</span></span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>db_v2 <span class="ot">&lt;-</span> <span class="fu">nomis_get_data</span>(<span class="at">id =</span> <span class="st">"NM_2078_1"</span>, <span class="at">time =</span> <span class="st">"latest"</span>, <span class="at">geography =</span> <span class="fu">c</span>(<span class="st">"TYPE151"</span>), <span class="at">measures =</span> <span class="st">"20301"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Download the file</span></span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a>db_v2 <span class="ot">&lt;-</span> <span class="fu">nomis_get_data</span>(<span class="at">id =</span> <span class="st">"NM_2078_1"</span>, <span class="at">time =</span> <span class="st">"latest"</span>, <span class="at">geography =</span> <span class="fu">c</span>(<span class="st">"TYPE151"</span>), <span class="at">measures =</span> <span class="st">"20301"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Retrieving additional pages 1 of 17</code></pre>
 </div>
@@ -494,12 +1142,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>The format the data is presented in is not the most intuitive, so those reshaping skills we acquired yesterday are going to come in handy here again!</p>
 <p>Firstly, let’s get the columns we need for our analysis - LSOA codes, the different modes of transport and the actual reported values.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Select columns of interest</span></span>
-<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>db_clean <span class="ot">&lt;-</span> db_v2 <span class="sc">%&gt;%</span></span>
-<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(GEOGRAPHY_CODE, C2021_TTWMETH_12_NAME, OBS_VALUE) </span>
-<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a><span class="do">## Inspect</span></span>
-<span id="cb43-6"><a href="#cb43-6" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(db_clean)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb73"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Select columns of interest</span></span>
+<span id="cb73-2"><a href="#cb73-2" aria-hidden="true" tabindex="-1"></a>db_clean <span class="ot">&lt;-</span> db_v2 <span class="sc">%&gt;%</span></span>
+<span id="cb73-3"><a href="#cb73-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(GEOGRAPHY_CODE, C2021_TTWMETH_12_NAME, OBS_VALUE) </span>
+<span id="cb73-4"><a href="#cb73-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-5"><a href="#cb73-5" aria-hidden="true" tabindex="-1"></a><span class="do">## Inspect</span></span>
+<span id="cb73-6"><a href="#cb73-6" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(db_clean)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 6 × 3
   GEOGRAPHY_CODE C2021_TTWMETH_12_NAME                                   OBS_V…¹
@@ -515,12 +1163,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <p>So as you can see from the table, it’s actually in a long format, whereas we might want it to be in a wide format, where each column is the % of people using each transport mode. Let’s use the <code>pivot_wider()</code> command to change this:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Go from long to wide</span></span>
-<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>db_clean <span class="ot">&lt;-</span> db_clean <span class="sc">%&gt;%</span></span>
-<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> C2021_TTWMETH_12_NAME, <span class="at">values_from =</span> OBS_VALUE)</span>
-<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a><span class="do">## Inspect</span></span>
-<span id="cb45-6"><a href="#cb45-6" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(db_clean)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb75"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Go from long to wide</span></span>
+<span id="cb75-2"><a href="#cb75-2" aria-hidden="true" tabindex="-1"></a>db_clean <span class="ot">&lt;-</span> db_clean <span class="sc">%&gt;%</span></span>
+<span id="cb75-3"><a href="#cb75-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> C2021_TTWMETH_12_NAME, <span class="at">values_from =</span> OBS_VALUE)</span>
+<span id="cb75-4"><a href="#cb75-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb75-5"><a href="#cb75-5" aria-hidden="true" tabindex="-1"></a><span class="do">## Inspect</span></span>
+<span id="cb75-6"><a href="#cb75-6" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(db_clean)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 6 × 13
   GEOGRAPH…¹ Total…² Work …³ Under…⁴ Train Bus, …⁵  Taxi Motor…⁶ Drivi…⁷ Passe…⁸
@@ -543,45 +1191,45 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Great, that’s worked! You’ll also notice the number of rows of db_clean matches that of db (which was the file we unzipped at the start of the practical).</p>
 <p>Some final data cleaning steps:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Tidy up the dataset</span></span>
-<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>db_final <span class="ot">&lt;-</span> db_clean <span class="sc">%&gt;%</span></span>
-<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">setNames</span>(<span class="fu">c</span>(<span class="st">"LSOA21CD"</span>, <span class="st">"total"</span>, <span class="st">"work_from_home"</span>, <span class="st">"underground_metro"</span>, <span class="st">"train"</span>, <span class="st">"bus_minibus_coach"</span>, </span>
-<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a>             <span class="st">"taxi"</span>, <span class="st">"motorcycle"</span>, <span class="st">"car_driving"</span>, <span class="st">"car_passenger"</span>, <span class="st">"bicycle"</span>, <span class="st">"foot"</span>, <span class="st">"other"</span>)) <span class="do">## set new names</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb77"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb77-1"><a href="#cb77-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Tidy up the dataset</span></span>
+<span id="cb77-2"><a href="#cb77-2" aria-hidden="true" tabindex="-1"></a>db_final <span class="ot">&lt;-</span> db_clean <span class="sc">%&gt;%</span></span>
+<span id="cb77-3"><a href="#cb77-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">setNames</span>(<span class="fu">c</span>(<span class="st">"LSOA21CD"</span>, <span class="st">"total"</span>, <span class="st">"work_from_home"</span>, <span class="st">"underground_metro"</span>, <span class="st">"train"</span>, <span class="st">"bus_minibus_coach"</span>, </span>
+<span id="cb77-4"><a href="#cb77-4" aria-hidden="true" tabindex="-1"></a>             <span class="st">"taxi"</span>, <span class="st">"motorcycle"</span>, <span class="st">"car_driving"</span>, <span class="st">"car_passenger"</span>, <span class="st">"bicycle"</span>, <span class="st">"foot"</span>, <span class="st">"other"</span>)) <span class="do">## set new names</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>And then we can easily produce one of the visualisations from yesterday:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Reproduce the scatter plot from yesterday's class</span></span>
-<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> db_final, <span class="fu">aes</span>(<span class="at">x =</span> work_from_home, <span class="at">y =</span> car_driving)) <span class="sc">+</span></span>
-<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.3</span>, <span class="at">size =</span> <span class="fl">0.35</span>) <span class="sc">+</span></span>
-<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>) <span class="sc">+</span></span>
-<span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlim</span>(<span class="dv">0</span>, <span class="dv">100</span>) <span class="sc">+</span></span>
-<span id="cb48-6"><a href="#cb48-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylim</span>(<span class="dv">0</span>, <span class="dv">100</span>) <span class="sc">+</span></span>
-<span id="cb48-7"><a href="#cb48-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Population who work from home (%)"</span>, <span class="at">y =</span> <span class="st">"Population who drive to work (%)"</span>,</span>
-<span id="cb48-8"><a href="#cb48-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">caption =</span> <span class="st">"Data: UK Census (2021) - 'Method of travel to work' (ts061)"</span>) <span class="sc">+</span></span>
-<span id="cb48-9"><a href="#cb48-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb78"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb78-1"><a href="#cb78-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Reproduce the scatter plot from yesterday's class</span></span>
+<span id="cb78-2"><a href="#cb78-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> db_final, <span class="fu">aes</span>(<span class="at">x =</span> work_from_home, <span class="at">y =</span> car_driving)) <span class="sc">+</span></span>
+<span id="cb78-3"><a href="#cb78-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.3</span>, <span class="at">size =</span> <span class="fl">0.35</span>) <span class="sc">+</span></span>
+<span id="cb78-4"><a href="#cb78-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>) <span class="sc">+</span></span>
+<span id="cb78-5"><a href="#cb78-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlim</span>(<span class="dv">0</span>, <span class="dv">100</span>) <span class="sc">+</span></span>
+<span id="cb78-6"><a href="#cb78-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylim</span>(<span class="dv">0</span>, <span class="dv">100</span>) <span class="sc">+</span></span>
+<span id="cb78-7"><a href="#cb78-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Population who work from home (%)"</span>, <span class="at">y =</span> <span class="st">"Population who drive to work (%)"</span>,</span>
+<span id="cb78-8"><a href="#cb78-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">caption =</span> <span class="st">"Data: UK Census (2021) - 'Method of travel to work' (ts061)"</span>) <span class="sc">+</span></span>
+<span id="cb78-9"><a href="#cb78-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>`geom_smooth()` using formula = 'y ~ x'</code></pre>
 </div>
 <div class="cell-output-display">
-<p><img src="03_dashboards-api_files/figure-html/unnamed-chunk-23-1.png" class="img-fluid" width="672"></p>
+<p><img src="03_dashboards-api_files/figure-html/unnamed-chunk-41-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>Nice! You have now learned how to programmatically use the API to scrape data from NOMIS, bypassing the need to download and unzip the files directly. Now, some independent tasks to check you can reproduce the steps.</p>
-<section id="independent-exercise---over-to-you" class="level3">
-<h3 class="anchored" data-anchor-id="independent-exercise---over-to-you">Independent exercise - Over to you!</h3>
+<section id="independent-exercise---over-to-you" class="level3" data-number="3.3.1">
+<h3 data-number="3.3.1" class="anchored" data-anchor-id="independent-exercise---over-to-you"><span class="header-section-number">3.3.1</span> Independent exercise - Over to you!</h3>
 <ol type="1">
-<li>Experiment with downloading a different dataset using the nomisr package, and clean it.</li>
+<li>Experiment with downloading a different dataset using the <code>nomisr</code> package, and clean it.</li>
 <li>Produce an interesting visualisation using your chosen dataset.</li>
 <li>(<em>optional</em>) See if you can attach the LAD names to your dataset, and produce a visualisation that examines LAD differences in your chosen dataset - recommend you choose a dataset at either LSOA or MSOA geography to use yesterday’s lookup table. If you are unsure of how to do this, you will need to go back to <code>Day 2 - Data Visualisation</code>.</li>
 </ol>
 </section>
 </section>
-<section id="building-dashboards-in-r" class="level2">
-<h2 class="anchored" data-anchor-id="building-dashboards-in-r">Building Dashboards in R</h2>
+<section id="building-dashboards-in-r" class="level2" data-number="3.4">
+<h2 data-number="3.4" class="anchored" data-anchor-id="building-dashboards-in-r"><span class="header-section-number">3.4</span> Building Dashboards in R</h2>
 <p>Dashboards are often a great way to share results and analyses with others. There are a number of ways you can build dashboards in R, including:</p>
 <ol type="1">
 <li>Using markdown (<code>flexdashboard</code> R package)</li>
-<li>Using R shiny.</li>
+<li>Using <code>R shiny</code>.</li>
 </ol>
 <p>The former offers you to create a dashboard with panels and pages very easily, and has significant advantages over R Shiny:</p>
 <ol type="1">
@@ -589,8 +1237,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>Dashboard can be distributed as the .html file, with no server required.</li>
 <li>Other packages can hook into the dashboard to add interactivity.</li>
 </ol>
-<section id="getting-started" class="level3">
-<h3 class="anchored" data-anchor-id="getting-started">Getting started</h3>
+<section id="getting-started" class="level3" data-number="3.4.1">
+<h3 data-number="3.4.1" class="anchored" data-anchor-id="getting-started"><span class="header-section-number">3.4.1</span> Getting started</h3>
 <p>To build a dashboard using R markdown, we will need to use an alternate type of computational workbook - thus far we have been working with Quarto files (.qmd), but now we need to switch to the format that supports “Flex Dashboards”.</p>
 <p>However, <code>flexdashboard</code> runs into problems when linked to an existing R project, especially one which is hooked up to Quarto.</p>
 <p><strong>Important</strong> So for this part of the project please create a new directory where you want to build your dashboard. For example, I’ve created a new folder called ‘Dashboard’, which is where I will be building my dashboard. Also, make sure to copy some of the datasets we have been using into this new directory:</p>
@@ -629,8 +1277,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </figure>
 </div>
 </section>
-<section id="introduction-to-flex-dashboard" class="level3">
-<h3 class="anchored" data-anchor-id="introduction-to-flex-dashboard">Introduction to Flex Dashboard</h3>
+<section id="introduction-to-flex-dashboard" class="level3" data-number="3.4.2">
+<h3 data-number="3.4.2" class="anchored" data-anchor-id="introduction-to-flex-dashboard"><span class="header-section-number">3.4.2</span> Introduction to Flex Dashboard</h3>
 <p>For the remainder of the practical, you need to be working in your new .Rmd file. This is where you will build and deploy your dashboard, so please make sure you are working in this file - ‘dashboard.Rmd’.</p>
 <p>Inside the file you will notice a couple of different things:</p>
 <ol type="1">
@@ -646,9 +1294,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <p>These parameters are doing the following:</p>
 <ul>
-<li>title: sets a title to appear at the top of the dashboard.</li>
-<li>orientation: determines whether charts should be aligned in rows or columns</li>
-<li>vertical_layout: sets the dashboard to fill available browser height.</li>
+<li><code>title</code>: sets a title to appear at the top of the dashboard.</li>
+<li><code>orientation</code>: determines whether charts should be aligned in rows or columns</li>
+<li><code>vertical_layout</code>: sets the dashboard to fill available browser height.</li>
 </ul>
 <p>Press ‘Knit’ and see what happens…</p>
 <p>R should open up a new window that looks like this:</p>
@@ -662,7 +1310,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Let’s change the layout slightly, to create a grid of four equally sized panes. To do this you need to:</p>
 <ol type="1">
 <li>Change the data-width parameter to be equal for both columns</li>
-<li>Add a second pane under column one</li>
+<li>Add a second panel under column one</li>
 </ol>
 <p>Here is what the code looks like:</p>
 <div class="quarto-figure quarto-figure-center">
@@ -680,12 +1328,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <p>Cool! So the dashboard layout is set up and ready to go!</p>
 </section>
-<section id="independent-exercise---over-to-you-1" class="level3">
-<h3 class="anchored" data-anchor-id="independent-exercise---over-to-you-1">Independent exercise - Over to you!</h3>
+<section id="independent-exercise---over-to-you-1" class="level3" data-number="3.4.3">
+<h3 data-number="3.4.3" class="anchored" data-anchor-id="independent-exercise---over-to-you-1"><span class="header-section-number">3.4.3</span> Independent exercise - Over to you!</h3>
 <ol type="1">
 <li>Swap the orientation to be columns</li>
 <li>See if you can set up the dashboard to be structured as 1 large panel on the left, and three on the right.</li>
-<li>(<em>optional</em>) Change the section headers for each pane to list some potential visualisations you might put in each, based on yesterday’s class.</li>
+<li>(<em>optional</em>) Change the section headers for each panel to list some potential visualisations you might put in each, based on yesterday’s class.</li>
 </ol>
 <p>SOLUTION:</p>
 <div class="quarto-figure quarto-figure-center">
@@ -695,11 +1343,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </figure>
 </div>
 </section>
-<section id="embedding-visualisations" class="level3">
-<h3 class="anchored" data-anchor-id="embedding-visualisations">Embedding visualisations</h3>
+<section id="embedding-visualisations" class="level3" data-number="3.4.4">
+<h3 data-number="3.4.4" class="anchored" data-anchor-id="embedding-visualisations"><span class="header-section-number">3.4.4</span> Embedding visualisations</h3>
 <p>When building a dashboard, a key component will be adding in a number of visualisations to enhance the information being conveyed by the dashboard. As you have seen so far, <code>flexdashboard</code> creates panes to host plots and visualisations on.</p>
 <p>However, the visualisations need to be produced within the .Rmd file before they can be displayed on the dashboard itself. This is where you can use code chunks within the .Rmd file to re-run some of the analyses we did yesterday to produce visuals for the dashboard.</p>
-<p>The code chunks need to be placed before the dashboard structural parameters - i.e.&nbsp;before the ## Column commands in the script. Have a look at the example below where we read in and clean the census data we were using on Day 2:</p>
+<p>The code chunks need to be placed before the dashboard structural parameters - i.e.&nbsp;before the <code>##</code> Column commands in the script. Have a look at the example below where we read in and clean the census data we were using on Day 2:</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="figs/04/code-example.png" class="img-fluid figure-img"></p>
@@ -728,35 +1376,35 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </figure>
 </div>
 </section>
-<section id="independent-exericse---over-to-you-30---45-mins" class="level3">
-<h3 class="anchored" data-anchor-id="independent-exericse---over-to-you-30---45-mins">Independent exericse - Over to you!! (30 - 45 mins)</h3>
+<section id="independent-exercise---over-to-you-30---45-mins" class="level3" data-number="3.4.5">
+<h3 data-number="3.4.5" class="anchored" data-anchor-id="independent-exercise---over-to-you-30---45-mins"><span class="header-section-number">3.4.5</span> Independent exercise - Over to you!! (30 - 45 mins)</h3>
 <p>Have a go at embedding some more visualisations on the dashboard. To do this you will need to reproduce lots of the analysis you did on Day 2.</p>
-<p>Below I’ve included something that I put together, which is something you could aim to try and generate…</p>
+<p>Below I’ve included something that I put together, which is something you could aim to try and generate. Have a look at <a href="https://rstudio.github.io/flexdashboard/articles/using.html">this vignette</a> produced by the <code>flexdashboard</code> package developers for some ideas of different elements and interactive functionalities you might want to build into your dashboard.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="figs/04/dashboard-final.png" class="img-fluid figure-img"></p>
+<p><img src="figs/04/final-dashboard.png" class="img-fluid figure-img"></p>
 <p></p><figcaption class="figure-caption">Transport Dashboard</figcaption><p></p>
 </figure>
 </div>
 </section>
 </section>
-<section id="other-useful-reporting-techniques" class="level2">
-<h2 class="anchored" data-anchor-id="other-useful-reporting-techniques">Other Useful Reporting Techniques</h2>
+<section id="other-useful-reporting-techniques" class="level2" data-number="3.5">
+<h2 data-number="3.5" class="anchored" data-anchor-id="other-useful-reporting-techniques"><span class="header-section-number">3.5</span> Other Useful Reporting Techniques</h2>
 <p>We have shown you the power of using R and Quarto for generating computational workbooks where you can view both the figures/outputs and code used to generate them, all at once.</p>
-<section id="constructing-reports" class="level3">
-<h3 class="anchored" data-anchor-id="constructing-reports">Constructing Reports</h3>
+<section id="constructing-reports" class="level3" data-number="3.5.1">
+<h3 data-number="3.5.1" class="anchored" data-anchor-id="constructing-reports"><span class="header-section-number">3.5.1</span> Constructing Reports</h3>
 <p>The .html files that render alongside these .qmd files can be seen as ‘reports’ in a way. However, there is a whole host of design-related modifications you can make to the .qmd file which will enhance the appearance of the output report.</p>
 <p>There is lots of useful information online about creating nice reports using R markdown - including this one from <a href="https://epirhandbook.com/en/reports-with-r-markdown.html">The Epidemiologist R Handbook</a>.</p>
 </section>
-<section id="routine-reporting" class="level3">
-<h3 class="anchored" data-anchor-id="routine-reporting">Routine Reporting</h3>
-<p>The Epidemiologist Handbook also has a really nice section on how to use R to run reports routinely, using the reportfactory R package. Have a a look ath the <a href="https://epirhandbook.com/en/organizing-routine-reports.html">Organising routing reports</a> guide if you are interested in learning more about this!</p>
-</section>
+<section id="routine-reporting" class="level3" data-number="3.5.2">
+<h3 data-number="3.5.2" class="anchored" data-anchor-id="routine-reporting"><span class="header-section-number">3.5.2</span> Routine Reporting</h3>
+<p>The Epidemiologist Handbook also has a really nice section on how to use R to run reports routinely, using the <code>reportfactory</code> R package. Have a a look at the <a href="https://epirhandbook.com/en/organizing-routine-reports.html">Organising routing reports</a> guide if you are interested in learning more about this!</p>
+
+
 </section>
 </section>
 
-</main>
-<!-- /main column -->
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
@@ -855,6 +1503,18 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./02_data-visualisation.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Data Visualisation</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./04_data-modeling.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Data modeling</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
 </div> <!-- /content -->
 
 

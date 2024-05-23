@@ -606,7 +606,7 @@ Now hit 'Knit' and you should see this plot on the dashboard:
 
 Have a go at embedding some more visualisations on the dashboard. To do this you will need to reproduce lots of the analysis you did on Day 2.
 
-Below I've included something that I put together, which is something you could aim to try and generate. Have a look at [this vignette](https://rstudio.github.io/flexdashboard/articles/using.html) produced by the `flexdashboard` package developers for some ideas of different elements and interactive functionalities you might want to build into your dashboard. 
+Below I've included something that I put together, which is something you could aim to try and generate. Have a look at [this vignette](https://rstudio.github.io/flexdashboard/articles/using.html) produced by the `flexdashboard` package developers for some ideas of different elements and interactive functionalities you might want to build into your dashboard.
 
 ![Transport Dashboard](figs/04/final-dashboard.png)
 
