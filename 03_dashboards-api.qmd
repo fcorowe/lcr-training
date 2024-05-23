@@ -431,6 +431,7 @@ Those steps we have just performed basically give us everything we need to downl
 ## Download the file
 db_v2 <- nomis_get_data(id = "NM_2078_1", time = "latest", geography = c("TYPE151"), measures = "20301")
 ```
+
 The format the data is presented in is not the most intuitive, so those reshaping skills we acquired yesterday are going to come in handy here again!
 
 Firstly, let's get the columns we need for our analysis - LSOA codes, the different modes of transport and the actual reported values.
@@ -493,7 +494,7 @@ Nice! You have now learned how to programmatically use the API to scrape data fr
 Dashboards are often a great way to share results and analyses with others. There are a number of ways you can build dashboards in R, including:
 
 1.  Using markdown (`flexdashboard` R package)
-2.  Using R shiny.
+2.  Using `R shiny`.
 
 The former offers you to create a dashboard with panels and pages very easily, and has significant advantages over R Shiny:
 
@@ -542,9 +543,9 @@ Have a go at changing your YAML header to the following:
 
 These parameters are doing the following:
 
--   title: sets a title to appear at the top of the dashboard.
--   orientation: determines whether charts should be aligned in rows or columns
--   vertical_layout: sets the dashboard to fill available browser height.
+-   `title`: sets a title to appear at the top of the dashboard.
+-   `orientation`: determines whether charts should be aligned in rows or columns
+-   `vertical_layout`: sets the dashboard to fill available browser height.
 
 Press 'Knit' and see what happens...
 
@@ -557,7 +558,7 @@ So you can see that the dashboard has three panes set up to host different types
 Let's change the layout slightly, to create a grid of four equally sized panes. To do this you need to:
 
 1.  Change the data-width parameter to be equal for both columns
-2.  Add a second pane under column one
+2.  Add a second panel under column one
 
 Here is what the code looks like:
 
@@ -573,7 +574,7 @@ Cool! So the dashboard layout is set up and ready to go!
 
 1.  Swap the orientation to be columns
 2.  See if you can set up the dashboard to be structured as 1 large panel on the left, and three on the right.
-3.  (*optional*) Change the section headers for each pane to list some potential visualisations you might put in each, based on yesterday's class.
+3.  (*optional*) Change the section headers for each panel to list some potential visualisations you might put in each, based on yesterday's class.
 
 SOLUTION:
 
@@ -585,7 +586,7 @@ When building a dashboard, a key component will be adding in a number of visuali
 
 However, the visualisations need to be produced within the .Rmd file before they can be displayed on the dashboard itself. This is where you can use code chunks within the .Rmd file to re-run some of the analyses we did yesterday to produce visuals for the dashboard.
 
-The code chunks need to be placed before the dashboard structural parameters - i.e. before the \## Column commands in the script. Have a look at the example below where we read in and clean the census data we were using on Day 2:
+The code chunks need to be placed before the dashboard structural parameters - i.e. before the `##` Column commands in the script. Have a look at the example below where we read in and clean the census data we were using on Day 2:
 
 ![How to insert code](figs/04/code-example.png)
 
@@ -601,13 +602,13 @@ Now hit 'Knit' and you should see this plot on the dashboard:
 
 ![First stage](figs/04/dashboard-p1.png)
 
-### Independent exericse - Over to you!! (30 - 45 mins)
+### Independent exercise - Over to you!! (30 - 45 mins)
 
 Have a go at embedding some more visualisations on the dashboard. To do this you will need to reproduce lots of the analysis you did on Day 2.
 
-Below I've included something that I put together, which is something you could aim to try and generate...
+Below I've included something that I put together, which is something you could aim to try and generate. Have a look at [this vignette](https://rstudio.github.io/flexdashboard/articles/using.html) produced by the `flexdashboard` package developers for some ideas of different elements and interactive functionalities you might want to build into your dashboard. 
 
-![Transport Dashboard](figs/04/dashboard-final.png)
+![Transport Dashboard](figs/04/final-dashboard.png)
 
 ## Other Useful Reporting Techniques
 
@@ -621,4 +622,4 @@ There is lots of useful information online about creating nice reports using R m
 
 ### Routine Reporting
 
-The Epidemiologist Handbook also has a really nice section on how to use R to run reports routinely, using the reportfactory R package. Have a a look ath the [Organising routing reports](https://epirhandbook.com/en/organizing-routine-reports.html) guide if you are interested in learning more about this!
+The Epidemiologist Handbook also has a really nice section on how to use R to run reports routinely, using the `reportfactory` R package. Have a a look at the [Organising routing reports](https://epirhandbook.com/en/organizing-routine-reports.html) guide if you are interested in learning more about this!
