@@ -81,7 +81,7 @@ Before opening any files in the folder, open the file with the extension `*.Rpro
 
 ```{r}
 #| eval: false
-read_csv("./data")
+read_csv("./data/census2021-ts061-lsoa.csv")
 ```
 
 ## R scripts
@@ -160,6 +160,7 @@ You can use `help` or `?` to ask for details for a specific function:
 
 ```         
 help(sqrt) #or ?sqrt
+?ggplot
 ```
 
 And using `example` provides examples for said function:
@@ -513,15 +514,10 @@ write.csv(join_dfs, "join_censusdfs.csv")
 An important component of geographic data science is to manipulate geographic data frames. R has various purposely designed `packages` for manipulation of spatial data and spatial analysis techniques. Various packages exist in CRAN, including `sf` [@sf2018; @R-sf], `stars` [@R-stars], `terra`, `s2` [@R-s2], `lwgeom` [@R-lwgeom], `gstat` [@pebesma2004; @R-gstat], `spdep` [@R-spdep], `spatialreg` [@R-spatialreg], `spatstat` [@baddeley2015spatial; @R-spatstat], `tmap` [@tmap2018; @R-tmap], `mapview` [@R-mapview] and more. A key package is this ecosystem is `sf` [@pebesma2023spatial]. R package `sf` provides a table format for simple features, where feature geometries are stored in a list-column. It appeared in 2016 and was developed to move spatial data analysis in R closer to standards-based approaches seen in the industry and open source projects, to build upon more modern versions of open source geospatial software stack and allow for integration of R spatial software with the `tidyverse` [@tidyverse2019], particularly `ggplot2`, `dplyr`, and `tidyr`. Hence, this book relies heavely on `sf` for the manipulation and analysis of the data.
 
 ::: column-margin
-
 ::: callout-note
-
 @lovelace2024 provide a helpful overview and evolution of R spatial package ecosystem.
-
 :::
-
 :::
-
 
 **Reading geographic data frames**
 
@@ -532,7 +528,7 @@ sdf <- st_read("./data/LCR-LSOA.gpkg")
 head(sdf)
 ```
 
-Examine the input data. A spatial data frame stores a range of attributes derived from a shapefile including the geometry of features (e.g. polygon shape and location), attributes for each feature (stored in the .dbf), projection and coordinates of the shapefile’s bounding box - for details, execute:
+Examine the input data. A spatial data frame stores a range of attributes derived from a shapefile including the geometry of features (e.g. polygon shape and location), attributes for each feature (stored in the .dbf), projection and coordinates of the shapefile's bounding box - for details, execute:
 
 ```{r}
 #| eval: false
@@ -582,9 +578,9 @@ simple_sdf
 
 [*Reprojecting boundaries*]{.underline}
 
-We often work with multiple shapefiles in one project and these shapefiles can have boundaries in different projections. As such, they need to be harmonised before they can be integrated in analysis. We show how this process can be conducted. 
+We often work with multiple shapefiles in one project and these shapefiles can have boundaries in different projections. As such, they need to be harmonised before they can be integrated in analysis. We show how this process can be conducted.
 
-The first step is to decide the Coordinate Reference Systems (CRS) for the data to be projected. In this example, we use the World Geodetic System 1984 (i.e. EPSG:4326). 
+The first step is to decide the Coordinate Reference Systems (CRS) for the data to be projected. In this example, we use the World Geodetic System 1984 (i.e. EPSG:4326).
 
 ```{r}
 # set crs
@@ -601,11 +597,10 @@ repro_simple_sdf
 
 [*Mapping*]{.underline}
 
-We can also quickly map spatial boundaries by using the R base function `plot`. 
+We can also quickly map spatial boundaries by using the R base function `plot`.
 
 ```{r}
 plot(simple_sdf$geom)
 ```
 
 During the next session, we will explore more sophisticated ways of mapping spatial data using different packages and functions.
-

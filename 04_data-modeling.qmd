@@ -1,5 +1,35 @@
 # Data modeling
 
+This session will provide an introduction to linear regression and time series modelling in R. It will first explain the fundamentals of regression modelling, including model estimation, interpretation and calibration. Then, it will focus on time series data modelling, particularly the use of ARIMA models.
+
+## **Learning objectives**
+
+By the end of today\'s session you should be able to:
+
+-   Understand how to estimate, interpret and calibrate linear regression and ARIMA models;
+
+-   Be familiar with the main assumptions and challenges of these models;
+
+-   Use these models to produce predictions.
+
+## Dependencies
+
+```{r}
+#| warning: false
+#| message: false
+library(tidyverse)
+
+```
+
+## Data
+
+```{r}
+
+df_claimants <- read.csv("./data/claimants/claimants_liverpool.csv") %>% 
+  
+head(df_claimants)
+```
+
 ## Linear regression
 
 -   estimation
@@ -21,5 +51,3 @@
 -   ARIMA
 
 -   ARIMAX (adding Xs)
-
--   VAR???
