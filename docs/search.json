@@ -294,7 +294,7 @@
     "href": "04_data-modeling.html",
     "title": "4  Data modeling",
     "section": "",
-    "text": "4.1 Linear regression",
+    "text": "4.1 Learning objectives\nBy the end of today's session you should be able to:",
     "crumbs": [
       "<span class='chapter-number'>4</span>  <span class='chapter-title'>Data modeling</span>"
     ]
@@ -303,8 +303,8 @@
     "objectID": "04_data-modeling.html#linear-regression",
     "href": "04_data-modeling.html#linear-regression",
     "title": "4  Data modeling",
-    "section": "",
-    "text": "estimation\ninterpretation / CIs, p-values, etc.\ndummy variables\nmulticollinearity",
+    "section": "4.6 Linear regression",
+    "text": "4.6 Linear regression\nExplain what a linear regression does and the key components of a linear regression.\n\\[\ny = \\alpha + \\beta_1 x_1 + \\beta_2 x_2 + \\beta_3 x_3 + … + \\epsilon_i\n\\]\nFit a model\n\neq1 &lt;- annual_claimants ~ job_density\n\nlm1 &lt;- lm(eq1, \n         data = df_modelling)\n\n# estimates\nsummary(lm1)\n\n\nCall:\nlm(formula = eq1, data = df_modelling)\n\nResiduals:\n   Min     1Q Median     3Q    Max \n -5901  -2611  -1126   2872   8978 \n\nCoefficients:\n            Estimate Std. Error t value Pr(&gt;|t|)\n(Intercept)    12833      17522   0.732    0.472\njob_density     5062      21374   0.237    0.815\n\nResidual standard error: 4341 on 21 degrees of freedom\nMultiple R-squared:  0.002664,  Adjusted R-squared:  -0.04483 \nF-statistic: 0.0561 on 1 and 21 DF,  p-value: 0.8151\n\n\nInterpretation\n\nggplot(df_modelling, aes(x = job_density, y = annual_claimants)) +\n  geom_point(color = \"darkblue\", size = 3) +\n  geom_smooth(method = \"lm\", se = FALSE, color = \"yellow\") +\n  labs(title = \" \", x = \"Claimants\", y = \"Job density\") +\n  theme_minimal()\n\n`geom_smooth()` using formula = 'y ~ x'\n\n\n\n\n\n\n\n\n\n\n\ndummy variables\nmulticollinearity",
     "crumbs": [
       "<span class='chapter-number'>4</span>  <span class='chapter-title'>Data modeling</span>"
     ]
@@ -313,8 +313,8 @@
     "objectID": "04_data-modeling.html#time-series-data-modelling",
     "href": "04_data-modeling.html#time-series-data-modelling",
     "title": "4  Data modeling",
-    "section": "4.2 Time series data modelling",
-    "text": "4.2 Time series data modelling\n\nautoregressive (AR)\nseasonality / integration / diffencing (I)\nmoving average (MA)\nARIMA\nARIMAX (adding Xs)\nVAR???",
+    "section": "4.7 Time series data modelling",
+    "text": "4.7 Time series data modelling\n\nautoregressive (AR)\nseasonality / integration / diffencing (I)\nmoving average (MA)\nARIMA\nARIMAX (adding Xs)",
     "crumbs": [
       "<span class='chapter-number'>4</span>  <span class='chapter-title'>Data modeling</span>"
     ]
@@ -357,6 +357,66 @@
     "text": "Appelhans, Tim, Florian Detsch, Christoph Reudenbach, and Stefan\nWoellauer. 2022. Mapview: Interactive Viewing of Spatial Data in\nr. https://github.com/r-spatial/mapview.\n\n\nBaddeley, Adrian, Ege Rubak, and Rolf Turner. 2015. Spatial Point\nPatterns: Methodology and Applications with r. CRC press.\n\n\nBaddeley, Adrian, Rolf Turner, and Ege Rubak. 2022. Spatstat:\nSpatial Point Pattern Analysis, Model-Fitting, Simulation, Tests.\nhttp://spatstat.org/.\n\n\nBivand, Roger. 2022. Spdep: Spatial Dependence: Weighting Schemes,\nStatistics.\n\n\nBivand, Roger, and Gianfranco Piras. 2022. Spatialreg: Spatial\nRegression Analysis. https://CRAN.R-project.org/package=spatialreg.\n\n\nDunnington, Dewey, Edzer Pebesma, and Ege Rubak. 2023. S2: Spherical\nGeometry Operators Using the S2 Geometry Library. https://CRAN.R-project.org/package=s2.\n\n\nLovelace, Robin, Jakub Nowosad, and Jannes Muenchow. 2024.\nGeocomputation with r. Online. https://doi.org/10.1201/9780203730058.\n\n\nPebesma, Edzer. 2018. “Simple Features for R:\nStandardized Support for Spatial Vector Data.”\nThe R Journal 10 (1): 439–46. https://doi.org/10.32614/RJ-2018-009.\n\n\n———. 2022a. Sf: Simple Features for r. https://CRAN.R-project.org/package=sf.\n\n\n———. 2022b. Stars: Spatiotemporal Arrays, Raster and Vector Data\nCubes. https://CRAN.R-project.org/package=stars.\n\n\n———. 2023. Lwgeom: Bindings to Selected Liblwgeom Functions for\nSimple Features. https://github.com/r-spatial/lwgeom/.\n\n\nPebesma, Edzer J. 2004. “Multivariable Geostatistics in S: The\nGstat Package.” Computers & Geosciences 30 (7):\n683–91. https://doi.org/10.1016/j.cageo.2004.03.012.\n\n\nPebesma, Edzer, and Roger Bivand. 2023. Spatial Data Science: With\nApplications in r. CRC Press.\n\n\nPebesma, Edzer, and Benedikt Graeler. 2022. Gstat: Spatial and\nSpatio-Temporal Geostatistical Modelling, Prediction and\nSimulation. https://github.com/r-spatial/gstat/.\n\n\nTennekes, Martijn. 2018. “tmap:\nThematic Maps in R.” Journal of Statistical\nSoftware 84 (6): 1–39. https://doi.org/10.18637/jss.v084.i06.\n\n\n———. 2022. Tmap: Thematic Maps. https://github.com/r-tmap/tmap.\n\n\nWickham, Hadley, Mara Averick, Jennifer Bryan, Winston Chang, Lucy\nD’Agostino McGowan, Romain François, Garrett Grolemund, et al. 2019.\n“Welcome to the tidyverse.”\nJournal of Open Source Software 4 (43): 1686. https://doi.org/10.21105/joss.01686.\n\n\nWickham, Hadley, Mine Çetinkaya-Rundel, and Garrett Grolemund. 2023.\nR for Data Science. \" O’Reilly Media, Inc.\".\n\n\nXie, Yihui, J. J. Allaire, and Garrett Grolemund. 2018. R\nMarkdown. Chapman; Hall/CRC. https://doi.org/10.1201/9781138359444.",
     "crumbs": [
       "References"
+    ]
+  },
+  {
+    "objectID": "04_data-modeling.html#learning-objectives",
+    "href": "04_data-modeling.html#learning-objectives",
+    "title": "4  Data modeling",
+    "section": "",
+    "text": "Understand how to estimate, interpret and calibrate linear regression and ARIMA models;\nBe familiar with the main assumptions and challenges of these models;\nUse these models to produce predictions.",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Data modeling</span>"
+    ]
+  },
+  {
+    "objectID": "04_data-modeling.html#dependencies",
+    "href": "04_data-modeling.html#dependencies",
+    "title": "4  Data modeling",
+    "section": "4.2 Dependencies",
+    "text": "4.2 Dependencies\n\nlibrary(tidyverse)\nlibrary(patchwork)",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Data modeling</span>"
+    ]
+  },
+  {
+    "objectID": "04_data-modeling.html#data",
+    "href": "04_data-modeling.html#data",
+    "title": "4  Data modeling",
+    "section": "4.3 Data",
+    "text": "4.3 Data\nRead and explain data\n\n4.3.1 Out-of-work benefits\nUnder Universal Credit a broader span of claimants are required to look for work than under Jobseeker’s Allowance. As Universal Credit Full Service is rolled out in particular areas, the number of people recorded as being on the Claimant Count is therefore likely to rise.\n\nClaimant Count (Experimental Statistics)\n\nThe Claimant Count is the number of people claiming benefit principally for the reason of being unemployed. This is measured by combining the number of people claiming Jobseeker’s Allowance (JSA) and National Insurance credits with the number of people receiving Universal Credit principally for the reason of being unemployed. Claimants declare that they are out of work, capable of, available for and actively seeking work during the week in which the claim is made.\nThe measure of the number of people receiving Universal Credit principally for the reason of being unemployed is still being developed by the Department for Work and Pensions. Consequently this component of the total Claimant Count does not yet correctly reflect the target population of unemployed claimants and is subject to revisions. For this reason the Claimant Count is currently designated as Experimental Statistics.\nThe Claimant Count is mostly derived from DWP administrative systems. For various reasons, e.g. a claimant’s National Insurance number is not known, a small number of claims have to be dealt with manually. These clerical claims do not have as much detail as the computerised claims and therefore, whilst part of the claimant count by sex table, cannot be included the age breakdown.\n\n\n\ndf_claimants &lt;- read_csv(\"./data/claimants/claimants_liverpool.csv\", \n                         col_types = cols(\n                           date = col_date(format = \"%B %Y\"),\n                           count = col_number()\n                           )\n                         )\n\nhead(df_claimants)\n\n# A tibble: 6 × 2\n  date       count\n  &lt;date&gt;     &lt;dbl&gt;\n1 1992-01-01 40165\n2 1992-02-01 40145\n3 1992-03-01 39880\n4 1992-04-01 40000\n5 1992-05-01 39790\n6 1992-06-01 39425\n\n\n\nJobs Density\n\nThe level of jobs per resident aged 16-64. For example, a job density of 1.0 would mean that there is one job for every resident aged 16-64.\nThe total number of jobs is a workplace-based measure and comprises employee jobs, self-employed, government-supported trainees and HM Forces. The number of residents aged 16-64 figures used to calculate jobs densities are based on the relevant mid-year population estimates.\n\n\n\ndf_job.density &lt;- read_csv(\"./data/job-density/job-density_liverpool.csv\", \n                         col_types = cols(\n                           year = col_date(format = \"%Y\"),\n                           job_density = col_number()\n                           )\n                         )\n\nhead(df_job.density)\n\n# A tibble: 6 × 2\n  year       job_density\n  &lt;date&gt;           &lt;dbl&gt;\n1 2000-01-01       0.762\n2 2001-01-01       0.816\n3 2002-01-01       0.818\n4 2003-01-01       0.819\n5 2004-01-01       0.813\n6 2005-01-01       0.814\n\n\n\ndf_stringency &lt;- read_csv(\"./data/stringency/owid-covid-data.csv\") %&gt;% \n  dplyr::select(location,\n                date, \n                stringency_index) %&gt;% \n  dplyr::filter(location == \"United Kingdom\")\n\nRows: 401008 Columns: 67\n── Column specification ────────────────────────────────────────────────────────\nDelimiter: \",\"\nchr   (4): iso_code, continent, location, tests_units\ndbl  (62): total_cases, new_cases, new_cases_smoothed, total_deaths, new_dea...\ndate  (1): date\n\nℹ Use `spec()` to retrieve the full column specification for this data.\nℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.\n\nstr(df_stringency)\n\ntibble [1,590 × 3] (S3: tbl_df/tbl/data.frame)\n $ location        : chr [1:1590] \"United Kingdom\" \"United Kingdom\" \"United Kingdom\" \"United Kingdom\" ...\n $ date            : Date[1:1590], format: \"2020-01-05\" \"2020-01-06\" ...\n $ stringency_index: num [1:1590] 0 0 0 0 0 0 0 0 0 0 ...",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Data modeling</span>"
+    ]
+  },
+  {
+    "objectID": "04_data-modeling.html#visualisation",
+    "href": "04_data-modeling.html#visualisation",
+    "title": "4  Data modeling",
+    "section": "4.4 Visualisation",
+    "text": "4.4 Visualisation\nggplot(data = df_claimants %&gt;% dplyr::filter(date &gt; “2001-01-01”) , aes(x = date, y = count)) +\ngeom_line(colour = “darkblue”, linewidth = 1.5) +\nlabs(title = “Claimants”, x = “Date”, y = “Claimant count”) +\nscale_x_date(date_labels = “%Y”, date_breaks = “5 year”) +\ntheme_minimal()\n\np1 &lt;- ggplot(data = df_claimants, aes(x = date, y = count)) +\n  geom_line(colour = \"darkblue\", linewidth = 1.5) +\n  labs(title = \"Claimants\", x = \"Date\", y = \"Claimant count\") +\n  scale_x_date(date_labels = \"%Y\", date_breaks = \"5 year\") +\n  theme_minimal()\n\n\np2 &lt;- ggplot(data = df_job.density, \n             aes(x = year, y = job_density)) +\n  geom_line(colour = \"darkred\", linewidth = 1.5) +\n  labs(title = \"Job density\", x = \"Year\", y = \"Job density\") +\n  scale_x_date(date_labels = \"%Y\", date_breaks = \"3 year\") +\n  theme_minimal()\n\np1 + p2\n\n\n\n\n\n\n\n\n\np1 &lt;- ggplot(data = df_claimants %&gt;% \n               dplyr::filter(date &gt; \"2000-01-01\" & date &lt; \"2022-01-01\"),\n             aes(x = date, y = count)) +\n  geom_line(colour = \"darkblue\", linewidth = 1.5) +\n  labs(title = \"Claimants\", x = \"Date\", y = \"Claimant count\") +\n  scale_x_date(date_labels = \"%Y\", date_breaks = \"3 year\") +\n  theme_minimal()\n\np1 + p2",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Data modeling</span>"
+    ]
+  },
+  {
+    "objectID": "04_data-modeling.html#inspecting-the-data",
+    "href": "04_data-modeling.html#inspecting-the-data",
+    "title": "4  Data modeling",
+    "section": "4.4 Inspecting the data",
+    "text": "4.4 Inspecting the data\nVisually explore the data and describe main patterns\n\np1 &lt;- ggplot(data = df_claimants, aes(x = date, y = count)) +\n  geom_line(colour = \"darkblue\", linewidth = 1.5) +\n  labs(title = \"Claimants\", x = \"Date\", y = \"Claimant count\") +\n  scale_x_date(date_labels = \"%Y\", date_breaks = \"5 year\") +\n  theme_minimal()\n\n\np2 &lt;- ggplot(data = df_job.density, \n             aes(x = year, y = job_density)) +\n  geom_line(colour = \"darkred\", linewidth = 1.5) +\n  labs(title = \"Job density\", x = \"Year\", y = \"Job density\") +\n  scale_x_date(date_labels = \"%Y\", date_breaks = \"3 year\") +\n  theme_minimal()\n\np1 + p2\n\n\n\n\n\n\n\n\n\np3 &lt;- ggplot(data = df_stringency, \n             aes(x = date, y = stringency_index)) +\n  geom_line(colour = \"lightgrey\", linewidth = 1.5) +\n  labs(title = \"Stringency index\", x = \"Date\", y = \"Stringency index\") +\n  scale_x_date(date_labels = \"%b %Y\", date_breaks = \"6 month\") +\n  theme_minimal()\n\n\np1 &lt;- ggplot(data = df_claimants %&gt;% \n               dplyr::filter(date &gt; \"2000-01-01\" & date &lt; \"2022-01-01\"),\n             aes(x = date, y = count)) +\n  geom_line(colour = \"darkblue\", linewidth = 1.5) +\n  labs(title = \"Claimants\", x = \"Date\", y = \"Claimant count\") +\n  scale_x_date(date_labels = \"%Y\", date_breaks = \"3 year\") +\n  theme_minimal()\n\np1 + p2",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Data modeling</span>"
+    ]
+  },
+  {
+    "objectID": "04_data-modeling.html#data-wrangling",
+    "href": "04_data-modeling.html#data-wrangling",
+    "title": "4  Data modeling",
+    "section": "4.5 Data wrangling",
+    "text": "4.5 Data wrangling\nCreate a dataset for modelling\n\ndf_claimants$year &lt;- year(df_claimants$date)\n\ndf_claimants.year &lt;- df_claimants %&gt;% \n  group_by(year) %&gt;% \n  summarise( annual_claimants = round( mean(count) ))\n\n\ndf_job.density$year2 &lt;- year(df_job.density$year)\n\n\ndf_modelling &lt;- left_join(df_claimants.year, \n                          df_job.density,\n                          by = join_by(year == year2)\n)\n\ndf_modelling &lt;- df_modelling[complete.cases(df_modelling), ]\n\nhead(df_modelling)\n\n# A tibble: 6 × 4\n   year annual_claimants year.y     job_density\n  &lt;dbl&gt;            &lt;dbl&gt; &lt;date&gt;           &lt;dbl&gt;\n1  2000            19000 2000-01-01       0.762\n2  2001            16846 2001-01-01       0.816\n3  2002            15850 2002-01-01       0.818\n4  2003            14982 2003-01-01       0.819\n5  2004            14255 2004-01-01       0.813\n6  2005            14772 2005-01-01       0.814",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Data modeling</span>"
     ]
   }
 ]

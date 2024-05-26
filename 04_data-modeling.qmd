@@ -18,23 +18,173 @@ By the end of today\'s session you should be able to:
 #| warning: false
 #| message: false
 library(tidyverse)
+library(patchwork)
 
 ```
 
 ## Data
 
+Read and explain data
+
+### Out-of-work benefits
+
+Under Universal Credit a broader span of claimants are required to look for work than under Jobseeker's Allowance. As Universal Credit Full Service is rolled out in particular areas, the number of people recorded as being on the Claimant Count is therefore likely to rise.
+
+**Claimant Count (Experimental Statistics)**
+
+:   The Claimant Count is the number of people claiming benefit principally for the reason of being unemployed. This is measured by combining the number of people claiming Jobseeker's Allowance (JSA) and National Insurance credits with the number of people receiving Universal Credit principally for the reason of being unemployed. Claimants declare that they are out of work, capable of, available for and actively seeking work during the week in which the claim is made.
+
+    The measure of the number of people receiving Universal Credit principally for the reason of being unemployed is still being developed by the Department for Work and Pensions. Consequently this component of the total Claimant Count does not yet correctly reflect the target population of unemployed claimants and is subject to revisions. For this reason the Claimant Count is currently designated as Experimental Statistics.
+
+    The Claimant Count is mostly derived from DWP administrative systems. For various reasons, e.g. a claimant's National Insurance number is not known, a small number of claims have to be dealt with manually. These clerical claims do not have as much detail as the computerised claims and therefore, whilst part of the claimant count by sex table, cannot be included the age breakdown.
+
+```{r}
+#| warning: true
+
+df_claimants <- read_csv("./data/claimants/claimants_liverpool.csv", 
+                         col_types = cols(
+                           date = col_date(format = "%B %Y"),
+                           count = col_number()
+                           )
+                         )
+
+head(df_claimants)
+```
+
+**Jobs Density**
+
+:   The level of jobs per resident aged 16-64. For example, a job density of 1.0 would mean that there is one job for every resident aged 16-64.
+
+    The total number of jobs is a workplace-based measure and comprises employee jobs, self-employed, government-supported trainees and HM Forces. The number of residents aged 16-64 figures used to calculate jobs densities are based on the relevant mid-year population estimates.
+
 ```{r}
 
-df_claimants <- read.csv("./data/claimants/claimants_liverpool.csv") %>% 
+df_job.density <- read_csv("./data/job-density/job-density_liverpool.csv", 
+                         col_types = cols(
+                           year = col_date(format = "%Y"),
+                           job_density = col_number()
+                           )
+                         )
+
+head(df_job.density)
+```
+
+```{r}
+
+df_stringency <- read_csv("./data/stringency/owid-covid-data.csv") %>% 
+  dplyr::select(location,
+                date, 
+                stringency_index) %>% 
+  dplyr::filter(location == "United Kingdom")
+
+str(df_stringency)
+
+```
+
+## Inspecting the data
+
+Visually explore the data and describe main patterns
+
+```{r}
+
+p1 <- ggplot(data = df_claimants, aes(x = date, y = count)) +
+  geom_line(colour = "darkblue", linewidth = 1.5) +
+  labs(title = "Claimants", x = "Date", y = "Claimant count") +
+  scale_x_date(date_labels = "%Y", date_breaks = "5 year") +
+  theme_minimal()
+```
+
+```{r}
+p2 <- ggplot(data = df_job.density, 
+             aes(x = year, y = job_density)) +
+  geom_line(colour = "darkred", linewidth = 1.5) +
+  labs(title = "Job density", x = "Year", y = "Job density") +
+  scale_x_date(date_labels = "%Y", date_breaks = "3 year") +
+  theme_minimal()
+
+p1 + p2
+```
+
+```{r}
+p3 <- ggplot(data = df_stringency, 
+             aes(x = date, y = stringency_index)) +
+  geom_line(colour = "lightgrey", linewidth = 1.5) +
+  labs(title = "Stringency index", x = "Date", y = "Stringency index") +
+  scale_x_date(date_labels = "%b %Y", date_breaks = "6 month") +
+  theme_minimal()
+```
+
+```{r}
+p1 <- ggplot(data = df_claimants %>% 
+               dplyr::filter(date > "2000-01-01" & date < "2022-01-01"),
+             aes(x = date, y = count)) +
+  geom_line(colour = "darkblue", linewidth = 1.5) +
+  labs(title = "Claimants", x = "Date", y = "Claimant count") +
+  scale_x_date(date_labels = "%Y", date_breaks = "3 year") +
+  theme_minimal()
+
+p1 + p2
+```
+
+## Data wrangling
+
+Create a dataset for modelling
+
+```{r}
+df_claimants$year <- year(df_claimants$date)
+
+df_claimants.year <- df_claimants %>% 
+  group_by(year) %>% 
+  summarise( annual_claimants = round( mean(count) ))
   
-head(df_claimants)
+```
+
+```{r}
+df_job.density$year2 <- year(df_job.density$year)
+```
+
+```{r}
+df_modelling <- left_join(df_claimants.year, 
+                          df_job.density,
+                          by = join_by(year == year2)
+)
+
+df_modelling <- df_modelling[complete.cases(df_modelling), ]
+
+head(df_modelling)
 ```
 
 ## Linear regression
 
--   estimation
+Explain what a linear regression does and the key components of a linear regression.
 
--   interpretation / CIs, p-values, etc.
+$$
+y = \alpha + \beta_1 x_1 + \beta_2 x_2 + \beta_3 x_3 + … + \epsilon_i
+$$
+
+Fit a model
+
+```{r}
+eq1 <- annual_claimants ~ job_density
+
+lm1 <- lm(eq1, 
+         data = df_modelling)
+
+# estimates
+summary(lm1)
+```
+
+Interpretation
+
+```{r}
+ggplot(df_modelling, aes(x = job_density, y = annual_claimants)) +
+  geom_point(color = "darkblue", size = 3) +
+  geom_smooth(method = "lm", se = FALSE, color = "yellow") +
+  labs(title = " ", x = "Claimants", y = "Job density") +
+  theme_minimal()
+```
+
+-   
 
 -   dummy variables
 
