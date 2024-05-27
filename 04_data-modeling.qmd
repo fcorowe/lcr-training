@@ -2,9 +2,11 @@
 
 This session will provide an introduction to linear regression and time series modelling in R. It will first explain the fundamentals of regression modelling, including model estimation, interpretation and calibration. Then, it will focus on time series data modelling, particularly the use of ARIMA models.
 
-## **Learning objectives**
+Time series modeling is an important statistical and computational approach. It is used to analyse and forecast data points that are sequentially ordered in time. Time series modelling captures the underlying patterns and structures in temporal data, allowing for the prediction of future values, identification of trends, and understanding of the dynamics over time. Time series modeling is widely used in various fields, including finance, economics, environmental science, engineering, and healthcare.
 
-By the end of today\'s session you should be able to:
+## Learning objectives
+
+By the end of today's session you should be able to:
 
 -   Understand how to estimate, interpret and calibrate linear regression and ARIMA models;
 
@@ -17,8 +19,15 @@ By the end of today\'s session you should be able to:
 ```{r}
 #| warning: false
 #| message: false
+# data manipulation
 library(tidyverse)
+# plot design / placement
 library(patchwork)
+library(ggfortify)
+# time series modelling
+library(forecast)
+library(tseries)
+        
 
 ```
 
@@ -69,18 +78,6 @@ df_job.density <- read_csv("./data/job-density/job-density_liverpool.csv",
 head(df_job.density)
 ```
 
-```{r}
-
-df_stringency <- read_csv("./data/stringency/owid-covid-data.csv") %>% 
-  dplyr::select(location,
-                date, 
-                stringency_index) %>% 
-  dplyr::filter(location == "United Kingdom")
-
-str(df_stringency)
-
-```
-
 ## Inspecting the data
 
 Visually explore the data and describe main patterns
@@ -103,15 +100,6 @@ p2 <- ggplot(data = df_job.density,
   theme_minimal()
 
 p1 + p2
-```
-
-```{r}
-p3 <- ggplot(data = df_stringency, 
-             aes(x = date, y = stringency_index)) +
-  geom_line(colour = "lightgrey", linewidth = 1.5) +
-  labs(title = "Stringency index", x = "Date", y = "Stringency index") +
-  scale_x_date(date_labels = "%b %Y", date_breaks = "6 month") +
-  theme_minimal()
 ```
 
 ```{r}
@@ -162,7 +150,7 @@ $$
 y = \alpha + \beta_1 x_1 + \beta_2 x_2 + \beta_3 x_3 + … + \epsilon_i
 $$
 
-Fit a model
+### Fitting a model
 
 ```{r}
 eq1 <- annual_claimants ~ job_density
@@ -174,30 +162,224 @@ lm1 <- lm(eq1,
 summary(lm1)
 ```
 
-Interpretation
+### Interpreting linear regression estimates
+
+Visually display what we are doing - not considering the time sequence
 
 ```{r}
 ggplot(df_modelling, aes(x = job_density, y = annual_claimants)) +
-  geom_point(color = "darkblue", size = 3) +
   geom_smooth(method = "lm", se = FALSE, color = "yellow") +
-  labs(title = " ", x = "Claimants", y = "Job density") +
+  geom_point(color = "darkblue", size = 3, alpha  = 0.7) +
+  labs(title = "Association between claimants vs job density", x = "Job density", y = "Claimants") +
   theme_minimal()
 ```
 
--   
-
--   dummy variables
-
--   multicollinearity
-
 ## Time series data modelling
 
--   autoregressive (AR)
+For this section, we will return to our original time series of claimants for the period from January 1992 to April 2024. We will illustrate the use of ARIMA models, or Auto-Regressive Integrated Moving Average models. ARIMA is the combination of two models, an autoregressive ($AR$) and an moving average ($MA$) model. An autoregressive $AR(p)$ component refers to the use of past values in the regression equation for the series $y$. The autoregressive parameter $p$ specifies the number of lags, or past values, to be used in the model. For example, an autoregressive model of order 2 (i.e. $AR(2)$) is represented as:
 
--   seasonality / integration / diffencing (I)
+$$
+y_t = c + \theta_1 y_{t-1} + \theta_2 y_{t-2} + \epsilon_t
+$$
 
--   moving average (MA)
+where: $\theta_1$, $\theta_2$ are model parameters. The moving average nature of the model is represented by the $q$ value, which is the number of lagged values of the error term. A moving average $MA(q)$ component represents the error of the model as a combination of previous error terms. The order $q$ determines the number of terms to include in the model. For example, an moving average model of order 2 (i.e. $AR(2)$) is represented as:
 
--   ARIMA
+$$
+y_t = c + \rho_1 e_{t-1} + \rho_2 e_{t-2} + e_t
+$$
 
--   ARIMAX (adding Xs)
+Additionally, a time series needs to be stationary and a non-stationary time series needs to be transform through a procedure known as differencing ($d$) or integration ($I$). Together, these components (i.e. the autoregressive, integration and moving average components) define the ARIMA model. We will expand on these components later. An ARIMA model is specified by three order parameters: ($p$, $d$, $q$).
+
+The process of modelling time series is complex task. To facilitate this process, we will use the following a modelling framework of five steps:
+
+1.  time series visualisation
+
+2.  stationarity testing
+
+3.  optimal parameter identification
+
+4.  ARIMA model calibration
+
+5.  model prediction
+
+### Visualising time series
+
+A time series has key components that we need to understand to uncover hidden patterns in the data.
+
+-   *Trend*: The long-term movement in the data, which can be upward, downward, or constant.
+
+-   *Seasonality*: Regular, repeating patterns or cycles in the data that occur at fixed intervals, such as daily, monthly, or annually.
+
+-   *Irregular/Random Fluctuations*: Noise or random variations that cannot be attributed to trends, seasonality, or cycles.
+
+```{r}
+# create a time series object
+df_claimants_ts <- ts(df_claimants$count, 
+                     start = c(1992, 1),
+                     end = c(2024, 4),
+                     frequency = 12)
+
+# decompose time series
+decompose_ts <- decompose(df_claimants_ts)
+# plot time series components
+plot(decompose_ts)
+
+```
+
+*What do we learn from the plots?* There are clear trends, seasonality and random variation, but also a spike during 2020 and 2021.
+
+### Stationarity
+
+Stationarity is a critical property in time series analysis.
+
+*What is stationary?* Stationary means that the mean, variance and covariance should be constant over time; that is, the mean, variance and covariance of the time series should not be a function of time.
+
+*Why do we care about stationarity?* We care about stationarity because we cannot build a time series model if the time series is non-stationary. Non-stationary data can lead to misleading statistical inferences, so it is often necessary to transform non-stationary data into a stationary form before further analysis.
+
+*How do we transform a time series from non-stationary data into a stationary?* There are three commonly used ways to achieve this.
+
+1.  *Detrending*: Detrending involves removing the trend component from the time series. That would be removing the trend component shown in the plot above from the time series and building a model with the rest.
+2.  *Differencing*: Differencing is probably the most commonly used technique to remove non-stationarity. Differentiation is used to make a time series stationary by removing trends and seasonality. The differencing operation subtracts the previous value from the current value. Differencing is also known as for being the integration part in AR**I**MA models. Differencing involves in taking the difference between $y_t$ and $y_t-1$.
+3.  *Seasonality*: Seasonality corresponds to the periodic cycles of changes in a time series and can be integrated via the autoregressive (AR) and moving average (MA) terms in **AR**I**MA** models
+
+So we will use differencing and then test for stationarity.
+
+*How we know if a time series is stationary?* We can use statistical tests to identify if a time series is stationary. We will the Augmented Dickey-Fuller (ADF) test which is a statistical test used to determine whether a given time series is stationary. The primary purpose of the ADF test is to check for the presence of a unit root in a time series sample; that is, if the time series is nonstationary and exhibits a stochastic trend. Essentially, a time series with a unit root shows that its values are heavily influenced by its own past values and that shocks or changes to the series have a permanent effect, rather than temporary. If the test rejects the null hypothesis, it suggests that the time series is stationary.
+
+```{r}
+#| warning: false
+adf.test(diff(log(df_claimants$count)), 
+         alternative = "stationary", 
+         k=0)
+```
+
+The Dickey-Fuller test returns a p-value of 0.01, resulting in the rejection of the null hypothesis in favour of the alternate. That is that the time series is stationary. Note that we used a log transformation. This transformation is applied to stabilise the variance and normalise the distribution of the data. Taking the logarithm of the claimants means that multiplicative relationships in the original time series become additive.
+
+### Optimal parameters
+
+Next we need examine the Auto-Correlation Function (ACF) and the Partial Auto-Correlation Function (PACF) to identify appropriate values for $p$ and $q$. Thus, we examine these functions to identify which $AR(p)$ , $MA(q)$, $ARMA(p, q)$ or $ARIMA(p, d, q)$ model is more appropriate.
+
+ACF is used to determine the level of autocorrelation between $y_t$ and $y_{t-k}$ for different values of $k$. The ACF tells us how the present value in a time series is related with its past values. It helps identify the presence of any repeating patterns or relationships over different lags. Thus, ACF will help determining the number, or order, of moving-average (MA) coefficients for ARIMA models.
+
+PACF measures partial autocorrelations between $y_t$ and $y_{t-k}$ after removing the effects of lags 1, 2, 3, ... , k - 1. This helps identify the direct relationships between observations separated by various lag periods. Thus, PACF helps us identify the number of autoregressive (AR) coefficients in our ARIMA model.
+
+The figures below show ACF and PACF plots for our data to determine the order of parameters for our ARIMA model.
+
+```{r}
+
+acf(diff(log(df_claimants$count)))
+```
+
+```{r}
+pacf(diff(log(df_claimants$count)))
+```
+
+@HyndmannAthanasopoulos2021 describe the usefulness of ACF and PACF plots. They suggest that a time series may correspond to an ARIMA( $p$, $d$, 0) model if the ACF and PACF plots of the differenced time series show the following patterns:
+
+-   the ACF has an exponential decay or sine curve form;
+
+-   there is a significant spike at lag $p$ in the PACF, but none beyond lag $p$.
+
+Similarly, they state that a time series may follow an ARIMA(0, $d$, $q$) model if the ACF and PACF plots of the differenced time series show the following patterns:
+
+-   the PACF has an exponential decay or sine curve form;
+
+-   there is a significant spike at lag $q$ in the ACF, but none beyond lag $q$.
+
+In the ACF and PACF plots above, we observe a significant spike at lag 1 in the PACF plot followed by non-significant spikes suggests that an autoregressive (AR) component of order 1 is appropriate. Significant spikes at lags 1 and 2 in the ACF plot suggest that a moving average (MA) component of order 2 might be appropriate. Additionally, a significant spike at lag 12 in both ACF and PACF indicates the presence of a seasonal component with a period of 12. This suggests that the time series may have an annual seasonal pattern if the data is monthly. However, we will first concentrate on the ARIMA model (1, 0, 2) to illustrate the calibration of this type of models, and also because we generally prefer parsimonious models, and as you will see, a simpler model seems to provide the optimal AR and MA parameters with no integration at lag 12. Though, note that our model has one integration as we have differentiated our time series.
+
+### ARIMA model calibration
+
+Let us fit the ARIMA (1, 0, 2) model using the `arima` function:
+
+```{r}
+# fit model
+arima_m1 <- arima(diff(log(df_claimants$count)), c(1, 0, 2))
+# estimates
+summary(arima_m1)
+
+```
+
+::: column-margin
+::: callout-note
+Note that the `arima_m1` is the same that fitting the following model:
+
+`arima( log(df_claimants$count) ), c(1, 1, 2) )`
+
+That is not differencing the time series using `diff` before the `log`
+:::
+:::
+
+**Interpretation**
+
+A key point to note is that when interpreting the AR(1) and MA(1) coefficients in the context of a differenced logged time series, the focus is on the percentage changes rather than the absolute changes. Thus, the estimated coefficient of `0.8818` for `ar1` term indicates that 88.18% of the percentage change in claimants from the previous period carries over to the current period. The sign is positive indicating that the concurrent count of claimants is strongly influenced by the the claimants from the previous period (i.e. lag 1). In other words, if claimants increased by 10% last month (after taking logs and differencing), this month's claimants would increase by approximately 8.82% (88.18% of 10%), assuming other factors remain constant. This reflects strong persistence in the growth rates of claimants.
+
+In terms of the MA terms, their estimated coefficients signal the temporal dependence of an unexpected change in the outcome from a previous period on the concurrent outcome. The MA(1) coefficient of -0.4644 indicates that an unexpected change (shock) in claimaints from the previous period has a negative effect on the current period's percentage change in claimaints. If there was an unexpected increase in claimaints last month, this month's percentage change in claimaints will be reduced by 46.44% of that shock. In other words, if there was an unexpected 5% increase in claimaints last month, this month's sales would be expected to decrease by approximately 2.32% (-0.4644 \* 5%), indicating a partial correction of the previous unexpected increase.
+
+**Model performance**
+
+How do we know we have chosen the best model? The Akaike information criterion (AIC) score is a good indicator of the ARIMA model accuracy. The lower the AIC score, the better the model performs. Our model produced an AIC score of -1609. However, we can only know if we have selected the best model through iterated experimentation. We can randomly experiment with the parameters until we find parameters that yield the lowest AIC.
+
+**Auto ARIMA**
+
+To this end, we can use a built-in function in the forecast package called `auto.arima`. The function returns the best-fitting ARIMA model according to either AIC, AICc or BIC value. The function conducts a search over possible model within the order constraints provided - see `?auto.arima` for more information.
+
+```{r}
+autoarima_m1 <- auto.arima(diff(log(df_claimants$count)), trace=TRUE)
+```
+
+The algorithm indicates that the best ARIMA model is achieved with parameters `p=1`, `d=0`, `q=0`.
+
+::: column-margin
+::: callout-note
+`auto.arima` generates models with non-zero mean and zero mean.
+
+A *non-zero mean* model indicates that the model has a constant term ($c$) or a drift term ($d$) if $d > 0$. For a non-differenced series ($d = 0$), the constant term is a true intercept, representing the mean level around which the series fluctuates. For a differenced series ($d > 0$), the constant term can be interpreted as a drift, representing the average change per time period in the differenced series.
+
+A *zero mean* model indicates that the model does not has a constant term. It assumes that the time series fluctuates around a mean of zero if $d = 0$. For a differenced series ($d > 0$), this implies no deterministic trend (drift) in the data. This model is appropriate for stationary time series data that fluctuates around a mean of zero without a trend.
+:::
+:::
+
+Let us fit the ARIMA (1, 0, 0) model with zero mean:
+
+```{r}
+# fit model
+arima_m2 <- arima(diff(log(df_claimants$count)), c(1, 0, 0), include.mean = FALSE)
+# estimates
+summary(arima_m2)
+```
+::: {.callout-tip appearance="simple" icon="false"}
+**Task**
+
+How do we judge if this model is any better? Write down the interpretation of the `ar1` coefficient.
+:::
+
+### Prediction
+
+Now that we have identified our best fitting ARIMA model, we can use the model to make predictions of claimant counts into the future. But, before we do this let us see how our model fitted our data. 
+
+```{r}
+plot(as.ts(diff(log(df_claimants$count))), main = "Logged claimaints (first difference)", ylab = "Rates", xlab = "Time", type = "l", lty = 1, lwd = 2)
+lines(fitted(arima_m2), col= "blue", lwd = 2)
+```
+
+The model seems to have fitted our data relatively well, even the spike in claimants during 2020 and 2021. Let us now make a prediction of future claimants with the `forecast.Arima` function. We predict the claimants on the next 12 months:
+
+```{r}
+arima_m2 %>% 
+  forecast(h = 12, 
+           level = c(99)) %>%  #confidence level 99% 
+  autoplot() +
+  theme_bw() +
+  labs( y = "Rates", x = "Time")
+```
+
+
+```{r}
+futurVal <- forecast(arima_m2,h=12, level=c(99))
+
+plot(forecast(futurVal))
+```
+
+
+

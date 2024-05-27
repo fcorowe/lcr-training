@@ -54,7 +54,27 @@ div.sourceCode
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -136,7 +156,7 @@ window.Quarto = {
 <link rel="stylesheet" href="styles.css">
 </head>
 
-<body class="nav-sidebar floating">
+<body class="nav-sidebar floating slimcontent">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -233,7 +253,7 @@ window.Quarto = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#learning-objectives" id="toc-learning-objectives" class="nav-link active" data-scroll-target="#learning-objectives"><span class="header-section-number">4.1</span> <strong>Learning objectives</strong></a></li>
+  <li><a href="#learning-objectives" id="toc-learning-objectives" class="nav-link active" data-scroll-target="#learning-objectives"><span class="header-section-number">4.1</span> Learning objectives</a></li>
   <li><a href="#dependencies" id="toc-dependencies" class="nav-link" data-scroll-target="#dependencies"><span class="header-section-number">4.2</span> Dependencies</a></li>
   <li><a href="#data" id="toc-data" class="nav-link" data-scroll-target="#data"><span class="header-section-number">4.3</span> Data</a>
   <ul class="collapse">
@@ -241,13 +261,24 @@ window.Quarto = {
   </ul></li>
   <li><a href="#inspecting-the-data" id="toc-inspecting-the-data" class="nav-link" data-scroll-target="#inspecting-the-data"><span class="header-section-number">4.4</span> Inspecting the data</a></li>
   <li><a href="#data-wrangling" id="toc-data-wrangling" class="nav-link" data-scroll-target="#data-wrangling"><span class="header-section-number">4.5</span> Data wrangling</a></li>
-  <li><a href="#linear-regression" id="toc-linear-regression" class="nav-link" data-scroll-target="#linear-regression"><span class="header-section-number">4.6</span> Linear regression</a></li>
-  <li><a href="#time-series-data-modelling" id="toc-time-series-data-modelling" class="nav-link" data-scroll-target="#time-series-data-modelling"><span class="header-section-number">4.7</span> Time series data modelling</a></li>
+  <li><a href="#linear-regression" id="toc-linear-regression" class="nav-link" data-scroll-target="#linear-regression"><span class="header-section-number">4.6</span> Linear regression</a>
+  <ul class="collapse">
+  <li><a href="#fitting-a-model" id="toc-fitting-a-model" class="nav-link" data-scroll-target="#fitting-a-model"><span class="header-section-number">4.6.1</span> Fitting a model</a></li>
+  <li><a href="#interpreting-linear-regression-estimates" id="toc-interpreting-linear-regression-estimates" class="nav-link" data-scroll-target="#interpreting-linear-regression-estimates"><span class="header-section-number">4.6.2</span> Interpreting linear regression estimates</a></li>
+  </ul></li>
+  <li><a href="#time-series-data-modelling" id="toc-time-series-data-modelling" class="nav-link" data-scroll-target="#time-series-data-modelling"><span class="header-section-number">4.7</span> Time series data modelling</a>
+  <ul class="collapse">
+  <li><a href="#visualising-time-series" id="toc-visualising-time-series" class="nav-link" data-scroll-target="#visualising-time-series"><span class="header-section-number">4.7.1</span> Visualising time series</a></li>
+  <li><a href="#stationarity" id="toc-stationarity" class="nav-link" data-scroll-target="#stationarity"><span class="header-section-number">4.7.2</span> Stationarity</a></li>
+  <li><a href="#optimal-parameters" id="toc-optimal-parameters" class="nav-link" data-scroll-target="#optimal-parameters"><span class="header-section-number">4.7.3</span> Optimal parameters</a></li>
+  <li><a href="#arima-model-calibration" id="toc-arima-model-calibration" class="nav-link" data-scroll-target="#arima-model-calibration"><span class="header-section-number">4.7.4</span> ARIMA model calibration</a></li>
+  <li><a href="#prediction" id="toc-prediction" class="nav-link" data-scroll-target="#prediction"><span class="header-section-number">4.7.5</span> Prediction</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
+<main class="content page-columns page-full" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
@@ -269,9 +300,10 @@ window.Quarto = {
 
 
 <p>This session will provide an introduction to linear regression and time series modelling in R. It will first explain the fundamentals of regression modelling, including model estimation, interpretation and calibration. Then, it will focus on time series data modelling, particularly the use of ARIMA models.</p>
+<p>Time series modeling is an important statistical and computational approach. It is used to analyse and forecast data points that are sequentially ordered in time. Time series modelling captures the underlying patterns and structures in temporal data, allowing for the prediction of future values, identification of trends, and understanding of the dynamics over time. Time series modeling is widely used in various fields, including finance, economics, environmental science, engineering, and healthcare.</p>
 <section id="learning-objectives" class="level2" data-number="4.1">
-<h2 data-number="4.1" class="anchored" data-anchor-id="learning-objectives"><span class="header-section-number">4.1</span> <strong>Learning objectives</strong></h2>
-<p>By the end of today's session you should be able to:</p>
+<h2 data-number="4.1" class="anchored" data-anchor-id="learning-objectives"><span class="header-section-number">4.1</span> Learning objectives</h2>
+<p>By the end of today’s session you should be able to:</p>
 <ul>
 <li><p>Understand how to estimate, interpret and calibrate linear regression and ARIMA models;</p></li>
 <li><p>Be familiar with the main assumptions and challenges of these models;</p></li>
@@ -281,8 +313,14 @@ window.Quarto = {
 <section id="dependencies" class="level2" data-number="4.2">
 <h2 data-number="4.2" class="anchored" data-anchor-id="dependencies"><span class="header-section-number">4.2</span> Dependencies</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(patchwork)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># data manipulation</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># plot design / placement</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(patchwork)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggfortify)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co"># time series modelling</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(forecast)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tseries)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="data" class="level2" data-number="4.3">
@@ -348,82 +386,49 @@ window.Quarto = {
 6 2005-01-01       0.814</code></pre>
 </div>
 </div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>df_stringency <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"./data/stringency/owid-covid-data.csv"</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(location,</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>                date, </span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>                stringency_index) <span class="sc">%&gt;%</span> </span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(location <span class="sc">==</span> <span class="st">"United Kingdom"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Rows: 401008 Columns: 67
-── Column specification ────────────────────────────────────────────────────────
-Delimiter: ","
-chr   (4): iso_code, continent, location, tests_units
-dbl  (62): total_cases, new_cases, new_cases_smoothed, total_deaths, new_dea...
-date  (1): date
-
-ℹ Use `spec()` to retrieve the full column specification for this data.
-ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(df_stringency)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>tibble [1,590 × 3] (S3: tbl_df/tbl/data.frame)
- $ location        : chr [1:1590] "United Kingdom" "United Kingdom" "United Kingdom" "United Kingdom" ...
- $ date            : Date[1:1590], format: "2020-01-05" "2020-01-06" ...
- $ stringency_index: num [1:1590] 0 0 0 0 0 0 0 0 0 0 ...</code></pre>
-</div>
-</div>
 </section>
 </section>
 <section id="inspecting-the-data" class="level2" data-number="4.4">
 <h2 data-number="4.4" class="anchored" data-anchor-id="inspecting-the-data"><span class="header-section-number">4.4</span> Inspecting the data</h2>
 <p>Visually explore the data and describe main patterns</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> df_claimants, <span class="fu">aes</span>(<span class="at">x =</span> date, <span class="at">y =</span> count)) <span class="sc">+</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">colour =</span> <span class="st">"darkblue"</span>, <span class="at">linewidth =</span> <span class="fl">1.5</span>) <span class="sc">+</span></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Claimants"</span>, <span class="at">x =</span> <span class="st">"Date"</span>, <span class="at">y =</span> <span class="st">"Claimant count"</span>) <span class="sc">+</span></span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_date</span>(<span class="at">date_labels =</span> <span class="st">"%Y"</span>, <span class="at">date_breaks =</span> <span class="st">"5 year"</span>) <span class="sc">+</span></span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> df_claimants, <span class="fu">aes</span>(<span class="at">x =</span> date, <span class="at">y =</span> count)) <span class="sc">+</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">colour =</span> <span class="st">"darkblue"</span>, <span class="at">linewidth =</span> <span class="fl">1.5</span>) <span class="sc">+</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Claimants"</span>, <span class="at">x =</span> <span class="st">"Date"</span>, <span class="at">y =</span> <span class="st">"Claimant count"</span>) <span class="sc">+</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_date</span>(<span class="at">date_labels =</span> <span class="st">"%Y"</span>, <span class="at">date_breaks =</span> <span class="st">"5 year"</span>) <span class="sc">+</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> df_job.density, </span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>             <span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> job_density)) <span class="sc">+</span></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">colour =</span> <span class="st">"darkred"</span>, <span class="at">linewidth =</span> <span class="fl">1.5</span>) <span class="sc">+</span></span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Job density"</span>, <span class="at">x =</span> <span class="st">"Year"</span>, <span class="at">y =</span> <span class="st">"Job density"</span>) <span class="sc">+</span></span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_date</span>(<span class="at">date_labels =</span> <span class="st">"%Y"</span>, <span class="at">date_breaks =</span> <span class="st">"3 year"</span>) <span class="sc">+</span></span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>p1 <span class="sc">+</span> p2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> df_job.density, </span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>             <span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> job_density)) <span class="sc">+</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">colour =</span> <span class="st">"darkred"</span>, <span class="at">linewidth =</span> <span class="fl">1.5</span>) <span class="sc">+</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Job density"</span>, <span class="at">x =</span> <span class="st">"Year"</span>, <span class="at">y =</span> <span class="st">"Job density"</span>) <span class="sc">+</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_date</span>(<span class="at">date_labels =</span> <span class="st">"%Y"</span>, <span class="at">date_breaks =</span> <span class="st">"3 year"</span>) <span class="sc">+</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>p1 <span class="sc">+</span> p2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="04_data-modeling_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="04_data-modeling_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>p3 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> df_stringency, </span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>             <span class="fu">aes</span>(<span class="at">x =</span> date, <span class="at">y =</span> stringency_index)) <span class="sc">+</span></span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">colour =</span> <span class="st">"lightgrey"</span>, <span class="at">linewidth =</span> <span class="fl">1.5</span>) <span class="sc">+</span></span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Stringency index"</span>, <span class="at">x =</span> <span class="st">"Date"</span>, <span class="at">y =</span> <span class="st">"Stringency index"</span>) <span class="sc">+</span></span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_date</span>(<span class="at">date_labels =</span> <span class="st">"%b %Y"</span>, <span class="at">date_breaks =</span> <span class="st">"6 month"</span>) <span class="sc">+</span></span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> df_claimants <span class="sc">%&gt;%</span> </span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>               dplyr<span class="sc">::</span><span class="fu">filter</span>(date <span class="sc">&gt;</span> <span class="st">"2000-01-01"</span> <span class="sc">&amp;</span> date <span class="sc">&lt;</span> <span class="st">"2022-01-01"</span>),</span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>             <span class="fu">aes</span>(<span class="at">x =</span> date, <span class="at">y =</span> count)) <span class="sc">+</span></span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">colour =</span> <span class="st">"darkblue"</span>, <span class="at">linewidth =</span> <span class="fl">1.5</span>) <span class="sc">+</span></span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Claimants"</span>, <span class="at">x =</span> <span class="st">"Date"</span>, <span class="at">y =</span> <span class="st">"Claimant count"</span>) <span class="sc">+</span></span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_date</span>(<span class="at">date_labels =</span> <span class="st">"%Y"</span>, <span class="at">date_breaks =</span> <span class="st">"3 year"</span>) <span class="sc">+</span></span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span>
-<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>p1 <span class="sc">+</span> p2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> df_claimants <span class="sc">%&gt;%</span> </span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>               dplyr<span class="sc">::</span><span class="fu">filter</span>(date <span class="sc">&gt;</span> <span class="st">"2000-01-01"</span> <span class="sc">&amp;</span> date <span class="sc">&lt;</span> <span class="st">"2022-01-01"</span>),</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>             <span class="fu">aes</span>(<span class="at">x =</span> date, <span class="at">y =</span> count)) <span class="sc">+</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">colour =</span> <span class="st">"darkblue"</span>, <span class="at">linewidth =</span> <span class="fl">1.5</span>) <span class="sc">+</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Claimants"</span>, <span class="at">x =</span> <span class="st">"Date"</span>, <span class="at">y =</span> <span class="st">"Claimant count"</span>) <span class="sc">+</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_date</span>(<span class="at">date_labels =</span> <span class="st">"%Y"</span>, <span class="at">date_breaks =</span> <span class="st">"3 year"</span>) <span class="sc">+</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>p1 <span class="sc">+</span> p2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="04_data-modeling_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="04_data-modeling_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -433,24 +438,24 @@ date  (1): date
 <h2 data-number="4.5" class="anchored" data-anchor-id="data-wrangling"><span class="header-section-number">4.5</span> Data wrangling</h2>
 <p>Create a dataset for modelling</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>df_claimants<span class="sc">$</span>year <span class="ot">&lt;-</span> <span class="fu">year</span>(df_claimants<span class="sc">$</span>date)</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>df_claimants.year <span class="ot">&lt;-</span> df_claimants <span class="sc">%&gt;%</span> </span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(year) <span class="sc">%&gt;%</span> </span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>( <span class="at">annual_claimants =</span> <span class="fu">round</span>( <span class="fu">mean</span>(count) ))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>df_claimants<span class="sc">$</span>year <span class="ot">&lt;-</span> <span class="fu">year</span>(df_claimants<span class="sc">$</span>date)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>df_claimants.year <span class="ot">&lt;-</span> df_claimants <span class="sc">%&gt;%</span> </span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(year) <span class="sc">%&gt;%</span> </span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>( <span class="at">annual_claimants =</span> <span class="fu">round</span>( <span class="fu">mean</span>(count) ))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>df_job.density<span class="sc">$</span>year2 <span class="ot">&lt;-</span> <span class="fu">year</span>(df_job.density<span class="sc">$</span>year)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>df_job.density<span class="sc">$</span>year2 <span class="ot">&lt;-</span> <span class="fu">year</span>(df_job.density<span class="sc">$</span>year)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>df_modelling <span class="ot">&lt;-</span> <span class="fu">left_join</span>(df_claimants.year, </span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>                          df_job.density,</span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>                          <span class="at">by =</span> <span class="fu">join_by</span>(year <span class="sc">==</span> year2)</span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>df_modelling <span class="ot">&lt;-</span> df_modelling[<span class="fu">complete.cases</span>(df_modelling), ]</span>
-<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(df_modelling)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>df_modelling <span class="ot">&lt;-</span> <span class="fu">left_join</span>(df_claimants.year, </span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>                          df_job.density,</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>                          <span class="at">by =</span> <span class="fu">join_by</span>(year <span class="sc">==</span> year2)</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>df_modelling <span class="ot">&lt;-</span> df_modelling[<span class="fu">complete.cases</span>(df_modelling), ]</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(df_modelling)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 6 × 4
    year annual_claimants year.y     job_density
@@ -470,15 +475,16 @@ date  (1): date
 <p><span class="math display">\[
 y = \alpha + \beta_1 x_1 + \beta_2 x_2 + \beta_3 x_3 + … + \epsilon_i
 \]</span></p>
-<p>Fit a model</p>
+<section id="fitting-a-model" class="level3" data-number="4.6.1">
+<h3 data-number="4.6.1" class="anchored" data-anchor-id="fitting-a-model"><span class="header-section-number">4.6.1</span> Fitting a model</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>eq1 <span class="ot">&lt;-</span> annual_claimants <span class="sc">~</span> job_density</span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>lm1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(eq1, </span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">data =</span> df_modelling)</span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="co"># estimates</span></span>
-<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>eq1 <span class="ot">&lt;-</span> annual_claimants <span class="sc">~</span> job_density</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>lm1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(eq1, </span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">data =</span> df_modelling)</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="co"># estimates</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -498,41 +504,322 @@ Multiple R-squared:  0.002664,  Adjusted R-squared:  -0.04483
 F-statistic: 0.0561 on 1 and 21 DF,  p-value: 0.8151</code></pre>
 </div>
 </div>
-<p>Interpretation</p>
+</section>
+<section id="interpreting-linear-regression-estimates" class="level3" data-number="4.6.2">
+<h3 data-number="4.6.2" class="anchored" data-anchor-id="interpreting-linear-regression-estimates"><span class="header-section-number">4.6.2</span> Interpreting linear regression estimates</h3>
+<p>Visually display what we are doing - not considering the time sequence</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df_modelling, <span class="fu">aes</span>(<span class="at">x =</span> job_density, <span class="at">y =</span> annual_claimants)) <span class="sc">+</span></span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">"darkblue"</span>, <span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>, <span class="at">color =</span> <span class="st">"yellow"</span>) <span class="sc">+</span></span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">" "</span>, <span class="at">x =</span> <span class="st">"Claimants"</span>, <span class="at">y =</span> <span class="st">"Job density"</span>) <span class="sc">+</span></span>
-<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df_modelling, <span class="fu">aes</span>(<span class="at">x =</span> job_density, <span class="at">y =</span> annual_claimants)) <span class="sc">+</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>, <span class="at">color =</span> <span class="st">"yellow"</span>) <span class="sc">+</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">"darkblue"</span>, <span class="at">size =</span> <span class="dv">3</span>, <span class="at">alpha  =</span> <span class="fl">0.7</span>) <span class="sc">+</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Association between claimants vs job density"</span>, <span class="at">x =</span> <span class="st">"Job density"</span>, <span class="at">y =</span> <span class="st">"Claimants"</span>) <span class="sc">+</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>`geom_smooth()` using formula = 'y ~ x'</code></pre>
 </div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="04_data-modeling_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="04_data-modeling_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
-<ul>
-<li></li>
-<li><p>dummy variables</p></li>
-<li><p>multicollinearity</p></li>
-</ul>
 </section>
-<section id="time-series-data-modelling" class="level2" data-number="4.7">
+</section>
+<section id="time-series-data-modelling" class="level2 page-columns page-full" data-number="4.7">
 <h2 data-number="4.7" class="anchored" data-anchor-id="time-series-data-modelling"><span class="header-section-number">4.7</span> Time series data modelling</h2>
+<p>For this section, we will return to our original time series of claimants for the period from January 1992 to April 2024. We will illustrate the use of ARIMA models, or Auto-Regressive Integrated Moving Average models. ARIMA is the combination of two models, an autoregressive (<span class="math inline">\(AR\)</span>) and an moving average (<span class="math inline">\(MA\)</span>) model. An autoregressive <span class="math inline">\(AR(p)\)</span> component refers to the use of past values in the regression equation for the series <span class="math inline">\(y\)</span>. The autoregressive parameter <span class="math inline">\(p\)</span> specifies the number of lags, or past values, to be used in the model. For example, an autoregressive model of order 2 (i.e.&nbsp;<span class="math inline">\(AR(2)\)</span>) is represented as:</p>
+<p><span class="math display">\[
+y_t = c + \theta_1 y_{t-1} + \theta_2 y_{t-2} + \epsilon_t
+\]</span></p>
+<p>where: <span class="math inline">\(\theta_1\)</span>, <span class="math inline">\(\theta_2\)</span> are model parameters. The moving average nature of the model is represented by the <span class="math inline">\(q\)</span> value, which is the number of lagged values of the error term. A moving average <span class="math inline">\(MA(q)\)</span> component represents the error of the model as a combination of previous error terms. The order <span class="math inline">\(q\)</span> determines the number of terms to include in the model. For example, an moving average model of order 2 (i.e.&nbsp;<span class="math inline">\(AR(2)\)</span>) is represented as:</p>
+<p><span class="math display">\[
+y_t = c + \rho_1 e_{t-1} + \rho_2 e_{t-2} + e_t
+\]</span></p>
+<p>Additionally, a time series needs to be stationary and a non-stationary time series needs to be transform through a procedure known as differencing (<span class="math inline">\(d\)</span>) or integration (<span class="math inline">\(I\)</span>). Together, these components (i.e.&nbsp;the autoregressive, integration and moving average components) define the ARIMA model. We will expand on these components later. An ARIMA model is specified by three order parameters: (<span class="math inline">\(p\)</span>, <span class="math inline">\(d\)</span>, <span class="math inline">\(q\)</span>).</p>
+<p>The process of modelling time series is complex task. To facilitate this process, we will use the following a modelling framework of five steps:</p>
+<ol type="1">
+<li><p>time series visualisation</p></li>
+<li><p>stationarity testing</p></li>
+<li><p>optimal parameter identification</p></li>
+<li><p>ARIMA model calibration</p></li>
+<li><p>model prediction</p></li>
+</ol>
+<section id="visualising-time-series" class="level3" data-number="4.7.1">
+<h3 data-number="4.7.1" class="anchored" data-anchor-id="visualising-time-series"><span class="header-section-number">4.7.1</span> Visualising time series</h3>
+<p>A time series has key components that we need to understand to uncover hidden patterns in the data.</p>
 <ul>
-<li><p>autoregressive (AR)</p></li>
-<li><p>seasonality / integration / diffencing (I)</p></li>
-<li><p>moving average (MA)</p></li>
-<li><p>ARIMA</p></li>
-<li><p>ARIMAX (adding Xs)</p></li>
+<li><p><em>Trend</em>: The long-term movement in the data, which can be upward, downward, or constant.</p></li>
+<li><p><em>Seasonality</em>: Regular, repeating patterns or cycles in the data that occur at fixed intervals, such as daily, monthly, or annually.</p></li>
+<li><p><em>Irregular/Random Fluctuations</em>: Noise or random variations that cannot be attributed to trends, seasonality, or cycles.</p></li>
 </ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># create a time series object</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>df_claimants_ts <span class="ot">&lt;-</span> <span class="fu">ts</span>(df_claimants<span class="sc">$</span>count, </span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>                     <span class="at">start =</span> <span class="fu">c</span>(<span class="dv">1992</span>, <span class="dv">1</span>),</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>                     <span class="at">end =</span> <span class="fu">c</span>(<span class="dv">2024</span>, <span class="dv">4</span>),</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>                     <span class="at">frequency =</span> <span class="dv">12</span>)</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a><span class="co"># decompose time series</span></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>decompose_ts <span class="ot">&lt;-</span> <span class="fu">decompose</span>(df_claimants_ts)</span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a><span class="co"># plot time series components</span></span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(decompose_ts)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="04_data-modeling_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><em>What do we learn from the plots?</em> There are clear trends, seasonality and random variation, but also a spike during 2020 and 2021.</p>
+</section>
+<section id="stationarity" class="level3" data-number="4.7.2">
+<h3 data-number="4.7.2" class="anchored" data-anchor-id="stationarity"><span class="header-section-number">4.7.2</span> Stationarity</h3>
+<p>Stationarity is a critical property in time series analysis.</p>
+<p><em>What is stationary?</em> Stationary means that the mean, variance and covariance should be constant over time; that is, the mean, variance and covariance of the time series should not be a function of time.</p>
+<p><em>Why do we care about stationarity?</em> We care about stationarity because we cannot build a time series model if the time series is non-stationary. Non-stationary data can lead to misleading statistical inferences, so it is often necessary to transform non-stationary data into a stationary form before further analysis.</p>
+<p><em>How do we transform a time series from non-stationary data into a stationary?</em> There are three commonly used ways to achieve this.</p>
+<ol type="1">
+<li><em>Detrending</em>: Detrending involves removing the trend component from the time series. That would be removing the trend component shown in the plot above from the time series and building a model with the rest.</li>
+<li><em>Differencing</em>: Differencing is probably the most commonly used technique to remove non-stationarity. Differentiation is used to make a time series stationary by removing trends and seasonality. The differencing operation subtracts the previous value from the current value. Differencing is also known as for being the integration part in AR<strong>I</strong>MA models. Differencing involves in taking the difference between <span class="math inline">\(y_t\)</span> and <span class="math inline">\(y_t-1\)</span>.</li>
+<li><em>Seasonality</em>: Seasonality corresponds to the periodic cycles of changes in a time series and can be integrated via the autoregressive (AR) and moving average (MA) terms in <strong>AR</strong>I<strong>MA</strong> models</li>
+</ol>
+<p>So we will use differencing and then test for stationarity.</p>
+<p><em>How we know if a time series is stationary?</em> We can use statistical tests to identify if a time series is stationary. We will the Augmented Dickey-Fuller (ADF) test which is a statistical test used to determine whether a given time series is stationary. The primary purpose of the ADF test is to check for the presence of a unit root in a time series sample; that is, if the time series is nonstationary and exhibits a stochastic trend. Essentially, a time series with a unit root shows that its values are heavily influenced by its own past values and that shocks or changes to the series have a permanent effect, rather than temporary. If the test rejects the null hypothesis, it suggests that the time series is stationary.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">adf.test</span>(<span class="fu">diff</span>(<span class="fu">log</span>(df_claimants<span class="sc">$</span>count)), </span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>         <span class="at">alternative =</span> <span class="st">"stationary"</span>, </span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">k=</span><span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Augmented Dickey-Fuller Test
+
+data:  diff(log(df_claimants$count))
+Dickey-Fuller = -12.742, Lag order = 0, p-value = 0.01
+alternative hypothesis: stationary</code></pre>
+</div>
+</div>
+<p>The Dickey-Fuller test returns a p-value of 0.01, resulting in the rejection of the null hypothesis in favour of the alternate. That is that the time series is stationary. Note that we used a log transformation. This transformation is applied to stabilise the variance and normalise the distribution of the data. Taking the logarithm of the claimants means that multiplicative relationships in the original time series become additive.</p>
+</section>
+<section id="optimal-parameters" class="level3" data-number="4.7.3">
+<h3 data-number="4.7.3" class="anchored" data-anchor-id="optimal-parameters"><span class="header-section-number">4.7.3</span> Optimal parameters</h3>
+<p>Next we need examine the Auto-Correlation Function (ACF) and the Partial Auto-Correlation Function (PACF) to identify appropriate values for <span class="math inline">\(p\)</span> and <span class="math inline">\(q\)</span>. Thus, we examine these functions to identify which <span class="math inline">\(AR(p)\)</span> , <span class="math inline">\(MA(q)\)</span>, <span class="math inline">\(ARMA(p, q)\)</span> or <span class="math inline">\(ARIMA(p, d, q)\)</span> model is more appropriate.</p>
+<p>ACF is used to determine the level of autocorrelation between <span class="math inline">\(y_t\)</span> and <span class="math inline">\(y_{t-k}\)</span> for different values of <span class="math inline">\(k\)</span>. The ACF tells us how the present value in a time series is related with its past values. It helps identify the presence of any repeating patterns or relationships over different lags. Thus, ACF will help determining the number, or order, of moving-average (MA) coefficients for ARIMA models.</p>
+<p>PACF measures partial autocorrelations between <span class="math inline">\(y_t\)</span> and <span class="math inline">\(y_{t-k}\)</span> after removing the effects of lags 1, 2, 3, … , k - 1. This helps identify the direct relationships between observations separated by various lag periods. Thus, PACF helps us identify the number of autoregressive (AR) coefficients in our ARIMA model.</p>
+<p>The figures below show ACF and PACF plots for our data to determine the order of parameters for our ARIMA model.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">acf</span>(<span class="fu">diff</span>(<span class="fu">log</span>(df_claimants<span class="sc">$</span>count)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="04_data-modeling_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pacf</span>(<span class="fu">diff</span>(<span class="fu">log</span>(df_claimants<span class="sc">$</span>count)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="04_data-modeling_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><span class="citation" data-cites="HyndmannAthanasopoulos2021">Hyndman and Athanasopoulos (<a href="references.html#ref-HyndmannAthanasopoulos2021" role="doc-biblioref">2021</a>)</span> describe the usefulness of ACF and PACF plots. They suggest that a time series may correspond to an ARIMA( <span class="math inline">\(p\)</span>, <span class="math inline">\(d\)</span>, 0) model if the ACF and PACF plots of the differenced time series show the following patterns:</p>
+<ul>
+<li><p>the ACF has an exponential decay or sine curve form;</p></li>
+<li><p>there is a significant spike at lag <span class="math inline">\(p\)</span> in the PACF, but none beyond lag <span class="math inline">\(p\)</span>.</p></li>
+</ul>
+<p>Similarly, they state that a time series may follow an ARIMA(0, <span class="math inline">\(d\)</span>, <span class="math inline">\(q\)</span>) model if the ACF and PACF plots of the differenced time series show the following patterns:</p>
+<ul>
+<li><p>the PACF has an exponential decay or sine curve form;</p></li>
+<li><p>there is a significant spike at lag <span class="math inline">\(q\)</span> in the ACF, but none beyond lag <span class="math inline">\(q\)</span>.</p></li>
+</ul>
+<p>In the ACF and PACF plots above, we observe a significant spike at lag 1 in the PACF plot followed by non-significant spikes suggests that an autoregressive (AR) component of order 1 is appropriate. Significant spikes at lags 1 and 2 in the ACF plot suggest that a moving average (MA) component of order 2 might be appropriate. Additionally, a significant spike at lag 12 in both ACF and PACF indicates the presence of a seasonal component with a period of 12. This suggests that the time series may have an annual seasonal pattern if the data is monthly. However, we will first concentrate on the ARIMA model (1, 0, 2) to illustrate the calibration of this type of models, and also because we generally prefer parsimonious models, and as you will see, a simpler model seems to provide the optimal AR and MA parameters with no integration at lag 12. Though, note that our model has one integration as we have differentiated our time series.</p>
+</section>
+<section id="arima-model-calibration" class="level3 page-columns page-full" data-number="4.7.4">
+<h3 data-number="4.7.4" class="anchored" data-anchor-id="arima-model-calibration"><span class="header-section-number">4.7.4</span> ARIMA model calibration</h3>
+<p>Let us fit the ARIMA (1, 0, 2) model using the <code>arima</code> function:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># fit model</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>arima_m1 <span class="ot">&lt;-</span> <span class="fu">arima</span>(<span class="fu">diff</span>(<span class="fu">log</span>(df_claimants<span class="sc">$</span>count)), <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">2</span>))</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="co"># estimates</span></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(arima_m1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+arima(x = diff(log(df_claimants$count)), order = c(1, 0, 2))
+
+Coefficients:
+         ar1      ma1      ma2  intercept
+      0.8818  -0.4644  -0.2839    -0.0019
+s.e.  0.0824   0.0995   0.0636     0.0032
+
+sigma^2 estimated as 0.0008907:  log likelihood = 809.8,  aic = -1609.6
+
+Training set error measures:
+                        ME       RMSE        MAE  MPE MAPE      MASE       ACF1
+Training set -1.357069e-05 0.02984486 0.01579798 -Inf  Inf 0.8246125 0.01209695</code></pre>
+</div>
+</div>
+
+<div class="no-row-height column-margin column-container"><div class="">
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Note that the <code>arima_m1</code> is the same that fitting the following model:</p>
+<p><code>arima( log(df_claimants$count) ), c(1, 1, 2) )</code></p>
+<p>That is not differencing the time series using <code>diff</code> before the <code>log</code></p>
+</div>
+</div>
+</div></div><p><strong>Interpretation</strong></p>
+<p>A key point to note is that when interpreting the AR(1) and MA(1) coefficients in the context of a differenced logged time series, the focus is on the percentage changes rather than the absolute changes. Thus, the estimated coefficient of <code>0.8818</code> for <code>ar1</code> term indicates that 88.18% of the percentage change in claimants from the previous period carries over to the current period. The sign is positive indicating that the concurrent count of claimants is strongly influenced by the the claimants from the previous period (i.e.&nbsp;lag 1). In other words, if claimants increased by 10% last month (after taking logs and differencing), this month’s claimants would increase by approximately 8.82% (88.18% of 10%), assuming other factors remain constant. This reflects strong persistence in the growth rates of claimants.</p>
+<p>In terms of the MA terms, their estimated coefficients signal the temporal dependence of an unexpected change in the outcome from a previous period on the concurrent outcome. The MA(1) coefficient of -0.4644 indicates that an unexpected change (shock) in claimaints from the previous period has a negative effect on the current period’s percentage change in claimaints. If there was an unexpected increase in claimaints last month, this month’s percentage change in claimaints will be reduced by 46.44% of that shock. In other words, if there was an unexpected 5% increase in claimaints last month, this month’s sales would be expected to decrease by approximately 2.32% (-0.4644 * 5%), indicating a partial correction of the previous unexpected increase.</p>
+<p><strong>Model performance</strong></p>
+<p>How do we know we have chosen the best model? The Akaike information criterion (AIC) score is a good indicator of the ARIMA model accuracy. The lower the AIC score, the better the model performs. Our model produced an AIC score of -1609. However, we can only know if we have selected the best model through iterated experimentation. We can randomly experiment with the parameters until we find parameters that yield the lowest AIC.</p>
+<p><strong>Auto ARIMA</strong></p>
+<p>To this end, we can use a built-in function in the forecast package called <code>auto.arima</code>. The function returns the best-fitting ARIMA model according to either AIC, AICc or BIC value. The function conducts a search over possible model within the order constraints provided - see <code>?auto.arima</code> for more information.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>autoarima_m1 <span class="ot">&lt;-</span> <span class="fu">auto.arima</span>(<span class="fu">diff</span>(<span class="fu">log</span>(df_claimants<span class="sc">$</span>count)), <span class="at">trace=</span><span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+ Fitting models using approximations to speed things up...
+
+ ARIMA(2,0,2) with non-zero mean : Inf
+ ARIMA(0,0,0) with non-zero mean : -1540.47
+ ARIMA(1,0,0) with non-zero mean : -1608.778
+ ARIMA(0,0,1) with non-zero mean : -1606.811
+ ARIMA(0,0,0) with zero mean     : -1541.104
+ ARIMA(2,0,0) with non-zero mean : -1607.388
+ ARIMA(1,0,1) with non-zero mean : -1608.528
+ ARIMA(2,0,1) with non-zero mean : -1605.537
+ ARIMA(1,0,0) with zero mean     : -1610.231
+ ARIMA(2,0,0) with zero mean     : -1608.789
+ ARIMA(1,0,1) with zero mean     : -1609.917
+ ARIMA(0,0,1) with zero mean     : -1608.005
+ ARIMA(2,0,1) with zero mean     : -1606.965
+
+ Now re-fitting the best model(s) without approximations...
+
+ ARIMA(1,0,0) with zero mean     : -1611.047
+
+ Best model: ARIMA(1,0,0) with zero mean     </code></pre>
+</div>
+</div>
+<p>The algorithm indicates that the best ARIMA model is achieved with parameters <code>p=1</code>, <code>d=0</code>, <code>q=0</code>.</p>
+
+<div class="no-row-height column-margin column-container"><div class="">
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><code>auto.arima</code> generates models with non-zero mean and zero mean.</p>
+<p>A <em>non-zero mean</em> model indicates that the model has a constant term (<span class="math inline">\(c\)</span>) or a drift term (<span class="math inline">\(d\)</span>) if <span class="math inline">\(d &gt; 0\)</span>. For a non-differenced series (<span class="math inline">\(d = 0\)</span>), the constant term is a true intercept, representing the mean level around which the series fluctuates. For a differenced series (<span class="math inline">\(d &gt; 0\)</span>), the constant term can be interpreted as a drift, representing the average change per time period in the differenced series.</p>
+<p>A <em>zero mean</em> model indicates that the model does not has a constant term. It assumes that the time series fluctuates around a mean of zero if <span class="math inline">\(d = 0\)</span>. For a differenced series (<span class="math inline">\(d &gt; 0\)</span>), this implies no deterministic trend (drift) in the data. This model is appropriate for stationary time series data that fluctuates around a mean of zero without a trend.</p>
+</div>
+</div>
+</div></div><p>Let us fit the ARIMA (1, 0, 0) model with zero mean:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># fit model</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>arima_m2 <span class="ot">&lt;-</span> <span class="fu">arima</span>(<span class="fu">diff</span>(<span class="fu">log</span>(df_claimants<span class="sc">$</span>count)), <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>), <span class="at">include.mean =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="co"># estimates</span></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(arima_m2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+arima(x = diff(log(df_claimants$count)), order = c(1, 0, 0), include.mean = FALSE)
+
+Coefficients:
+         ar1
+      0.4114
+s.e.  0.0462
+
+sigma^2 estimated as 0.0009013:  log likelihood = 807.54,  aic = -1611.08
+
+Training set error measures:
+                       ME       RMSE        MAE  MPE MAPE      MASE       ACF1
+Training set -0.001159562 0.03002149 0.01625172 -Inf  Inf 0.8482966 0.02558901</code></pre>
+</div>
+</div>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p><strong>Task</strong></p>
+<p>How do we judge if this model is any better? Write down the interpretation of the <code>ar1</code> coefficient.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="prediction" class="level3" data-number="4.7.5">
+<h3 data-number="4.7.5" class="anchored" data-anchor-id="prediction"><span class="header-section-number">4.7.5</span> Prediction</h3>
+<p>Now that we have identified our best fitting ARIMA model, we can use the model to make predictions of claimant counts into the future. But, before we do this let us see how our model fitted our data.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">as.ts</span>(<span class="fu">diff</span>(<span class="fu">log</span>(df_claimants<span class="sc">$</span>count))), <span class="at">main =</span> <span class="st">"Logged claimaints (first difference)"</span>, <span class="at">ylab =</span> <span class="st">"Rates"</span>, <span class="at">xlab =</span> <span class="st">"Time"</span>, <span class="at">type =</span> <span class="st">"l"</span>, <span class="at">lty =</span> <span class="dv">1</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(<span class="fu">fitted</span>(arima_m2), <span class="at">col=</span> <span class="st">"blue"</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="04_data-modeling_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The model seems to have fitted our data relatively well, even the spike in claimants during 2020 and 2021. Let us now make a prediction of future claimants with the <code>forecast.Arima</code> function. We predict the claimants on the next 12 months:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>arima_m2 <span class="sc">%&gt;%</span> </span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">forecast</span>(<span class="at">h =</span> <span class="dv">12</span>, </span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>           <span class="at">level =</span> <span class="fu">c</span>(<span class="dv">99</span>)) <span class="sc">%&gt;%</span>  <span class="co">#confidence level 99% </span></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autoplot</span>() <span class="sc">+</span></span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>( <span class="at">y =</span> <span class="st">"Rates"</span>, <span class="at">x =</span> <span class="st">"Time"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="04_data-modeling_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>futurVal <span class="ot">&lt;-</span> <span class="fu">forecast</span>(arima_m2,<span class="at">h=</span><span class="dv">12</span>, <span class="at">level=</span><span class="fu">c</span>(<span class="dv">99</span>))</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">forecast</span>(futurVal))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="04_data-modeling_files/figure-html/unnamed-chunk-21-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
 
 
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
+<div id="ref-HyndmannAthanasopoulos2021" class="csl-entry" role="listitem">
+Hyndman, Rob, and G. Athanasopoulos. 2021. <em>Forecasting: Principles and Practice</em>. 3rd ed. Australia: OTexts.
+</div>
+</div>
+</section>
 </section>
 
 </main> <!-- /main -->
