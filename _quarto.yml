@@ -13,7 +13,7 @@ book:
     - 02_data-visualisation.qmd
     - 03_dashboards-api.qmd
     - 04_data-modeling.qmd
-    - 05_data-description.qmd
+    #- 05_data-description.qmd
     - references.qmd
 
   search: true

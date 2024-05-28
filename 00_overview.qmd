@@ -61,6 +61,9 @@ Once you have installed R, you will need to install some R extensions, known as 
 -   `htmlwidgets`
 -   `nomisr`
 -   `flexdashboard`
+-   `ggfortify`
+-   `forecast`
+-   `tseries`
 
 To install the packages, open RStudio. On the console window (normally at the bottom left), write the following command: `install.packages("name of package")`. Make sure you replace "name of package" by the actual name of the package that you want to install e.g. `install.packages("tidyverse")`. Then, press enter and repeat this process until you have installed all the packages in the list.
 
@@ -88,7 +91,10 @@ list.of.packages.cran <- c(
    "plotly",
    "htmlwidgets",
    "nomisr",
-   "flexdashboard"
+   "flexdashboard",
+   "ggfortify",
+   "forecast",
+   "tseries"
 )
 
 new.packages.cran <- list.of.packages.cran[!(list.of.packages.cran %in% installed.packages()[,"Package"])]
@@ -123,7 +129,10 @@ deps <- list(
    "plotly",
    "htmlwidgets",
    "nomisr",
-   "flexdashboard"
+   "flexdashboard",
+    "ggfortify",
+   "forecast",
+   "tseries"
 )
 
 for(lib in deps){library(lib, character.only = TRUE)}

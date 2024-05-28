@@ -33,19 +33,19 @@ library(tseries)
 
 ## Data
 
-Read and explain data
-
-### Out-of-work benefits
-
-Under Universal Credit a broader span of claimants are required to look for work than under Jobseeker's Allowance. As Universal Credit Full Service is rolled out in particular areas, the number of people recorded as being on the Claimant Count is therefore likely to rise.
+We first read the data. We will be working with data from [NOMIS](https://www.nomisweb.co.uk/reports/lmp/la/1946157104/report.aspx#tabjobs). We will use data on claimant count and job density. 
 
 **Claimant Count (Experimental Statistics)**
 
-:   The Claimant Count is the number of people claiming benefit principally for the reason of being unemployed. This is measured by combining the number of people claiming Jobseeker's Allowance (JSA) and National Insurance credits with the number of people receiving Universal Credit principally for the reason of being unemployed. Claimants declare that they are out of work, capable of, available for and actively seeking work during the week in which the claim is made.
+As it is described in NOMIS: 
 
-    The measure of the number of people receiving Universal Credit principally for the reason of being unemployed is still being developed by the Department for Work and Pensions. Consequently this component of the total Claimant Count does not yet correctly reflect the target population of unemployed claimants and is subject to revisions. For this reason the Claimant Count is currently designated as Experimental Statistics.
+> "The Claimant Count is the number of people claiming benefit principally for the reason of being unemployed. This is measured by combining the number of people claiming Jobseeker's Allowance (JSA) and National Insurance credits with the number of people receiving Universal Credit principally for the reason of being unemployed. Claimants declare that they are out of work, capable of, available for and actively seeking work during the week in which the claim is made."
 
-    The Claimant Count is mostly derived from DWP administrative systems. For various reasons, e.g. a claimant's National Insurance number is not known, a small number of claims have to be dealt with manually. These clerical claims do not have as much detail as the computerised claims and therefore, whilst part of the claimant count by sex table, cannot be included the age breakdown.
+> "The measure of the number of people receiving Universal Credit principally for the reason of being unemployed is still being developed by the Department for Work and Pensions. Consequently this component of the total Claimant Count does not yet correctly reflect the target population of unemployed claimants and is subject to revisions. For this reason the Claimant Count is currently designated as Experimental Statistics."
+
+> "The Claimant Count is mostly derived from DWP administrative systems. For various reasons, e.g. a claimant's National Insurance number is not known, a small number of claims have to be dealt with manually. These clerical claims do not have as much detail as the computerised claims and therefore, whilst part of the claimant count by sex table, cannot be included the age breakdown."
+
+We read the data using `read_csv`:
 
 ```{r}
 #| warning: true
@@ -62,9 +62,11 @@ head(df_claimants)
 
 **Jobs Density**
 
-:   The level of jobs per resident aged 16-64. For example, a job density of 1.0 would mean that there is one job for every resident aged 16-64.
+To explain changes over time in the claimant count, we use data on job density from NOMIS. The definition of job density is as follows:
 
-    The total number of jobs is a workplace-based measure and comprises employee jobs, self-employed, government-supported trainees and HM Forces. The number of residents aged 16-64 figures used to calculate jobs densities are based on the relevant mid-year population estimates.
+> "The level of jobs per resident aged 16-64. For example, a job density of 1.0 would mean that there is one job for every resident aged 16-64."
+
+> "The total number of jobs is a workplace-based measure and comprises employee jobs, self-employed, government-supported trainees and HM Forces. The number of residents aged 16-64 figures used to calculate jobs densities are based on the relevant mid-year population estimates."
 
 ```{r}
 
@@ -80,7 +82,7 @@ head(df_job.density)
 
 ## Inspecting the data
 
-Visually explore the data and describe main patterns
+Visually explore the data and describe main patterns.
 
 ```{r}
 
@@ -102,6 +104,8 @@ p2 <- ggplot(data = df_job.density,
 p1 + p2
 ```
 
+We note that the data are of different temporal length. So we reduce the temporal scale of the claimant count series to match that of the series of job density.
+
 ```{r}
 p1 <- ggplot(data = df_claimants %>% 
                dplyr::filter(date > "2000-01-01" & date < "2022-01-01"),
@@ -114,9 +118,15 @@ p1 <- ggplot(data = df_claimants %>%
 p1 + p2
 ```
 
+::: {.callout-tip appearance="simple" icon="false"}
+**Task**
+
+What can we learn from these plots?
+:::
+
 ## Data wrangling
 
-Create a dataset for modelling
+Now we will prepare the data frames that we need for the linear modelling section. The data for job density are available aggregated by year from 2000 to 2022. So we aggregate the data on claimants to match these temporal granularity averaging the monthly counts to obtain an annual average. 
 
 ```{r}
 df_claimants$year <- year(df_claimants$date)
@@ -127,9 +137,13 @@ df_claimants.year <- df_claimants %>%
   
 ```
 
+We create a new year variable containing only the year (not the day and month) to join the data.
+
 ```{r}
 df_job.density$year2 <- year(df_job.density$year)
 ```
+
+We are now ready to join the data.
 
 ```{r}
 df_modelling <- left_join(df_claimants.year, 
@@ -144,13 +158,15 @@ head(df_modelling)
 
 ## Linear regression
 
-Explain what a linear regression does and the key components of a linear regression.
+We will illustrate how we can fit a linear regression model to understand the relationship between claimant counts and job density. In a linear regression model, we can express an outcome ($y$) as a linear function of a series of explanatory variables ($x$), and we are interested in estimating the strength and direction of the linear relationship between the outcome and explanatory variables. We are interested in estimating the $\beta$'s, and to this end, we use linear regression modelling. We assuming that there is a part that we can model and explain, represented by $\beta$ and $x$; and, a part that we cannot explain or measure $epsilon$ and we assume to be randomly distributed.
 
 $$
 y = \alpha + \beta_1 x_1 + \beta_2 x_2 + \beta_3 x_3 + … + \epsilon_i
 $$
 
 ### Fitting a model
+
+We will estimate a simple model assuming that annual claimants are a linear function of job density. 
 
 ```{r}
 eq1 <- annual_claimants ~ job_density
@@ -164,15 +180,42 @@ summary(lm1)
 
 ### Interpreting linear regression estimates
 
-Visually display what we are doing - not considering the time sequence
+*Intercept ($\alpha$).* The intercept represents the expected value of annual claimants when job density is zero. If job density were hypothetically zero, the model predicts an average of approximately 12,833 annual claimants.
+
+*Slope ($\beta_1$).* The coefficient represents the change in annual claimants for a one-unit increase in job density. For each additional unit of job density, the number of annual claimants is expected to increase by approximately 5,062, assuming all other factors remain constant.
+
+::: {.callout-tip appearance="simple" icon="false"}
+**Task**
+
+Does the $\beta_1$ coefficient make sense? Why? Why not?
+:::
+
+In fact, the results seem to make little sense. Let us examine the measure of model fit:
+
+*Residual Standard Error*: A measure of the average distance between the observed values and the model’s predicted values. 4341 in this case indicates the typical deviation of observed annual claimants from the model’s predictions.
+
+*R-squared*: Proportion of variance in the dependent variable explained by the model. Multiple R-squared: 0.002664 indicates that about 0.27% of the variability in annual claimants is explained by job density.
+
+*F-statistic*: Tests the overall significance of the model. An F-statistic of 0.0561 with a high p-value (0.8151) indicates that the model is not statistically significant.
+
+::: {.callout-tip appearance="simple" icon="false"}
+**Task**
+
+Overall, what do these measures of fit tell us? 
+:::
+
+Finally, let us have a look at the data visually. In addition to the inferences that we can made based on the data reported above, these results also suggest a need to consider the temporal sequence of the data.
 
 ```{r}
 ggplot(df_modelling, aes(x = job_density, y = annual_claimants)) +
   geom_smooth(method = "lm", se = FALSE, color = "yellow") +
   geom_point(color = "darkblue", size = 3, alpha  = 0.7) +
-  labs(title = "Association between claimants vs job density", x = "Job density", y = "Claimants") +
+  labs(title = "Association between claimants vs job density", 
+       x = "Job density", 
+       y = "Claimants") +
   theme_minimal()
 ```
+
 
 ## Time series data modelling
 
@@ -348,6 +391,7 @@ arima_m2 <- arima(diff(log(df_claimants$count)), c(1, 0, 0), include.mean = FALS
 # estimates
 summary(arima_m2)
 ```
+
 ::: {.callout-tip appearance="simple" icon="false"}
 **Task**
 
@@ -374,12 +418,7 @@ arima_m2 %>%
   labs( y = "Rates", x = "Time")
 ```
 
-
-```{r}
-futurVal <- forecast(arima_m2,h=12, level=c(99))
-
-plot(forecast(futurVal))
-```
+The prediction suggests that the number of claimants are likely to vary within the range of -0.07 and 0.07 over the next 12 months of the time series.
 
 
 

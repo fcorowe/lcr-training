@@ -84,7 +84,7 @@ div.csl-indent {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./05_data-description.html" rel="next">
+<link href="./references.html" rel="next">
 <link href="./03_dashboards-api.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -231,12 +231,6 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./05_data-description.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Data</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
   <a href="./references.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">References</span></a>
   </div>
@@ -255,10 +249,7 @@ window.Quarto = {
   <ul>
   <li><a href="#learning-objectives" id="toc-learning-objectives" class="nav-link active" data-scroll-target="#learning-objectives"><span class="header-section-number">4.1</span> Learning objectives</a></li>
   <li><a href="#dependencies" id="toc-dependencies" class="nav-link" data-scroll-target="#dependencies"><span class="header-section-number">4.2</span> Dependencies</a></li>
-  <li><a href="#data" id="toc-data" class="nav-link" data-scroll-target="#data"><span class="header-section-number">4.3</span> Data</a>
-  <ul class="collapse">
-  <li><a href="#out-of-work-benefits" id="toc-out-of-work-benefits" class="nav-link" data-scroll-target="#out-of-work-benefits"><span class="header-section-number">4.3.1</span> Out-of-work benefits</a></li>
-  </ul></li>
+  <li><a href="#data" id="toc-data" class="nav-link" data-scroll-target="#data"><span class="header-section-number">4.3</span> Data</a></li>
   <li><a href="#inspecting-the-data" id="toc-inspecting-the-data" class="nav-link" data-scroll-target="#inspecting-the-data"><span class="header-section-number">4.4</span> Inspecting the data</a></li>
   <li><a href="#data-wrangling" id="toc-data-wrangling" class="nav-link" data-scroll-target="#data-wrangling"><span class="header-section-number">4.5</span> Data wrangling</a></li>
   <li><a href="#linear-regression" id="toc-linear-regression" class="nav-link" data-scroll-target="#linear-regression"><span class="header-section-number">4.6</span> Linear regression</a>
@@ -325,18 +316,19 @@ window.Quarto = {
 </section>
 <section id="data" class="level2" data-number="4.3">
 <h2 data-number="4.3" class="anchored" data-anchor-id="data"><span class="header-section-number">4.3</span> Data</h2>
-<p>Read and explain data</p>
-<section id="out-of-work-benefits" class="level3" data-number="4.3.1">
-<h3 data-number="4.3.1" class="anchored" data-anchor-id="out-of-work-benefits"><span class="header-section-number">4.3.1</span> Out-of-work benefits</h3>
-<p>Under Universal Credit a broader span of claimants are required to look for work than under Jobseeker’s Allowance. As Universal Credit Full Service is rolled out in particular areas, the number of people recorded as being on the Claimant Count is therefore likely to rise.</p>
-<dl>
-<dt><strong>Claimant Count (Experimental Statistics)</strong></dt>
-<dd>
-<p>The Claimant Count is the number of people claiming benefit principally for the reason of being unemployed. This is measured by combining the number of people claiming Jobseeker’s Allowance (JSA) and National Insurance credits with the number of people receiving Universal Credit principally for the reason of being unemployed. Claimants declare that they are out of work, capable of, available for and actively seeking work during the week in which the claim is made.</p>
-<p>The measure of the number of people receiving Universal Credit principally for the reason of being unemployed is still being developed by the Department for Work and Pensions. Consequently this component of the total Claimant Count does not yet correctly reflect the target population of unemployed claimants and is subject to revisions. For this reason the Claimant Count is currently designated as Experimental Statistics.</p>
-<p>The Claimant Count is mostly derived from DWP administrative systems. For various reasons, e.g.&nbsp;a claimant’s National Insurance number is not known, a small number of claims have to be dealt with manually. These clerical claims do not have as much detail as the computerised claims and therefore, whilst part of the claimant count by sex table, cannot be included the age breakdown.</p>
-</dd>
-</dl>
+<p>We first read the data. We will be working with data from <a href="https://www.nomisweb.co.uk/reports/lmp/la/1946157104/report.aspx#tabjobs">NOMIS</a>. We will use data on claimant count and job density.</p>
+<p><strong>Claimant Count (Experimental Statistics)</strong></p>
+<p>As it is described in NOMIS:</p>
+<blockquote class="blockquote">
+<p>“The Claimant Count is the number of people claiming benefit principally for the reason of being unemployed. This is measured by combining the number of people claiming Jobseeker’s Allowance (JSA) and National Insurance credits with the number of people receiving Universal Credit principally for the reason of being unemployed. Claimants declare that they are out of work, capable of, available for and actively seeking work during the week in which the claim is made.”</p>
+</blockquote>
+<blockquote class="blockquote">
+<p>“The measure of the number of people receiving Universal Credit principally for the reason of being unemployed is still being developed by the Department for Work and Pensions. Consequently this component of the total Claimant Count does not yet correctly reflect the target population of unemployed claimants and is subject to revisions. For this reason the Claimant Count is currently designated as Experimental Statistics.”</p>
+</blockquote>
+<blockquote class="blockquote">
+<p>“The Claimant Count is mostly derived from DWP administrative systems. For various reasons, e.g.&nbsp;a claimant’s National Insurance number is not known, a small number of claims have to be dealt with manually. These clerical claims do not have as much detail as the computerised claims and therefore, whilst part of the claimant count by sex table, cannot be included the age breakdown.”</p>
+</blockquote>
+<p>We read the data using <code>read_csv</code>:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>df_claimants <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"./data/claimants/claimants_liverpool.csv"</span>, </span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>                         <span class="at">col_types =</span> <span class="fu">cols</span>(</span>
@@ -358,13 +350,14 @@ window.Quarto = {
 6 1992-06-01 39425</code></pre>
 </div>
 </div>
-<dl>
-<dt><strong>Jobs Density</strong></dt>
-<dd>
-<p>The level of jobs per resident aged 16-64. For example, a job density of 1.0 would mean that there is one job for every resident aged 16-64.</p>
-<p>The total number of jobs is a workplace-based measure and comprises employee jobs, self-employed, government-supported trainees and HM Forces. The number of residents aged 16-64 figures used to calculate jobs densities are based on the relevant mid-year population estimates.</p>
-</dd>
-</dl>
+<p><strong>Jobs Density</strong></p>
+<p>To explain changes over time in the claimant count, we use data on job density from NOMIS. The definition of job density is as follows:</p>
+<blockquote class="blockquote">
+<p>“The level of jobs per resident aged 16-64. For example, a job density of 1.0 would mean that there is one job for every resident aged 16-64.”</p>
+</blockquote>
+<blockquote class="blockquote">
+<p>“The total number of jobs is a workplace-based measure and comprises employee jobs, self-employed, government-supported trainees and HM Forces. The number of residents aged 16-64 figures used to calculate jobs densities are based on the relevant mid-year population estimates.”</p>
+</blockquote>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>df_job.density <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"./data/job-density/job-density_liverpool.csv"</span>, </span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>                         <span class="at">col_types =</span> <span class="fu">cols</span>(</span>
@@ -387,10 +380,9 @@ window.Quarto = {
 </div>
 </div>
 </section>
-</section>
 <section id="inspecting-the-data" class="level2" data-number="4.4">
 <h2 data-number="4.4" class="anchored" data-anchor-id="inspecting-the-data"><span class="header-section-number">4.4</span> Inspecting the data</h2>
-<p>Visually explore the data and describe main patterns</p>
+<p>Visually explore the data and describe main patterns.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> df_claimants, <span class="fu">aes</span>(<span class="at">x =</span> date, <span class="at">y =</span> count)) <span class="sc">+</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">colour =</span> <span class="st">"darkblue"</span>, <span class="at">linewidth =</span> <span class="fl">1.5</span>) <span class="sc">+</span></span>
@@ -415,6 +407,7 @@ window.Quarto = {
 </div>
 </div>
 </div>
+<p>We note that the data are of different temporal length. So we reduce the temporal scale of the claimant count series to match that of the series of job density.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> df_claimants <span class="sc">%&gt;%</span> </span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>               dplyr<span class="sc">::</span><span class="fu">filter</span>(date <span class="sc">&gt;</span> <span class="st">"2000-01-01"</span> <span class="sc">&amp;</span> date <span class="sc">&lt;</span> <span class="st">"2022-01-01"</span>),</span>
@@ -433,10 +426,21 @@ window.Quarto = {
 </div>
 </div>
 </div>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p><strong>Task</strong></p>
+<p>What can we learn from these plots?</p>
+</div>
+</div>
+</div>
 </section>
 <section id="data-wrangling" class="level2" data-number="4.5">
 <h2 data-number="4.5" class="anchored" data-anchor-id="data-wrangling"><span class="header-section-number">4.5</span> Data wrangling</h2>
-<p>Create a dataset for modelling</p>
+<p>Now we will prepare the data frames that we need for the linear modelling section. The data for job density are available aggregated by year from 2000 to 2022. So we aggregate the data on claimants to match these temporal granularity averaging the monthly counts to obtain an annual average.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>df_claimants<span class="sc">$</span>year <span class="ot">&lt;-</span> <span class="fu">year</span>(df_claimants<span class="sc">$</span>date)</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -444,9 +448,11 @@ window.Quarto = {
 <span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(year) <span class="sc">%&gt;%</span> </span>
 <span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>( <span class="at">annual_claimants =</span> <span class="fu">round</span>( <span class="fu">mean</span>(count) ))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<p>We create a new year variable containing only the year (not the day and month) to join the data.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>df_job.density<span class="sc">$</span>year2 <span class="ot">&lt;-</span> <span class="fu">year</span>(df_job.density<span class="sc">$</span>year)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<p>We are now ready to join the data.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>df_modelling <span class="ot">&lt;-</span> <span class="fu">left_join</span>(df_claimants.year, </span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>                          df_job.density,</span>
@@ -471,12 +477,13 @@ window.Quarto = {
 </section>
 <section id="linear-regression" class="level2" data-number="4.6">
 <h2 data-number="4.6" class="anchored" data-anchor-id="linear-regression"><span class="header-section-number">4.6</span> Linear regression</h2>
-<p>Explain what a linear regression does and the key components of a linear regression.</p>
+<p>We will illustrate how we can fit a linear regression model to understand the relationship between claimant counts and job density. In a linear regression model, we can express an outcome (<span class="math inline">\(y\)</span>) as a linear function of a series of explanatory variables (<span class="math inline">\(x\)</span>), and we are interested in estimating the strength and direction of the linear relationship between the outcome and explanatory variables. We are interested in estimating the <span class="math inline">\(\beta\)</span>’s, and to this end, we use linear regression modelling. We assuming that there is a part that we can model and explain, represented by <span class="math inline">\(\beta\)</span> and <span class="math inline">\(x\)</span>; and, a part that we cannot explain or measure <span class="math inline">\(epsilon\)</span> and we assume to be randomly distributed.</p>
 <p><span class="math display">\[
 y = \alpha + \beta_1 x_1 + \beta_2 x_2 + \beta_3 x_3 + … + \epsilon_i
 \]</span></p>
 <section id="fitting-a-model" class="level3" data-number="4.6.1">
 <h3 data-number="4.6.1" class="anchored" data-anchor-id="fitting-a-model"><span class="header-section-number">4.6.1</span> Fitting a model</h3>
+<p>We will estimate a simple model assuming that annual claimants are a linear function of job density.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>eq1 <span class="ot">&lt;-</span> annual_claimants <span class="sc">~</span> job_density</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -507,13 +514,43 @@ F-statistic: 0.0561 on 1 and 21 DF,  p-value: 0.8151</code></pre>
 </section>
 <section id="interpreting-linear-regression-estimates" class="level3" data-number="4.6.2">
 <h3 data-number="4.6.2" class="anchored" data-anchor-id="interpreting-linear-regression-estimates"><span class="header-section-number">4.6.2</span> Interpreting linear regression estimates</h3>
-<p>Visually display what we are doing - not considering the time sequence</p>
+<p><em>Intercept (<span class="math inline">\(\alpha\)</span>).</em> The intercept represents the expected value of annual claimants when job density is zero. If job density were hypothetically zero, the model predicts an average of approximately 12,833 annual claimants.</p>
+<p><em>Slope (<span class="math inline">\(\beta_1\)</span>).</em> The coefficient represents the change in annual claimants for a one-unit increase in job density. For each additional unit of job density, the number of annual claimants is expected to increase by approximately 5,062, assuming all other factors remain constant.</p>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p><strong>Task</strong></p>
+<p>Does the <span class="math inline">\(\beta_1\)</span> coefficient make sense? Why? Why not?</p>
+</div>
+</div>
+</div>
+<p>In fact, the results seem to make little sense. Let us examine the measure of model fit:</p>
+<p><em>Residual Standard Error</em>: A measure of the average distance between the observed values and the model’s predicted values. 4341 in this case indicates the typical deviation of observed annual claimants from the model’s predictions.</p>
+<p><em>R-squared</em>: Proportion of variance in the dependent variable explained by the model. Multiple R-squared: 0.002664 indicates that about 0.27% of the variability in annual claimants is explained by job density.</p>
+<p><em>F-statistic</em>: Tests the overall significance of the model. An F-statistic of 0.0561 with a high p-value (0.8151) indicates that the model is not statistically significant.</p>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p><strong>Task</strong></p>
+<p>Overall, what do these measures of fit tell us?</p>
+</div>
+</div>
+</div>
+<p>Finally, let us have a look at the data visually. In addition to the inferences that we can made based on the data reported above, these results also suggest a need to consider the temporal sequence of the data.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df_modelling, <span class="fu">aes</span>(<span class="at">x =</span> job_density, <span class="at">y =</span> annual_claimants)) <span class="sc">+</span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>, <span class="at">color =</span> <span class="st">"yellow"</span>) <span class="sc">+</span></span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">"darkblue"</span>, <span class="at">size =</span> <span class="dv">3</span>, <span class="at">alpha  =</span> <span class="fl">0.7</span>) <span class="sc">+</span></span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Association between claimants vs job density"</span>, <span class="at">x =</span> <span class="st">"Job density"</span>, <span class="at">y =</span> <span class="st">"Claimants"</span>) <span class="sc">+</span></span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Association between claimants vs job density"</span>, </span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Job density"</span>, </span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Claimants"</span>) <span class="sc">+</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>`geom_smooth()` using formula = 'y ~ x'</code></pre>
 </div>
@@ -800,18 +837,7 @@ Training set -0.001159562 0.03002149 0.01625172 -Inf  Inf 0.8482966 0.02558901</
 </div>
 </div>
 </div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>futurVal <span class="ot">&lt;-</span> <span class="fu">forecast</span>(arima_m2,<span class="at">h=</span><span class="dv">12</span>, <span class="at">level=</span><span class="fu">c</span>(<span class="dv">99</span>))</span>
-<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">forecast</span>(futurVal))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="04_data-modeling_files/figure-html/unnamed-chunk-21-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
+<p>The prediction suggests that the number of claimants are likely to vary within the range of -0.07 and 0.07 over the next 12 months of the time series.</p>
 
 
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
@@ -1217,8 +1243,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./05_data-description.html" class="pagination-link" aria-label="<span class='chapter-number'>5</span>&nbsp; <span class='chapter-title'>Data</span>">
-        <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Data</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./references.html" class="pagination-link" aria-label="References">
+        <span class="nav-page-text">References</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
